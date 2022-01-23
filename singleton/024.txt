@@ -1,0 +1,41 @@
+In this section of the course we're going to talk about what is probably the most hated design pattern
+of them all the singleton.
+Now when the authors of the Gang of Four book met a decade later to discuss the design patterns they
+know that when they were discussing which ones to draw up they decided that they really liked all the
+design patterns anyway except maybe the Singleton because as they said its use is almost always a design
+smell.
+Is it really the case.
+Should we be avoiding the singleton.
+Well this is what this section of the Course is trying to explore.
+But first of all let's talk about the motivation for using the Singleton in the first place.
+So some components in your system it makes sense for them to only be initialized one So for example
+let's suppose you have a database repository.
+Let's suppose that you are loading some data from the database at the beginning of the program and you
+keeping it a while the program runs.
+The question is do you really want to do this more than once.
+Well it doesn't really make any sense and you might want to prevent people from doing it more than once
+so that they don't waste memory and they don't waste processing time either.
+Another example would be something like an object factory.
+Do you really need to instantiate object factories.
+If you can just have one factory full of static methods for example it's really up to you.
+But in most cases it simply does not make sense because an object factory is typically stateless.
+It does not have any attributes worth assigning it simply does things through a static method so it
+might make sense for it to be a singleton to be just a single instance.
+So why would this be a problem.
+Well typically it's a problem because the initialized call is expensive so something happens in the
+initialize that you only want to do once and you don't want to ever do it again.
+However there are situations where your object simply represents a resource and that resource is on
+the available in one instance and you don't want to allow people to have more than one instance of such
+a resource.
+So we only want typically to initialize a singleton just once and we don't want anybody to call the
+initialize them more than once we provide everyone with that same instance of the object that's been
+initially created.
+Then of course we have to deal with certain issues like first of all we want to prevent anybody from
+making additional copies of that object because that kind of breaks the whole premise of the single
+done and we might also want to take care of other things for example lazy instantiation this idea that
+nobody really gets to instantiate the Singleton until the singleton is actually needed for something
+so you don't just initialize it preventively at the very beginning you initialize it only when somebody
+actually asks for it.
+So the singleton is quite simply a component and by component would typically mean a class in the python
+setting so it's a class which is instantiated only once and then everybody who tries to access this
+object basically gets to work with that one instance.

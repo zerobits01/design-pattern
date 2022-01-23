@@ -1,0 +1,108 @@
+All right so now we're going to take a look at the prototype design pattern and let me show you the
+scenario where the prototype might be useful let's suppose that we define a class called Person now
+class called Person I'm going to put the initialize here and here we'll just initialize it with some
+name and some address and then I will assign both of these.
+So stick them as attributes like so.
+And in addition I'm going to define SDR so that it can subsequently see what the person is made of.
+So here I'm going to return some of the name lives at s daughter address.
+Now logo so up above.
+Let's define the address.
+So the address is gonna be a separate class.
+We're going to have a class called the dress.
+And here once again in the initialize though we might specify let's say a street address city and country.
+So so I will once again just assign all of these like so and I also define SDR here as D.R. so we can
+print the whole thing.
+So just put yourself down street address followed by self city followed by this country.
+There we go.
+OK.
+So let's suppose that we have some person let's call them John and John lives at a particular address.
+So that person the name is John and the address is one two three London Road in London UK.
+OK.
+So this is John.
+Now let's suppose we can actually Prince John just so that you can see how the whole thing works we
+can see that John lives at 123 London Road in London UK.
+But let's suppose that we want to make additional people let's suppose that Jane happens to live in
+the same in the same place as John maybe the same exact address maybe they live together.
+Who knows.
+So you might be tempted to write something like the following Jane equals John and then customize Jane's
+oh say Jane that name equals Jane.
+However this is not going to work.
+And I'll show you why it's not going to work.
+So if I print Jane and actually what I'm going to do is I'm going to print both John and Jane once again
+and maybe just just
+a few lines here.
+Okay.
+So as I print this you can see that we now have a problem and the problem is that both John and Jane
+they now refer to the same object set down below.
+We see Jane printed twice.
+So even though we took John's name and changed it to Jane we changed both objects.
+Now the reason for this if we come back to the source code is because John and.
+Through this assignment now refer to the same object.
+It's basically just a reference assignment.
+So it wasn't really the right way of copying and that's what we need to do for the prototype pattern
+if we want to make it easy to create someone living at this address.
+Then there has to be some other way of doing it.
+So one way of doing it of course would be to say address equals and then set this address and then put
+the address here.
+So we put the address here and subsequently this thing is still wrong by the way.
+And this thing is still wrong we still need to make a copy but we could do it like this because a Jane
+equals person Jane and then reuse the address.
+So this would work but unfortunately it would only work in this very simple scenario.
+So of course if I run this now everything is OK.
+You can see that John lives at 123 in London run and so does Jane.
+However let's suppose that Jane moves out maybe she breaks up with John and decides to live in a flat
+next door or something.
+So we cannot actually just take Jane and customize her address what I mean is we cannot say something
+like Jane dot address dot street address equals 123 B London Road.
+Now the reason why we cannot do this and you can see what's happened here is that a street address is
+still a reference so we've assigned the reference to 123 B London out.
+And now unfortunately both John and Jane have been moved to 123 B.
+Now let's take a look at why exactly this is happening this is happening because both John and Jane
+they actually refer to the address.
+So they keep a reference to the address and there's just a single reference and they modify this reference
+here.
+And so it's modified for both John and Jane.
+Once again this isn't what we wanted.
+So this approach would somewhat work in terms of you know having having a quicker way of assigning the
+address but there is a much easier way of getting what we want at the end it takes us back to basically
+the question of how do you copy an object so that it doesn't refer to the original object's attributes
+and the way this is done is using the copy copy that deep copy specifically copy the copy what it does
+is it basically performs a recursive copy of all of the attributes of an object thereby making a brand
+new object that doesn't refer to the original and that's the critical thing.
+So we can say after we make person after we made John so let's make John again.
+So John is a person John comma like so.
+So here is John and then we'd say Jane equals copy and then me import copy so copy deep copy John.
+And now what we can do is we can take Jane and we can customize this object.
+So it's a separate object not in any way referring to the John of course.
+So I can say Jane that name equals Jane.
+I can also customize the address if I want I can say Jane Doe address dot street address equals 120
+for London Road like so.
+And if we print both John and Jane.
+Let's take a look at what we get.
+So I should probably do like a line break just so that it's neither so you can see we have John lives
+at 123 London road here and the Jane lives at 123 for London Road.
+So everything is OK.
+So what this example kind of demonstrates is how you would actually go about copying objects if you
+wanted to use a single object as a prototype and then replicate this.
+And the problem this design pattern solves is really simple it's the problem of duplication.
+If you've made the address once maybe you don't want to modify the address maybe you want to keep reusing
+that address in other objects or maybe you want to keep reusing the London and UK parts but customize
+the street rest part which once again you can do so you can make a copy of whatever object you have
+and that object will in no way refer to the original.
+And then you go ahead and you customize the parts that you want which is a lot easier than type out
+the whole thing because we could have typed out Jane as you know the full person declaration but it's
+not essential here.
+We can simply make a deep copy and I need to explain what is meant by deep.
+There is also a copy that copy which performs a shallow copy and a shallow copy if we just run this
+for a second let me just run this.
+OK.
+So what's happening with a shallow copy is you'll notice that John and Jane have different names but
+unfortunately they still have the same address we've assigned the same address.
+So what happened here is that even though we customize the name and the name didn't refer to the original
+so Jane Doe name does not refer to John.
+Unfortunately what happens with a shallow copy is any object that's a reference just gets copied over.
+So in this case is the address.
+What happens when we copy John is John's address in a shallow copy gets copied as a reference.
+And Jane essentially refers to the same address as John.
+They both refer to one and single address object and that's why you have to use the copy which performs
+a proper copy of the address as well.

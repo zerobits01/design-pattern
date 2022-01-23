@@ -1,0 +1,12 @@
+All right.
+So let's summarize what we've learnt about the mediator design pattern so first of all you make a mediator
+which will be referenced by every single object which requires that typically it's in a property and
+typically you want to stick the mediator right inside the initialize so nobody forgets to initialize
+their mediator.
+And then what happens is the mediator engages in bi directional communication with the connected components.
+So on the one hand the mediator has functions that components can call and on the other hand the components
+have functions that the mediator can call so they know about one another.
+And typically in terms of event processing libraries and stream processing libraries like Reactive Extensions
+for example you can leverage these libraries to make the communication between the different components
+a bit easier to implement because we're talking about streams of data going to and from.
+So Reactive Extensions is very useful here.

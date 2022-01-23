@@ -1,0 +1,106 @@
+The most classic implementation of decorator is one where you build a class that kind of augments the
+functionality of an existing class.
+So let me show you how this can work.
+Let's imagine that we have an abstract base class called shape so that's going to be an abstract class
+and we're going to have concrete implementations like Square and circle and whatnot.
+Let's suppose that the shape itself doesn't really have anything in it.
+We might define SDR to just return an empty string but that's pretty much all that we would want to
+do.
+Now we can have concrete implementations of shape.
+For example we can have a circle so we can say that we have a class called Circle which is a shape and
+we can initialize the circle with a certain radius so radius here.
+So let's just let's assign that and then we can have some sort of methods for let's say resizing the
+circle we size the circle by a particular factor for example where you simply multiply the radius by
+that factor like so and then you can also implement SDR where you print some information about the circle
+so we can say that this is a circle of radius and then specify self radius.
+Okay so far so good.
+Now what we can do is we can similarly define a square so class Square also is shaped by the way this
+base class business is not strictly necessary but I'm doing it for completeness so that you can see
+how things can propagate later on.
+So we have a class called Square and once again let's define the initialize a here will specify the
+side of the square.
+So it's just a sign that.
+And once again I will define SDR to print some info.
+So return a square with side of that side.
+Now we go.
+So we now have a circle and we now have a square so we can operate on these objects but we can also
+decorate them and we can for example make a colored shape which takes a shape such as a square or a
+circle and gives it additional color.
+So here we can have a class called colored shape.
+Notice we can only have it inherited from shape.
+If anything we cannot make it inherit from square or circle because it has to work with both squares
+and circles.
+So let's initialize it in order to initialize it with specified the shape that we are decorating as
+well as the color that we are applying to that shape.
+So here what we can do is we can say self that shape equals shape and the same goes for color.
+Let's do it automatically.
+There we go.
+So now we can define and make a new definition of SDR where we print the shape including the fact that
+it has a particular color.
+So we return self-taught shape has the color self-taught color.
+Now we go we have a decorator and we can start using this decorator for something.
+So let's put it down below.
+So essentially what I'm going to do is first of all just make a circle and show you that it does print.
+So circle equals circle of radius too and let's just print a circle.
+So if I run this you can see that we have a circle of radius too.
+Then what I can do is I can use that decorator to add color to this circle without modifying the circle
+itself so notice we're sticking to the open closed principle we're not jumping back into the circle
+and adding that functionality because strictly speaking you wouldn't just jump into a circle you would
+jump into the shape based class assuming you had a base class.
+So here you can just make a red circle so to make a red circle you make a colored shape for the circle
+and give it a color like red for example and then we can print the red circle and predictably enough
+this would actually reduce the underlying.
+So we have a circle of radius too.
+That's the underlying part.
+And then we have the color red as well.
+Now I want to show you that you can actually combine several decorators on top of a particular class
+so we can have let's say a transparent shape.
+So this is where we can specify that transparency of a particular shape.
+So in the initialize that we specify the shape as well as transparency so transparency value and we
+can do something to that value.
+Let's suppose we take a value from 0 to 1 and we want to show it as a percentage in ways in which case
+we would we would show SDR as follows.
+So we would implement SDI we would return self-taught shape has self-taught transparency may be multiplied
+by 100 percent transparency.
+There we go.
+So this is how we can implement the whole thing.
+And now we can apply both of these at the same time so we can have a red half transparent circle red
+half transparent circle equals transparent shape and then as an argument we can provide the red circle
+like so and we can print that as well
+no go.
+So let's run this.
+Let's see what we get here.
+So we seem to be getting an era.
+We are missing an argument because you have to specify the transparency so here let's specify not point
+five for being half transparent.
+How we get the output that a circle of radius 2 has the color red and has 50 percent transparency so
+that nothing prevents you from applying the same the same decorator twice.
+So this is one downside of the whole thing.
+So for example I can apply a color shape twice so I can apply color shape to a college shape to a square
+off site.
+3 and I can apply first to red and then green for example and this would actually give us predictable
+results.
+Let me just run this like so so square I would say 3 has the color red has the color green.
+Obviously this is incorrect.
+This is excessive because essentially you have two incarnations of color.
+You have the red color and the green color both being kept next to a shape which might not be what you
+want so you can you can handle these kinds of situations.
+So for example here you can say if is instance a shape colored shape then we don't allow to do this.
+We simply don't allow we may be a raise an exception that cannot apply.
+Same decorator twice and we can we can try this.
+So as I run this you can see that we get an exception here.
+So the exception actually gets thrown.
+Of course what you can do is you can go even further you can for example apply a transparent decorator
+to a color decorate it to a transparent decorated to some shape that's currently not going to be caught
+and it's actually very difficult to catch this if you want to handle these kinds of situations.
+But this is this is basically how you implement a decorator.
+So a typical Object Oriented Programming a decorator is simply a class which takes the decorated object
+as an argument.
+It takes some additional values and it simply provides the extra functionality you'll notice however
+that the decorator doesn't allow you access to the underlying object which means if we remember circle
+remember I added a resize method to a circle but you'll notice that we cannot actually use it.
+We cannot use it on a decorated shapes so here if I try a red circle red circle dot resize by a factor
+of two that's not a valid code because the decorator that we get the color shape decorator.
+You can sort of see the the error output here but the color shape decorator is a shape it's not a circle.
+Therefore it doesn't really have a resize method and so you cannot call it unfortunately.
+So that's one additional implementation detail shall we say of the decorator.

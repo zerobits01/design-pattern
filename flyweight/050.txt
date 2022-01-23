@@ -1,0 +1,31 @@
+In this section of the course we're going to talk about the flyweight design pattern and the flyweight
+design pattern is essentially a space optimization technique.
+So it's something that tries to save your memory.
+Now let's talk about the motivation for using this design pattern.
+Now the go of design in this particular case is to avoid redundancy when storing data.
+So if you think about some sort of massively multiplayer game that you have with millions of users online.
+Well typically you have very similar concerns.
+So you might have plenty of users with identical or very similar first and last name.
+So you might have lots and lots of people called John Smith but you might also have people called Jane
+Smith or John Doe or something like that.
+And it would be wasteful to replicate all this data.
+There is no sense in storing the same first and last name combination over and over again because you're
+just wasting memory.
+So in this case what you might want to do instead is you might want to store a list of names somewhere
+else and then store just the references to them for each individual user.
+This reduces you to just storing two numbers per user as opposed to storing lots and lots of bytes for
+every user's name.
+Another example is something like text formatting in a typical text editor.
+So you have text and you want to make chunks of text bold or italic.
+Now in this case you don't really want to take each individual character and give them an additional
+formatting character or some sort of additional formatting flag.
+Well you want to do instead is you want to operate on the idea of arranges for example defining a range
+as a line number and the starting and ending positions and then saying well this range is going to be
+bold and this range is going to be italic and obviously if the two ranges intersect then you have a
+chunk of text in the middle which is bold and italic at the same time.
+So the flyway design pattern is quite simply a space optimization technique that allows us to use less
+memory by storing the data externally so not storing it right in the attribute where you'd expect it
+to be but you store it externally and then you refer to it.
+So you make an association to that data from your attributes or from wherever you actually need to use
+it.
+And that way you get to save a lot of memory.

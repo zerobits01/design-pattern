@@ -1,0 +1,12 @@
+All right so let's try to summarize what we've learned about the observed design pattern.
+So we saw that observer is generally an intrusive approach you basically have to jump into the class
+and perform modifications so as to expose some sort of event that people can subscribe to.
+And of course this can be done using a base class as we've done or you can just modify the class directly.
+Now subscription and on subscription is fairly easy.
+At least it is in the implementation and I have shown in the sense that an event is quite simply a list
+of function references and then what you do to subscribe and unsubscribe is you add to that list and
+you're removed from that list that allows easy subscription and on subject option.
+And finally we looked at property observers and we saw that in the general case where you have just
+individual independent properties then probably notifications are really easy.
+However if you have properties depending on other properties then those notifications get significantly
+more difficult.

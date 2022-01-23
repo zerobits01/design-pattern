@@ -1,0 +1,80 @@
+So one particular variation on the Singleton design pattern which stands apart from the canonical implementations
+that we looked at is the mono state implementation.
+So the mono state is a variation of the singleton where you put all the state of an object into a static
+variable but at the same time you allow people to create new objects thereby making new instances which
+all access the same thing.
+So let me show you how it can work.
+So let's suppose you have a classical C Now a typical company has just a single c.
+So imagine you are preventing other people from actually making new instances of the C so they can call
+the initialize or they can construct a C or however many times they want but they'll all be referring
+to the same c0.
+So the way this is done is you make some Sherritt state which is going to be static so you can have
+for example the name of the CEO Steve.
+And let's say the age let's say 55 something to that effect then you stick in the initialize here.
+So let's initialize it.
+And here comes the interesting part.
+So what happens when you initialize a CEO is you actually assign your set of attributes so self dict
+you assign it to the shared state like so.
+So what this means is that whenever you actually construct a CEO whenever you initialize it you're actually
+always referring to the same set of attributes.
+Let's add an SDR here
+so self name is self age years old like so.
+And then we can see how this whole thing works.
+So essentially what we can do is we can construct the CEO and construct another CEO and see how they
+behave.
+So first of all CEO one CEO one equals CEO let's bring the CEO one to begin with and then what we can
+do is we can construct CO2.
+We can set the age CO2 out age equals let's say 77 and then we can print CEO 1 and CEO 2.
+So let's take a look at what we get here.
+All right.
+So as you can see when we initialize the whole thing we get the default option so Steve was 55 years
+old.
+And then of course we make CO2 but CO2 actually has its attributes are referring to the same shared
+state seal one.
+So whenever you change it with Seal one the CO2 you're changing them both because there's just one static
+shared state that they all share.
+So this is the implementation of the Mon the state design pattern in session that you keep all the data
+in a static variable.
+And then whenever you create new objects you just make a copy or rather you make a copy of the reference.
+It's a critical part.
+So you're not just copying the day that you are actually copying the reference to the entire dictionary.
+Now what we can do is we can sort of package this into a into a class a base class in actual fact that
+we can inherit from there by making this approach a bit more generic.
+So the way you would do this is as follows You can make a class let's say mono state here you would
+specify some shared state.
+Just a dictionary.
+That remains to be initialized and then you can define the new operation.
+So here what we can do is we can first of all construct the object.
+So super on the state CNS and then we call new on it.
+So CLSA and then ARGs and then keyboard args like so and then we copy the dictionary in reference.
+So once again we say LBJ dot dict equals CLSA shared state and then we return the object.
+So now what happens is if we want among the state implementation of some class that we're making ourselves
+we can just inherit from this mono state.
+So I can make a classical CFO which inherits from mono state and here what I can do is I can make an
+initialize error.
+So let's put some things in the initialize.
+Let's put in an empty name and let's put in.
+Well it's a CFO so they manage money so money managed equals zero and let's also define SDR once again
+so we can print this.
+So return self.
+Name managers and then self money managed with a dollar sign in here.
+OK.
+So we've got the CFO.
+How do we actually use it while we simply instantiate was make several copies of it.
+So coming back to the main let's get rid of this stuff and let's try out the new kind of base class
+approach if you will.
+So CFO 1 equals CFO CFO one name equals Cheryl and CFO.
+One money manager equals one and then we can put the CFO CFO one and then we can make another CFO as
+a CFO too.
+There we go.
+So CFO to name equals growth and then CFO to money manager equals 10.
+And then we can print both.
+CFO one as well as CFO two let's put a line break between them like so.
+So let's run this and let's see what we get.
+So as you can see to start with we constructed Sheryl but then we initialized Ruth and now both CFO
+1 and CFO 2 when we print them.
+They both refer to Ruth and Ruth manages ten dollars.
+So the approach isn't actually a practical approach.
+This isn't something that I would recommend doing or this isn't something that anyone would really recommend
+doing is just too clumsy an approach and the best approach is probably the one where you use either
+a decorator or a matter class.

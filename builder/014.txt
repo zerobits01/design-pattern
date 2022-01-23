@@ -1,0 +1,13 @@
+All right.
+Let's summarize what we've learned about the build a design pattern so we saw that the builder is a
+separate component which is used for building up an object and you can either give the builder itself
+and initialize or to begin with or you can return the builder via some sort of static function.
+Either way is fine so long as you get the builder and you get working with it now you can also make
+a fluid builder to make the initialization even more succinct.
+And this is done by returning self from every single method author builder.
+That way you can change the method calls together and it all looks even nicer.
+And we also saw a more complicated implementation where we looked at how different facets or different
+aspects of an object can be built up using different builders which are working in tandem through a
+base class.
+So this particular neat trick allows you to separate the builder even if even the builder is getting
+too complicated for you.

@@ -1,0 +1,111 @@
+Let's take a look at a more realistic implementation of a state machine.
+This time round we're going to build something a bit more complicated.
+We're going to build a state machine for modeling our phone call.
+So how are we going to define a phone call.
+First of all we'll begin by defining the state of the phone calls so the phone can be off the hook.
+It can be connecting to somebody you can be connected or placed on hold for example.
+And we're also going to define triggers now triggers are things which are going to force a transition
+from one state to another.
+So a trigger might be something like a call that's being dialed.
+So you dial the call therefore you're transitioning from let's say the Off Hook state to the connecting
+state and so on.
+So let's define the states.
+So that's going to be an enum and kind of states you can have our off hook for example
+connecting
+I need to import product as well so connected.
+So so have on hold and on hook that's when you're done actually.
+Call it.
+So these those states the phone can be in and then we can define the triggers trigger.
+So the triggers are the things that cause that transition from one state to another so we can dial the
+call
+we can hang up.
+Oh we can get connected.
+We can be placed on hold
+we can be taken off hold
+and we can leave a message
+never go.
+So these are some of the things that we can do and this causes a transition from one state to another.
+So now what we need to do is we need to define this large big map.
+Large set of rules effectively for which transitions cause what essentially.
+So given a particular state we need to define a list of the triggers and the states.
+They would move us to.
+So these are gonna be the rules of our system.
+So for example let's suppose that we're starting in the off hook state.
+So the key here would be state of Hook and the sets of values here would be a list of pairs and for
+every single pair.
+There are two elements to it.
+There is the trigger and the state you end up to if you actually fire this trigger.
+So the trigger here might be called dialed for example and the state might be connecting.
+So what does this mean.
+This means that if the phone is currently off the hook when you dial a call you are now connecting and
+we can add other states to this.
+I'm just going to paste a couple of things in here so these are additional rules for our phone calls.
+For example when you are connected you have three options you can leave a message you can hang up or
+you can get placed on hold.
+So if you are placed on hold then you're on hold if you hang up on the phone is on the hook because
+you've just placed it there.
+So these are the rules that we're going to use to actually orchestrate these state machines so the would
+orchestrate just means get it to run get it to execute.
+So what do we need to actually run all of this.
+Well we need two more pieces of information and we need the starting state.
+That would be the state that we are starting from.
+And we also need some sort of exit state for determining when this entire state machine is done executing
+not some state machines are infinite which means they never complete.
+So for example if you have a robot trading on the financial markets it might never actually stop trading
+because well a trading session might finish but then another one begins and so there is no reason to
+really determine any kind of exit state.
+But here we do have an exit stage because we're modelling just a single phone call.
+And as soon as the person places the phone on the hook we want to exit.
+So we're going to have the starting state as state off hook.
+That's what you've taken the phone off the hook.
+You want to dial somebody and they exit state is going to be on hook.
+So that's when you you've actually placed the phone back on the hook.
+So what we do is we basically make a loop.
+So while the state is not equal to the exit state what we can do is we can do like an interactive simulation
+for example.
+So here I can print for example that the phone is currently and print for the state and yes that's going
+to print it in capitals but that's not such a big deal.
+And then what we can do is we can offer the user all the options that are available at this particular
+position.
+So we need to find given the current state we need to find all the possible triggers and we need to
+offer those triggers to the user.
+So for I in range of length of rules at the current state.
+So we're getting all the rules all the triggers now the current state and we get that particular trigger
+so we say the trigger is actually a rules have state at position i have zeros and that would get us
+the trigger and we can actually print this with an index.
+That's why I use an integer here.
+So here is the index colon and then the trigger itself.
+And now we get use it to actually input what kind of action they want to do so ie the X equals and input
+select a trigger.
+So they get to put a trigger and then we get to actually perform the transition.
+So here what we need to do is we need to figure out the state will be moving too.
+So that is rules at State at index at position 1.
+So position 0 is the trigger position 1 is the state and then we simply assign the state.
+So we say state equals s.
+So that's how we perform a transition to a different state.
+And once this entire loop is done we can just print something like we are done using the phone.
+OK.
+So we've set up this rather complicated state machine that's actually run this and let's see how you
+can interact with it.
+So here we are the phone is currently in off the hook and you can see that the printouts here are not
+particularly pleasant you have stayed out of hook.
+I'm sure you can guess how to sanitize those and make those look really pretty.
+So we have just a single trigger at index 0.
+We can dial a calls I'm going to type 0 here and now the phone is in state DOT connecting and we have
+a couple of options we can hang up or we can get connected.
+Let's imagine we get connected.
+So in this case the phone is connected and we have a couple of more options because we can leave a message.
+We can hang up and we can get placed on hold so I can get for example placed on hold I can get taken
+off hold and I can for example leave a message like so and then we are done because after we leave the
+message we place the phone back on the hook.
+And so we're done with the entire state machine.
+So this is an example of how you would build a simple state machine by hand without using any libraries
+any external packages you just write a set of rules for.
+Well first of all you have to define these states as well as the triggers.
+So that triggers are the things that cause that transition from one state to another.
+Then you define a set of rules such as the ones you see here.
+So essentially you for each of the possible states you define what happens when you transition to a
+particular state and what state you actually end up with and then you run the whole thing specifying
+of the entry state and possibly the exit state.
+Not necessarily though.
+And that's how you hand roll your own state machine.

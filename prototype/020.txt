@@ -1,0 +1,23 @@
+In this section of the course we're going to talk about the prototype design pattern.
+So what is the motivation for using the prototype design pattern.
+Well if you think about the real world complicated objects such as cars or iPhones or anything like
+that they're typically never designed from scratch.
+You don't design a car just by starting with a blank sheet of paper and drawing a car that's really
+not how it works instead what you do is you reiterate existing designs you look at what people have
+already done and you try to improve upon the existing constructs and the prototype design pattern that
+goes in the same vein because essentially the idea is that you've already got some sort of existing
+design and you want to simply make a copy of that design customize it somehow and then start using it
+and design it can be a fully constructed design that you simply want to change or it can be partially
+constructed with some pieces missing and then you can add those pieces and manufacture the completed
+object.
+So what do we typically do when we want to use a prototype.
+Well we make a copy.
+We take some object and then we copy or clone the prototype and then we customize the resulting instance
+and give it to the client to consume.
+So of course in order for this to work you need something called deep copy and that is essentially a
+wholesale copy of the object we're going to take a look at how this is implemented in Python.
+And we also want to make cloning convenient.
+So what we can do is we can for example build a prototype factory where you have a few predefined designs
+and then you ask the factory to customize this design giving you essentially a custom item all right.
+So a prototype is a partially or fully initialized object that you copy or clone and then you subsequently
+make use of it.

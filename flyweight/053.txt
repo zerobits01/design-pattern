@@ -1,0 +1,7 @@
+All right so let's try to summarize what we've learned about the flyway design pattern.
+So the idea is fairly simple we store all the common all the repeating data externally.
+Then we specify some sort of index or reference into that external data store and we can also define
+this idea of ranges.
+So for example if you need to refer not just to a single element but apply something to a set of elements
+you can define this idea of a range as the starting and ending positions within some collection.
+And then you can apply this construct to an entire range which once again saves a lot of memory.

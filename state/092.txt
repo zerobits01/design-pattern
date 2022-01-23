@@ -1,0 +1,66 @@
+There is another kind of state machine that I want to show you.
+And that is typically called a switch based state machine.
+Now the python language doesn't have a switch statement but we're going to do a very similar thing to
+what's done in other languages using the if statement.
+So let's imagine that you want to model a combination lock.
+Let's have a state of that lock.
+I'm going to make it in my I'm going to have just a couple of different states so for example the combination
+lock is locked.
+By default you can fail to enter the correct code into the combination lock for you can open it in which
+case it gets unlocked.
+There we go.
+So let's see how you can orchestrate this state machine.
+And the interesting thing about the switch based approach is that it doesn't really use any additional
+data structures it doesn't use a dictionary for example to keep the sets of transitions and triggers
+and whatnot.
+So instead we're going to model it like follows a cell.
+First of all define the code that you need to enter to actually open the state open the the lock and
+get it into the unlocked state the current state.
+The starting state so to speak would be state locked.
+And we're also going to have a string which is going to store the current entry.
+So that's the text that the user has already entered the code that they have already typed.
+So then what you do in this which base state machine is you make an infinite loop while True.
+And here you look at the state so you say give state is equal to stay the lock.
+That's where we are actually getting the user's input here.
+So we get the user's input and we add it to the entries.
+So entry plus equals input and entry.
+There we go.
+So essentially we feed the current input into the input function so that you get to see what you've
+already entered.
+And then you enter an additional digit and it gets appended to the overall entry.
+So now what you can say is if the entry is equal to the code then the state transitions to unlocked.
+We transition to unlock notice we're not doing a break out of the why loop here.
+We're just transitioning the state nothing else.
+OK.
+And the other case is if we get a mismatch.
+So if not code starts with entry that means somebody is typing in the wrong code in which case we're
+not going to let them in.
+So we say state equals state of failed.
+There we go.
+So this is the if statement for the locked state.
+Now we can be in other states like for example in failed so else.
+If a state is equal to a state or failed in this case we just pretend that it failed and we set the
+entry to the empty string once again and we set the state back to a state locked.
+So we kind of lock the whole thing again and you can try again typing in a different code.
+So the final state that we can be in is state DOT unlocked that's when you've unlocked the state the
+safe rather.
+And here we can print unlocked and this is the point where we can actually break from the loop because
+you've unlocked the safe.
+Therefore everything is OK so you can see that it's an interesting setup because we haven't defined
+any data structures we haven't made any lists of doubles or whatever we are being very simple in actual
+fact we are not even storing transitions specifically we're just storing the states and we have some
+sort of set of if statements and in a different language you would have a set of switch statements which
+orchestrate the entire state machine.
+So let's run this and let's see how it works.
+So here I have the kind of very empty input and I can try typing things in here.
+So for example I can type 1 and notice I get a 1 so everything is okay 2 3 and let's put 5.
+So I get a failed because that's the incorrect code and I get reset to the beginning.
+So now if I type 1 2 3 and 4 then I have unlocked the safe and everything works correctly.
+So this is an alternative to how you can define state machines it certainly works very well for a very
+simple state machines but it's not as organized and it's a lot more difficult to understand because
+you can see there is a lot of code happening inside what would typically be a transition that would
+be formally defined.
+But here there is no formal definition of triggers.
+There's only a formal definition of the states and everything else happens in this large one loop.
+So this implementation is really up to the programming state.
+So some of you might like it and some of you might not.

@@ -1,0 +1,96 @@
+I'm now going to introduce the idea of an event so an event is something that happens and you want to
+be able to get a notification when something happens.
+So for example let's suppose you got people walking around.
+If you were a doctor you might want to have notification that somebody falls critically ill because
+then you need to visit them and check them out.
+So let's take a look at how we can actually implement all of this.
+So let's suppose that we have a class called Person and this person let's put something in the initial
+riser so let's have the name of the person that's actually initialize it right here.
+So I'll put the name in the initialize.
+Let's also have the address.
+So we know where to call the doctor.
+So name and address.
+So self name equals name self-doubt address equals address.
+And then we want some sort of event to happen when somebody falls ill.
+So how do we do this.
+Well there are lots of implementations.
+But the one that I prefer is the following.
+You basically have a class called event which is a list and essentially it's a list of functions which
+need to be invoked whenever this event actually happens.
+So here we define call.
+So we define the call method and here for every single item inside this event.
+So that would be every single subscriber we actually call that subscriber.
+So for item in self what we do is we call item passing in the args and the keyword args.
+They have a go.
+OK so now what I can do is I can say that self-doubt falls ill is an event.
+And what this means is that now other classes like for example a Dr. Glass can subscribe to this event
+and get notifications whenever somebody falls ill.
+Now let's actually simulate this let's have a method called Catch a cold.
+So a person might catch a cold in which case you might want to raise the notifications so you might
+want to use this event and actually call it.
+So here we say self-doubt falls ill open mountain bracket and this is where you pass in those arguments.
+So the arguments here gets passed from here and we can provide any information that we actually need.
+So for example I can provide both the name of the person that fell ill as well as their address so I
+can provide self name and self daughter address.
+OK so this is it.
+Now we can define a doctor class.
+So the doctor wants to be notified whenever somebody catches a cold.
+In actual fact we don't strictly need the doctor as such.
+We don't need a separate class.
+We just need some sort of call Doctor function.
+So let's have that call Dr.
+OK.
+So we need to call a doctor for a given name and address.
+And here we can print that name needs a doctor at address.
+That's pretty much it.
+So this is how you would call a doctor and now what we want to do is we want to make sure that whenever
+a person actually falls ill the doctor gets called.
+So this function gets executed.
+So how do we do this.
+Well first of all let's make a person
+so Sherlock and the address is 2 to 1 B Baker Street.
+OK.
+So now we can make that connection so we can say that a person might fall ill and when they do we want
+to call a doctor so we say person dot falls ill.
+Dot append call doctor.
+And then we can simulate the person catching a cold so we can say person catch a cold.
+And that should hopefully get the doctor coming in.
+So let's actually run this and let's see what we get here.
+So running this you'll see the following output so Sherlock needs a doctor.
+To the one Baker Street.
+So essentially what happened is week invoked catch a cold.
+So we ended up here and here we used the event.
+So we basically fired the event we called the event.
+And so we invoked this call method here and the call method just went through every single subscriber.
+And we only have one subscriber it gets appended right here.
+So we went through the subscribers.
+We called every single one of them passing the arguments in this case name and address.
+And that is pretty much that.
+Now notice that instead of a function what you can do is you can for example subscribe on an event using
+alarmed us so for example I can say person not falls ill daughter pen here I can provide a lambda so
+I can say lambda name name and address in actual fact there are two arguments there.
+And what we can do is we can once again print name is ill.
+So whenever a person falls ill in addition to invoking called Doctor we also invoke this lambda as well.
+So if we now run this you can see that Sherlock is ill.
+That's the first line and then Sherlock needs a doctor at two to one Baker Street.
+Now in addition to making this up scriptures you can also remove subscription.
+So for example here I can say that I no longer want to call the doctor.
+So Sherlock might fall ill but maybe he just took too many drugs.
+We don't really need the doctor.
+We just need him to sleep it off so to speak so against a person that falls ill don't remove called
+Doctor.
+So now we are removing the subscription we no longer care about a person falling ill in the sense that
+we do care but we don't want to call a doctor anymore so we remove called doctor from the subscription.
+And now if I call person not catch catch a cold we should see just the Sherlock Hazel part.
+Let's take a look at that.
+So as you can see here we only have this Sherlock.
+We don't have any second.
+You know Doctor Sherlock needs a doctor at whatever address.
+So this is a very simple and very succinct way in which you can define events using just a list that
+is callable a list of functions that you can call and subsequently you just set it up in the initialize.
+For example you say SDL false zeal equals event and then you inform the client so inform whoever is
+using your API that there is this event and you might want to call it or subscribe to it indeed and
+unsubscribe from it.
+If you are no longer interested in monitoring that event and that thing is available for you and from
+then on whoever is actually interested can use this event they can call append to perform subscription
+and they can put a call or remove to perform on subscription.

@@ -1,0 +1,29 @@
+So one alternative to using a decorator is to use a medic class which is actually going to have a very
+similar implementation to a decorator.
+So let's have a medic class called single then which is going to be a medic class of some type over
+some type.
+So once again we have a dictionary of the instances instances equals a dictionary.
+I'm using a single underscore here just so that just so that whoever is looking at this knows that it's
+not intended to be consumed.
+And then of course we define the call we define the call method here.
+So we check whether or not the class and I'll just call this CFS for a better name.
+So we check whether or not the class is in the set of instances and if it's not then we construct it
+and we and we subsequently return it.
+So here I say if CLSA not in CLSA dot underscore instances so if we don't have this class yet then we
+need to construct it.
+So a instances out CLSA equals and let's do a super call so super single dot and comma CLSA and then
+what we can do is we can call the actual call the initialize area with the arguments and the keyword
+arguments like so.
+And then we return the instances.
+So returns see less instances at CLSA.
+So this is pretty much all there is to it to this medic class and now we can once again try to use it.
+So we have a class database and here we specify the medic class a singleton like so.
+And once again now define the initialize us so that we can print that we're loading the database and
+then we can test this once again.
+So I can say the 1 equals database.
+I can say these two equals database and I can print the one equals D2.
+So as we run this you can see that loading database only gets invoked once and of course we have the
+value of true here.
+So this is how you would implement a singleton pattern using a medic class as opposed to a decorator.
+As you can see the approach is almost identical in terms of the the code that we've actually written.
+So this code is very similar to what we had in the decorator in the previous example.

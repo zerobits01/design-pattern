@@ -1,0 +1,8 @@
+In this section of the course we're going to talk about these solid design principles so these solid
+design principles are a set of design principles related to software design of course which were introduced
+by Robert S. Martin also known as Uncle Bob and Robert C. Martin actually has lots of design principles
+he has published various books on software design as well as his blog and the solid are just a selection
+of five principles from a rather large number.
+Another reason why we're discussing them is because these design principles are frequently referred
+to in modern design pattern literature and as a result it's very useful to know what they are so that
+when I will refer to them as part of this course you know what I'm actually talking about.

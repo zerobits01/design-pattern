@@ -1,0 +1,114 @@
+Let's take a look at a very simple example of the flyweight pattern being relevant.
+Let's suppose that you have a multi-user game for example you have a class called User.
+Now that class has let's say its source the name of the user.
+So you have a name and you simply story like this.
+Now it might seem like a sensible thing to do.
+You just simply stick the name in here.
+Let's suppose that this name is actually the full name of a person.
+However the real problem with this is that you're also going to have lots of people with similar names
+like you'll have lots of John Doe's or John Smiths or I don't know Sam Smiths and similar names and
+you might want to avoid allocating so much memory for every single name especially if they are similar.
+So putting everything putting like the first name in the last name into the same into the same string
+is not probably not the best idea we can actually write the kind of simulation of how how exactly this
+would work.
+So let's suppose that we decide to just make names as random characters I'm going to define to define
+a function for making a random string that's going to emulate people's names.
+So here we'll say chars equals and we're going to be basically building everything out of ASCII lowercase
+characters.
+So for that we need that couple of imports.
+Obviously we need to import string and we also need to import random so we add the characters so we
+return empty string join.
+And here what I'm going to do is I'm going to just allocate let's say we're going to have strings of
+length eight.
+So what I'm going to do is I'm going to say random choice out of all of those characters which are the
+lowercase ascii characters for x in range 8.
+So we're going to have a letter first names and last names again for random choice I probably need to
+import.
+So I'll wait it's random dot choice random dot choice.
+There we go.
+OK.
+So having said all of this up what we can do is we can for example make a huge number of uses we can
+make let's say 100 by 100 First Name Last Name uses.
+So let's have users equals empty empty list and then I'll make some first names.
+So that's going to be a random string for x in range of hundred and then I would duplicate this and
+I'll say last names.
+So now we can do it like a Cartesian product of them we can essentially define uses as a combination
+of first and last.
+So for a first in first names for lost and last names what we can say is uses dot append.
+Make a user when you basically have the first name and then space and then the last name.
+Now it goes.
+So this is how you can make a huge number of uses 10000 users in actual fact.
+And having set top all of these users you can probably imagine that at the moment as things stand we
+are going to have 100000 strings effectively because every single string is unique and every single
+string has to be created and stored somewhere.
+So this is going to work.
+It's not really not really such a terrible thing.
+The only problem is that we're wasting memory that shouldn't be wasted because remember there is only
+200 unique strings.
+There's 100 here in 100 years.
+So we shouldn't spend ten thousand pieces of memory just doing that.
+We should spend only two hundred chunks of a character strings doing that.
+So this is where the Flyaway pattern can come in.
+So essentially the user class is a very nice looking class but it's not very efficient and you might
+want to build a flyweight so you might want to build he User class which is simply a pointer into some
+common store.
+So how would you do that as well instead of doing this you'll find a new class let's go with user 2
+and User 2 is going to have a static list of all the common first and last names so here you would have
+strings equals empty list.
+And then when you go and you initialize the user with a particular name remember a name is a combined
+combined kind of thing.
+So it's a full name its first and last name with this base in between what we can do is we can split
+the user name into the first and last parts and simply store their indices inside this entire setup.
+So let me show you how this can work.
+So we say self names now self-doubt names is going to contain a set of indices and we're going to get
+these indices by calling a function called Get your ad for X and we're going to call it for x in full
+name dot split.
+So we're going to split everything by space and then we're going to call every single call getter a
+read on it on every single element and get there.
+Others something that we can stick as an inner function here get or add s.
+So here we want to check if the string s is in fact in strings so if s in self strings then we simply
+return the index itself strings index and position s.
+Otherwise we added.
+So we say self strings dot pen s and we return length minus one set of strings minus one.
+There we go.
+OK so we have we have more or less set this up in actual fact let's just be explicit and say that this
+is a full name here.
+So this setup is now going to return us indices so self-doubt names returns us the index the question
+is how do you actually get the get the actual name because at the moment even though we're storing all
+those strings the name itself is not principal and we cannot reliably print the name.
+So if we define SDR here what we need to do is we basically need to combine every single element from
+the strings array using Salvador names.
+So we use a space
+too.
+Now that's weird getting funny and looking spaces all of a sudden let's try this again empty space the
+joy in there we go.
+That was very weird.
+So what we need to do is we need to go into our static strings list and we need to grab every single
+every single string that corresponds to self names.
+So here we say we need to get strings at x for x in self-doubt names and let's not forget the self part.
+Now we go okay.
+So we've now set up a string representation which means that we can also print things.
+And by the way I got the access here.
+You do need some variable name so having setup all of these we can now have User 2 instead of the user.
+And that's going to be a huge memory saving exercise because instead of allocating 10000 unique strings
+we're going to be allocating just 200.
+Remember we have 200 unique first and last names.
+So it's quite a saving and we can just verify that this works in the sense that the user gets printed
+correctly by printing let's say users at position 0 for example so let's run this and we have an era
+SDR returned non string.
+How interesting.
+So let's let's see what's going on here.
+Oh yeah we forgot the return statement.
+Let's try this again.
+All right.
+So as you can see we have a rather long string except.
+Yeah.
+There should be a space here.
+Try this again.
+There we go.
+So as you can see what's happening is we're storing not the strings as such but we're storing indices
+to parts of the string.
+And then the parts of the string actually get kept into a static variable and then to actually get the
+full name.
+We simply take the elements from the strings for every single index we only store the indices so we
+store integers effectively and we join them together and that's how we synthesize the full user name.

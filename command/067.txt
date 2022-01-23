@@ -1,0 +1,7 @@
+All right so let's try to summarize what we've learned about the command design pattern so essentially
+what you do is you encapsulate all the details of some operation in a separate object and then you define
+the instructions for applying the command.
+And you can do that either in the command itself or you can define it somewhere externally by some sort
+of command process or for example you can also optionally define instructions for undoing the command.
+And finally you can also create composite commands and these would be typically called macros so you
+can define a sequence of commands to be processed one after another.

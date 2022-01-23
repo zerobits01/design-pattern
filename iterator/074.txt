@@ -1,0 +1,98 @@
+I want to show you a particularly weird approach to the iterator design pattern or in actual fact the
+way that you would expose properties to the idea of iteration.
+So what do I want to talk about.
+Well let's imagine that you making a game you are making a game and has creatures roaming the grounds
+and you want to keep certain statistics about those creatures.
+So let's suppose that somewhere in the initialize it you give the creature a set number of stats.
+Now the question is how do you do this.
+Let's suppose that you decide to define the creature's strength agility and intelligence so you define
+self does strength equals let's say everything starts with a value of ten self-taught agility and self
+dog intelligence all having the values of 10.
+OK.
+So you have these attributes and you can expose them as properties or just keep using them as attributes
+it doesn't really matter but at some point in time you decide that you want aggregate statistics for
+example for a given creature you want to have the sum of the stats you want to have the maximum statistic
+you want to have the average of those statistics.
+So how do you define all of this in code.
+Well we can actually do that using properties so let's define a property called some of stats.
+That's basically the sum of whatever stats the creature has and here what you'd have to ride is you'd
+have to return self-taught strength self-taught strength plus self-taught intelligence plus self-taught
+agility for example.
+OK.
+So it's already looking it's already looking pretty well unstable.
+I would say I would say that this is a kind of code where it's easy to forget to write one of these
+stats especially if there's more than three of them.
+Imagine this 10 different stats you're going to have problem writing those.
+Now let's imagine that you want the maximum statistic.
+So once again you would have to define the property way you let's call it max stat.
+So you want the maximum value out of all of these value.
+So here you would have to return the maximum of self strength self-taught intelligence self-taught agility
+and whatever other stats you had.
+Now imagine you want to get the average.
+So you want another property which gives you the average statistics value.
+So average stats.
+OK.
+So the average start would return the sum of all the stats divided by however many there are.
+So here you would return a self-taught sum of stats divided by three point out.
+OK.
+So this code is somewhat unstable for a number of reasons.
+One of those reasons is that you really have to make sure that whenever there is a list of every single
+ability you really type every single one of those out and you don't forget any.
+And if for example at some point later in time you decide that you add another ability like for example
+I don't know dexterity then you're going to have to change all of these methods in quite a drastic way
+because you have to make sure that that additional ability is added to every single one of those methods.
+But also you have like this magic number 3.0.
+So this magic number relates to the number of attributes there are related to abilities and if that
+number changes and you forget to change you that 3.0 to 4.0.
+Well you're obviously going to get incorrect value.
+So the question is can we modify can we somehow refactor this code so that we no longer have this problem
+and it turns out that we can and we can change it using properties as well as a redefined the ways that
+the actual values are stored.
+So instead of storing them as attributes we store a single list and we'll call it stats and that's just
+going to have 10 combatant comma 10 to begin with because we are starting out with three three different
+properties so I'm going to get rid that well I won't get rid of the calculations here but I'm just going
+to start typing things out.
+So essentially now we have this challenge that we want to expose these stats which are kept in the list
+and we want to expose them as you know creature dots strength creature dog agility and whatever and
+we can do this we can actually do this so I can define a bunch of properties so I can define a property
+here which actually gets us the strength value.
+And this would typically just look up the value in the stats so you return self stats at position 0
+In this case and the same would go for the center is in the same would go for agility and intelligence
+and whatever properties you want.
+Now this is also a magic number.
+This 0 you might want to make it a bit more expressive and the way we can do this is by sticking some
+class level properties here.
+So here I can define strength having the value of zero.
+Notice I'm using the underscores agility with value of 1 and intelligence with a value of and what I
+can do here is I can replace this zero with undisclosed strength.
+Actually that has to be creature strength and I can do the same for whatever other implementation.
+So in the example of strength I would also have a strength setter and this setup would have a fairly
+obvious implementation so I would define strength with some value here.
+And here I would say self-doubt starts out on the score.
+Our creature on this course strength equals value.
+And similarly we can implement all of the other properties.
+Now it is quite a bit of work to get all of this but the stability that you get from this and the flexibility
+is quite significant so let me let me actually paste in all these implementations are here.
+I have strength and agility and intelligence all implemented because get rid of the extra implementation
+of strikes.
+Now what does this give us.
+Well it gives us a very interesting thing because now we have the storage as a single list and as a
+result of that what we can do is we can take that list and we can change the aggregate calculations
+such as the sum of stats and whatever we can change them to be much more concise because instead of
+writing this manual sum we would just return the sum of self-taught stats.
+And obviously for the other implementations we would do pretty much the same thing so if you want the
+maximum stats you return the maximum of self-taught stats.
+And if you want for example the average of the stats you no longer need this magic number three point
+zero in case of the average what you can do is you can returns and let's convert it to a flow so you
+do the sum of self-taught stats or indeed you can use the sum of stats from above and you divide it
+by the length of self-doubt stats.
+So if you have a new statistic that length is going to change and there will be no magic number.
+It will always be up to date.
+So this approach is typically called array backed properties or in the case of Python list backed properties
+it does require a bit of ceremony to set up the actual properties but once you do you have this ability
+of actually iterating on attributes of a particular class because otherwise you don't really have any
+flexible way of doing this kind of iteration and what I find typically in actual programming is I group
+things together so for example you can have a group of several properties being in one list and you
+can have another group being in another list and then you can do aggregate calculations on top of those
+lists and it's suddenly a lot easier once you have those lists instead of just just unique attributes
+which are a bit more difficult to work with.

@@ -1,0 +1,19 @@
+The goal of the composite design pattern is to treat individual components and groups of objects in
+a uniform fashion so to provide an identical interface over both aggregates of components as well as
+individual components.
+So what is the motivation for having this.
+Well imagine you have objects which use other objects properties or members through inheritance and
+composition.
+Now composition allows us to make compound objects.
+So for example you can have a Person class which is composed of name which is a string but also address
+which is its own object and so on and so forth.
+So essentially while another example is for example you could have a mathematical expression which is
+composed of either simple expressions or you could have like a drawing example where you have a grouping
+of shapes that can consist of several shapes.
+Now the composite design pattern basically says that in some situations we want to treat both single
+or a scalar object as well as composite objects in exactly the same way.
+So for example if you have an object of type foo and you also have a sequence which yields objects of
+type foo you want both of these things to have common APIs and that's what the composite pattern is
+all about.
+So essentially it's a mechanism for treating individual or scalar objects and compositions of objects
+in a uniform manner.

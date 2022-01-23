@@ -1,0 +1,27 @@
+The observer pattern is probably the most common design pattern out there.
+So what does it all about.
+Well the motivation for using the observer is that sometimes in our system we need to be informed when
+a certain thing happened and that can be virtually anything.
+So for example let's suppose that an object's property changes and we need to be informed about those
+changes because some of those changes might be disallowed for example or some of those changes might
+trigger other things in the system.
+Another thing we might want to watch for is whenever an object does something.
+So whenever you have a class which does a particular thing you might want to get a notification on it
+maybe like a real human notification so somebody can take a look at this operation and determine whether
+it was invalid or not.
+For example you might have some external event that might occur outside the system that you're programming
+but you want to be notified about that event anyway.
+So what we want to be able to do is we want to be able to listen to events and to be notified when those
+events actually occur.
+And these notifications typically should include all the useful information about the events so for
+example who generated the event what values were generated as part of this event.
+All this information should be delivered to us and we should be able to act upon this information.
+So we also want to be able to unsubscribe from events so once we're not interested anymore in getting
+information about a certain event we should be able to unsubscribe from this event and stop receiving
+those notifications.
+So the observer design pattern actually involves two concepts.
+First of all you have the Observer and The Observer is the object that wishes to be informed about something
+else happening in the system and the entity which actually generates those events which we want to observe
+is typically called an observable.
+So the observable is the generator of the events and the observer is the consumer of the events that
+get the notifications and can decide on what to do with them.

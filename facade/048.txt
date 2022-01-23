@@ -1,0 +1,99 @@
+In all of the examples in this entire course we've been looking at things that we run in the tax console
+now a text console might seem like a very simple kind of construct.
+But behind the scenes it can actually be quite sophisticated.
+The console can consists of buffers which are simply areas of memory where you put the characters that
+you subsequently go into print.
+It can also consist of you ports which are effectively views into those buffers showing you just a chunk
+of all the buffer information that you actually have stored.
+Because obviously if you have a huge buffer you only want to show the last few lines because that's
+how much space you have.
+And then you might have a console class which actually allows you easy manipulation of those elements
+and the console here would be a facade in actual fact.
+So let's take a look at how this can look.
+So somewhere behind the scenes you have something called a buffer.
+Now a buffer can be a two or one dimensional chunk of memory so it can be a list for example full of
+characters that you want to output as you use the console.
+So you might initialize the buffer with a certain width and height giving it sensible defaults.
+Something like this you store both the width and height like so and you might also want to specify that
+you have a buffer which is just let's say the empty space character and it's repeated and the number
+of times it's repeated is with times height.
+So this is how you would set up the actual buffer as in a list of characters to be output and then what
+you can do is you can for example provide certain API is for writing so that buffer is so you can have
+a method called right which just takes some text and adds it to the buffer like this for example you
+might also have support for indexing so you might want to support somebody getting a character at a
+particular location in the buffer in which case you define something like get item.
+And here you would just go into the buffer and you would call get the item on that element.
+So this is a fairly low level construct the buffer is not something that most of your clients really
+want to work with they want to have a high level interface however was still not doing well still not
+done with the low level stuff because now we want to show that buffer.
+Now we don't just show that buffer in the console because you can have many buffers being shown in different
+locations and any one of you has ever written a trading terminal would know how that looks like but
+we're going to build something called a viewport so a viewport shows a chunk of the buffer on screen
+somewhere.
+So in the initialize for the viewport you might want to specify what buffer it's attached to and if
+it's not attached to anything we can provide a sensible default which is just the default constructed
+buffer here and that's initialized that in addition your viewport can be offset against the beginning
+of the console so you might have some sort of offset.
+Let's just give it a value of zero.
+So what can the viewport do.
+Well it can get you a character at a particular location so you might have some sort of low level method
+like get character at.
+And you might specify the index of the character and then you just return self buffer self self-doubt
+buffer at index plus self-doubt offset.
+So getting the appropriate character.
+Now this is just a bit a bit iffy gold in the sense that I'm simulating things that you would write
+in a much more conscientious fashion.
+But in addition the viewport might also have an append method which would simply whenever you are you've
+got a viewport focused and you're typing some text you want to append that text to a buffer so you might
+have some sort of append method which takes some text and just uses the buffer sort of self buffer plus
+equals text or you might have self-doubt buffer.
+Don't write text something like that.
+So finally as you can see we have plenty of low level constructs and if you're working with just a single
+console with a single buffer and the size of the buffer is the size of your console for example you
+don't really want to be dealing with any of these low level structure you just want some class called
+console and a very simple way of manipulating that.
+So let's build our facade so a facade is going to be called console in the initialize.
+You might set up a default buffer and the default viewport attached to that buffer and you might want
+to keep both of these as lists so that subsequently if somebody wants to do some low level book and
+add additional buffers and additional view ports that's actually possible so you would make a buffer
+you would said the current viewport current viewport to the viewport that's attached to that buffer.
+Once again in constructing the viewport here and then you would have a list of buffers with buffer B
+to begin with and you would have a list of view points with a list containing just the current viewport.
+So this is how you could set up the console and then on the console you could provide both high level
+methods meaning methods that you would use as part of a facade to kind of hide the user from all the
+complexity.
+So for example if somebody wants to write to the console it's obvious that they want to write to the
+currently selected viewport and specifically to the buffer attach of that viewport so you could have
+a very nice very useful method called the right which takes a chunk of text but what you're doing behind
+the scenes is you're taking the current viewport.
+You're taking the buffer of that viewport and you're using its right method to write some text so you
+can see what sort of hiding all the complexity behind a very nice to use interface.
+But if you want to you can expose low level functionality from the facade as well.
+So here we have a console which is a very nice user friendly facade but it has attributes such as buffers
+and view boards and if you want to you can use those classes directly and you can access all sorts of
+low level API directly in actual fact the console can also have low level APIs of its own that are available
+to power users in case you know exactly what's going on with the whole buffer viewport set up.
+If you are familiar with those constructs then we can offer a low level API so I can for example offer
+a method called Get character at if you want to get a character at a particular position with a console.
+Once again what this would do is it go into the current viewport.
+It would get a character that's a particular index.
+So this is an ability to sort of get down and dirty with the console specifics.
+So effectively we're offering two realities we're offering the nice facade which has user friendly methods
+like right for example but we're also offering some low level stuff and it's suddenly possible to just
+manipulate buffers and view boards and work with the viewport class and the buffer clouds directly.
+If you're a power user.
+So this is a kind of multifunctional facade and the way you'd use it is very simple so you can make
+a console and you can just take a console and write a single line of text to it.
+And this is the high level manipulation.
+So this is something that the the facade is actually designed for is designed to hide all the complexity.
+So when you create the console you just call the initialize with no arguments but plenty of other subsystems
+are coming into play there because in the constructor here in the initialize there you can see that
+there's a buffer being created there's a viewport being created they're being put into respective lists
+and in addition you know everything is set up just as it should be and you can just work with the high
+level API but if you want to you can go ahead and take the console and use the low level API for example
+getting a character at position 0 and storing it somewhere.
+So this is something that we have deliberately exposed the client to so if they want to they can get
+they can get some sort of low level functionality there.
+But the key aspect the key reason for the existence of a facade is this part is the part that makes
+everything usable it makes everything very nice and neat and concise without having to fiddle with the
+internal mechanics of the subsystems which actually make the console work.

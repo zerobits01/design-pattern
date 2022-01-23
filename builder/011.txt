@@ -1,0 +1,161 @@
+So the builder design pattern.
+Why do we need it.
+Why do we need to bother with it.
+Well the builder is required when you have some sort of complicated construction of objects.
+So not just constructing an object in a single statement but actually taking several statements to construct
+something.
+So let me try to kind of ease you into this idea of kind of piece wise construction by looking at constructing
+HDMI elements.
+So let's begin with something simple let's suppose you want to construct a paragraph out of a chunk
+of text.
+So we're gonna have a chunk of text and you want to construct an HMO paragraph because maybe you have
+a web server which is so this stuff or maybe just generating web pages doesn't really matter.
+So what do you do.
+Well you make an list so you can make a list where you have the opening paragraph tag then you put in
+the text then you have the closing paragraph tag and then you can print the whole thing so we can print.
+We can join all the parts together and just print it like so and we get fairly predictable output.
+This construction of the paragraph is rather easy.
+It took us well two lines.
+You can stick hello in place of text and that would make it one line you could make it a single string
+but this is a very simple scenario.
+Let's suppose that you have a more complicated scenario.
+Let's suppose that you're given a bunch of words and you want to make an HDMI list out of those words.
+So we have a bunch of was like hello and world and sorry about the cliche here and you once again build
+up the parts.
+So this time around it's a bit more complicated because you have to have the opening tag on or that
+list like so.
+And then for w in words you have to upend every single one of them.
+So parts dot append.
+And here we can add list item W and then closing tag as well.
+And then the closing on or that list so parts of it and closing unordered list and once again we can
+print this all this time round I'll use the new line as a separator so we can print backslash and Dot
+join parts.
+OK.
+Now we go.
+You can see that the output is all nice and formatted and whatever but things are a bit more complicated
+now because in order to manufacture a list you had to have five lines of code written and those five
+lines they have to pretty much follow a particular sequence.
+So for example you don't really want somebody to forget to close this tag.
+So if we forget this part we would get some invalid HDMI.
+The same goes for the list item if somebody writes a lie they better close it.
+Now I know Web sites work just fine even if you forget the list tag but you really want to close it
+anyway.
+So how can we actually enforce all of this well what we need to do really is we need to outsource the
+process of constructing different chunks of HDMI out not necessarily paragraphs or lists anything virtually
+anything made of HDMI so we can outsource it to a builder.
+But it sure makes life easier if we were working with an object oriented structure meaning a structure
+where each of the HDMI elements is actually represented by a class of some kind.
+So let's do exactly that.
+So I'm going to define a class called HDMI out element.
+These elements are going to be nicely indented.
+I'll define indent size to be two spaces for the purposes of our demo.
+Each of the elements will have some sort of initialize there.
+So when you have an HDMI element it might have a name.
+Well in most cases it has a name and it might have some text as well.
+But I'll leave blanks here just so that you can emitted and initialize it later on and I'm going to
+just initialize both of these.
+But of course each HDMI element can also have any number of children so it can have any number of inner
+elements within a like list item for example can have a paragraph in and there is no problem in doing
+that.
+So we'll have self-taught elements equals empty list and this is the list that you can populate.
+OK so the key aspect of a nature that element in addition to actually storing all of this information
+is to be able to print itself but of course to print itself.
+Means printing all of the inner elements.
+If there are any and this is a recursive operation so rather than me typing out a huge chunk of code
+let me actually show you what it would look like so effectively I'm defining the typical SDR method
+here but I am calling an internal shall we say SDR with this value zero which is the indentation.
+And so we get the indentation right regardless of how many levels of nesting we have in our aged male
+structures.
+So this is just a helper which helps us model a Shia male elements.
+But what about the builder because we're hit gathered here today to discuss the builder pattern.
+So what about that.
+OK so the idea is that once you have an object oriented structure which is recursive erm which can actually
+store the HCM elements you can make a builder.
+And this is a special construct which is going to take an element and they should be a male element
+and it's actually going to build it up it's going to kind of construct it and effectively you know help
+you build up an element from scratch using a particular API.
+So let's define the initial either for the element I'll have root name as the name of the top level.
+Team element and what we're going to do is we're going to store it
+but in addition we have to have an instance of the element that we're actually building.
+So in this case what I can do is I can for example say that self let's have two on this course on this
+go underscore root equals application here male element.
+So this is the element that we're actually going to build up and then we can of course define the name
+so we can say name equals root.
+Name.
+Yeah we go.
+OK.
+So far so good in the sense that we have defined what we're actually building up.
+So Ruth is the thing that we're building up I put into.
+Undisclosed in front of it so that people wouldn't access it directly but of course at some point you
+would have to access it.
+So the question is Well how do you expose the object you're building up.
+Well in my case I can do it like this I can define SDR and then just going to return the string representation
+of self doubt on the score on this score like this.
+So that will work just fine.
+That should be no problem.
+OK.
+So moving on.
+What about some sort of API for actually building up the element that we're working with so I can have
+a method called child and this method is going to help us add a child to the current and root with a
+particular name.
+So child name and the particular text have a go.
+So the implementation is fairly simple we simply take the root we grab its elements and we append.
+So what do we append.
+We append a new H2 AML element with child name and child text as the arguments.
+Okay.
+So I don't think we need this name here.
+We can just leave it as root on this code name like so.
+So having said all of this out we can now start using the builder and build up some of the structures
+that we kind of looked at previously.
+So for example I can say builder equals H demo builder with a root tag of unordered list for example.
+And then I can add a bunch of elements I can say builder dot add child.
+And here I can specify a list item with the text Hello I can duplicate this.
+Have a list item with the world in here and we can print it out.
+So I'm going to just print.
+Ordinary builder and then print the builder itself.
+So when I print the builder of course what happens is you call SDR and this calls the SDR on the root
+which in turn gets us here and effectively uses this method here.
+So this is the setup and we can actually try running it and seeing what we get.
+So as you could see you are getting pretty much the output that we wanted.
+We have an unordered list with it to list items and everything is nicely formatted and indented and
+whatever.
+It's all very beautiful.
+So this is how you construct a builder.
+So in this case we have an HMO builder which is a dedicated component to building up the different the
+different HDMI elements.
+Now we can make it somewhat nicer by making a fluent interface a fluent interface is very similar to
+an auditory interface except you can change it.
+You can have to add child calls one after another.
+Now the way it's done is very simple.
+Let me show you.
+So we're going to have ADD child fluent in actual fact let's just duplicate this.
+It's going to duplicate this and put it here.
+So the only difference to our child let's say fluent here is at the end you return self.
+Now what this allows you to do is it allows you to basically change the invocations one after another.
+So let me show you.
+You can say builder add the child fluent list item.
+Hello.
+And then you can put a dot here and you can say add child flew and once again and you can have the second
+element because you might want a line break here but a list item world like.
+So if I run this the output is pretty much the same.
+We haven't really changed anything we just we just allowing somebody to call several methods one after
+another by doing this return self which is a very small insignificant trick.
+So a few embellishments that we can put on top of this is for example having some sort of static method
+which allows us to now working with an they steam out element because your client might see a nature
+metal element with this weird looking constructor and they might think well hold on.
+What do I do with this.
+How do I get started with this.
+So what you can do is you can expose the builder right from the element itself.
+Now some of you might say well hold on.
+Isn't this breaking the open closed principle.
+And in some way it is.
+But you have to realize that there is a bit of entanglement between an element and its builder.
+They are connected.
+So unless you actually physically split them into separate separate applications for example separate
+parts of the system there is no problem in having some sort of static method here which is called maybe
+create which takes a name and simply returns and HDMI all builder initialized with this name.
+Now what this gives us is it gives us an alternative as to how we can get started with using a builder
+so instead of saying builder equals HDMI all builder what you would say here is you would say HDMI all
+elements create and then you would put that you Alan here and the end result as you can see is pretty
+much the same.
+So this is how you can construct a builder.

@@ -1,0 +1,18 @@
+So one of the things that's worth mentioning since a proxy looks a lot like a decorator is what exactly
+is the difference between the two.
+So the differences are as follows First of all typically proxy provides an identical interface to the
+object that its proxy things to whereas the decorator provides an enhanced interface.
+So the decorator it decorates an object it may replicate some of its API s or indeed all of its API
+is especially if you're using reshot but you're gonna get that delegating members generated for free
+basically so why not have the entire interface.
+But in addition the decorator is designed specifically so that it adds additional functionality.
+So that adds additional operations additional traits and so on and so forth.
+Now the decorator typically aggregates or has a reference to what is decorating so typically takes the
+decorated object as a constructor argument that suddenly the implementation if you have a dynamic decorator.
+Now the proxy doesn't have to do this.
+And in actual fact the proxy doesn't even have to work with a materialized object an object that exists
+so for example you could have a proxy providing an interface over an object that hasn't been constructed
+and that is being defined as purely a lazy object which will only be made whenever there is a first
+call to that particular object.
+So you can think of a proxy in this way as a kind of implementation of lazy over the whole type.
+For example.

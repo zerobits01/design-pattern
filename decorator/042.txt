@@ -1,0 +1,37 @@
+In this section of the course we're going to talk about the decorator design pattern now the decorated
+design pattern exists so that you can add additional behaviors to particular classes without either
+modifying the classes themselves or indeed inheriting from them.
+So let's take a look at the motivation for using the decorator.
+So sometimes you have a class and you want to augment this class with additional function now that you
+want to have an object have extra features.
+So the question is how do you add those features.
+Now one thing you can do is you can jump into the existing object and you can just rewrite the object
+add additional methods and adjust no attributes change some of the internal operations and so on so
+forth if you can afford to do that if you're okay with that then that's fine.
+But this breaks the open closed principle which I've been talking about throughout this entire course
+the open closed principle basically states that once you've written and tested your code you shouldn't
+be jumping into it and performing modifications.
+And sometimes those modifications are not even your own code.
+Maybe your colleague is responsible for this code so you shouldn't just be jumping in there and changing
+all of their stuff because then they would get into their own code and not really understand what's
+going on.
+So you want to keep the functionality separate.
+You want the new functionality to be a separate component typically a separate class so as to adhere
+to the Single Responsibility Principle instead of adding additional responsibilities to the underlying
+object.
+So what we need to be able to do in spite of all of this is we need to somehow be able to interact with
+existing data structures.
+So if you are making a decorate around something you still need to be able to interact with the decorator
+interact with perhaps the underlying object I'm we're going to take a look at how exactly this is done
+other generally two options here that you can follow.
+So the first option and the most obvious one really is to simply use inheritance you simply grab the
+class that you want to augment and you inherit from it and you add additional features to it.
+So if this is a possibility once again it's probably the simplest possibility there is because well
+you simply get all the attributes and all the methods of an object automatically.
+So why not go for it.
+But the for some reason that is not what you want to do then you build a decorator and a decorator is
+simply a class which references the object you want to decorate.
+So you have a reference to that object and then you offer some additional operations on top of that
+object.
+So a decorator is simply a component that facilitates the addition of behaviors to individual objects
+without necessarily inheriting from them.

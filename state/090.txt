@@ -1,0 +1,102 @@
+We're going to begin our look at the state design pattern by considering the classic implementation
+of state which you're going to find really bizarre.
+You're gonna find this example this whole setup completely ridiculous but I'm going to show it anyway
+and it's a good illustration of the kind of equilibrium sticks that you can do with object oriented
+programming but it's not such a good example of what you'd actually do in real life.
+So the classing Ganga for example involves a light switch and the light which can obviously be in two
+states you've either got the light on or the light is off but you're going to see that on top of this
+very simple example you can build a rather complicated and somewhat unnecessary state machine.
+So first of all let's model the switch.
+So initially this which is going to be off but the way that we're going to define it is going to already
+start looking a bit strange because we're going to define self that state as an off state with round
+brackets.
+So obviously there is a class called off state somewhere and that's what we're going to build in just
+a moment but first of all we're going to introduce a base class called state which is going to have
+methods representing all the possible different states.
+So a lot of very strange things are happening here but we're going to have a straight state which is
+an abstract base class.
+So let's import this and I'm going to have two methods called on and off which both Take this which
+as the argument and here we're going to print that whenever we switch the light on by default.
+What we're going to say is we're going to say that light is already on and we're going to do the same
+for the off state.
+So you can see it's getting more and more bizarre by the minute.
+This whole example but bear with me it's going to get somewhat clearer as we actually implement the
+whole thing.
+OK.
+So coming back to this which you can see that we need and on state and an off state.
+So we're going to implement those those are actually going to be classes now in the typical state machine
+you don't necessarily need your state's to become classes you can keep them as you know members or just
+you know just numbers or just just the attributes.
+But here we're going to have a class called on state which is going to inherit from state.
+And what we're going to do is we'll have the initialize.
+So in the initialize it we're going to print that the light is turned on and we're going to override
+the off method.
+So we're going to actually I would just use the cogeneration tools here so we're going to override the
+off method in here.
+I'm going to say print print that we are turning the light off.
+And then I'm going to take the state and the state is something that we have up above.
+So we have a switch that states and I'm going to set it to the off state.
+There we go.
+So now that we've set this up we can implement a similar construct for the off states or let me do this
+quickly off state stayed in it where we print like stand off and then for the implementation of on what
+we do is we print turning the light on and be space which does state equals on state.
+OK.
+So let's jump back to our switch which is now a bit more valid because all of a sudden this makes sense.
+We have an off state hand and corresponding on state.
+So this which is essentially just a single attribute class it has a an attribute called state and it
+has a couple of methods on it.
+So one of the methods is going to be on and here we say self dots state DOT on self.
+And in addition we have off which also has itself dots state DOTs OK.
+OK.
+So it's it might seem like like it's a really complicated example for something very simple and it certainly
+is.
+It certainly is.
+So let's try to sort of understand what's going on here.
+So we have a light switch the light switch itself is something that holds a state.
+So the state of the lights which is one of the two classes it's either the on state or the off state.
+So this which itself can be flicked on and off but whenever we do it we don't do it directly we don't
+directly modify the state.
+Instead what we do is we take the current state so self-doubt state and we force a transition on it
+we tell the current state that we now want to transition to the state.
+So let's suppose we're in the off state then when we turn the light on we end up in off states on method
+this method.
+And here we print that the light is turning on so it's turning the light on and then we use that reference
+to the switch to actually change the state.
+So instead of changing it directly we're changing it right inside the current state.
+Now you might be wondering well why do we have these base class implementations.
+Why do we have the base class for on saying the light is already on well think about it.
+Let's imagine that for example where in the off state and we decide to switch the light off.
+But the light is already off.
+So when you call self-doubt stayed off you would typically end up in off state dust off but we haven't
+written off state DOT off.
+So what we do instead is we go into a state off and we end up here and of course switching the light
+from off to off we have to say that the light is already off which is exactly what we're doing.
+So with all of this put together let's actually try using it so I'll make a switch.
+Okay.
+So first of all how switch a light on like so.
+So this is going to tell us that light is turning on then I'll switch the light off and then I'll switch
+the light off again.
+Let's just do it twice.
+Okay.
+So when I run this demo let's take a look at what happened.
+So first of all when we initialize the switch the light is turned off.
+Then we turn on the light so light turning on lights under.
+And that's good.
+Then we turn the light off so light turning off lights turned off.
+That's good.
+And now we're in the off state and we try to turn the light off again and we have that base class state
+implementation which tells us that the light is already off.
+So this is the classic implementation of the state design pattern where every single state is actually
+a class and it handles transitions from one state to another.
+So it's the actual off state which handles that transition from off to on.
+So even though this is a classic implementation that's not something I would personally recommend because
+the amount of ceremony or the amount of things which are not obvious here is far too great.
+And it's really not worth even having the classes on state and off state because you're you're simply
+wasting wasting time and wasting.
+You know the potential for the program to be simpler because essentially you can take the on state and
+the off state and you can simply stick them to an in out for example and it just makes a lot simpler
+to orchestrate and also this idea that the state itself regulates the transition to some different state
+while it's a nice idea it's not something that people do nowadays.
+So we're going to leave this as a kind of classic example as a reminder of the kind of things that people
+might have done at some point in time.
+But this isn't the kind of state machine that we build nowadays.

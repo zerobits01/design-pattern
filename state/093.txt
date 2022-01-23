@@ -1,0 +1,10 @@
+All right so let's try to summarize what we've learned about these state design pattern so given sufficient
+complexity it's actually useful to define formally define the states as well as the possible transitions
+from one state to another.
+And what we can do is we can define a lot more than that.
+So we can certainly define the behaviors of state entry and exit so we can define the behaviors that
+occur as you entry enter a particular state or as you exit a particular state.
+You can also customize the state machine in terms of actions that are done when a particular event causes
+and transition you can define guard conditions for enabling or disabling particular transitions you
+can define default actions when no transitions are found for an event so all of these things allow you
+to customize the behavior of state machines.

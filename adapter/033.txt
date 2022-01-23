@@ -1,0 +1,49 @@
+All right so in the previous lesson we looked at how to build an adapter which adapts a line to a series
+of points.
+Now the problem that we end up with quite often when building adapters is too many temporary objects
+and suddenly that's something that we've been seeing in the course of the previous lesson.
+So as I ran the program you could see that we were regenerating points for lines even though those points
+were already generated.
+So how can we avoid the excess generation of temporary information.
+Well in actual fact if we jump back to the source code we can do it by building a cache so a cache is
+just going to be a dictionary full of objects such as lists in our case because we need to store our
+list of points.
+So we're going to have those I'm going to get rid of counts and I'm going to get rid of the use of counting
+anywhere because it's no longer going to be relevant.
+And also the line to point adapter is no longer going to be a list because all the data is now going
+to be stored in the cache.
+So there is no point in storing any data of value in the current object.
+So the first thing that we'll do whenever somebody wants to adopt a line to a set of points is we're
+going to calculate the hash code of that particular line so we're going to say Salvador Hage equals
+hash line.
+So this is going to calculate a unique value for every single line and we can use this value as a key
+in our dictionary so we can say that if this hash value is already in the dictionary then we don't really
+need to do anything because the set of generated points is already in the cache.
+So we can say if self-doubt a page in self cache then we simply return there is nothing for us to do
+because we've already generated those sets of points on a different run so there was no point in doing
+it again.
+Now of course what we need to do is we need to modify the code down here because instead of appending
+to self as we did previously we are no longer a list so we cannot append to ourselves but what we can
+do is we can append to some list that we build and then put that list into the cache.
+So I'm going to say points equals empty list and then we use points instead of self to append elements
+to that list and then we just put it in the cache.
+So I hear I say self cache.
+I use the hash value self-doubt page and that hash value is actually non static.
+So it's a member attribute which you can subsequently use to access into a particular cash value.
+So here we say equals points so we put the points into the cache and then the only question which is
+left is how do we iterate the line two points adapted because remember lines pointed that you used to
+be a list we used to have list as a parent but it's no longer list because now when you iterate you
+need to go into this particular value.
+This is the value that you want to be iterating so in order to implement this it's actually very easy
+we just define it here and here what we do is we say we return it's there and then we take self cash
+at self thought hate.
+So self-doubt hate is the hash code that we use to actually index into the dictionary and then from
+the cache we take whatever sets of values are available and we sort of iterate through them.
+Now we could run this example again and hopefully this time around we don't see so many temporary.
+So let's run this and we have a bit of a problem in that we are probably using count somewhere still.
+So yeah here we have count let's get rid of this let's try this again.
+So as you can see this time it's much better because when we first arrived in the whole thing yet we
+are generating points it says so here but on the second run it's this run we're not generating anymore
+temporary we're just making the output which is shown here with the dots.
+So this is an illustration of how very simple caching can reduce the number of temporary eyes which
+are generated when implementing the adapter design pattern.

@@ -1,0 +1,141 @@
+All right so in a previous example where we looked at geometric shapes we looked at a very simple scenario
+where we basically grouped shapes together and then go the base class to act as either a single element
+or a collection of elements.
+Now we're going to take a look at a different scenario.
+We're going to talk about neural networks and we're going to look at a scenario where a scalar object
+can masquerade as a collection and what benefits.
+This actually gives us so as you probably know machine learning is really popular nowadays part of machine
+learning is the use of neural networks and that's what we're going to model.
+So we're going to start with a class called neurons so in you're on this kind of like the building block
+of a neural network.
+Let's define some sort of initialize it for it.
+So in the initialize that we're going to specify the name of that neuron which we're going to save in
+an attribute but in addition neurons are characterized by their connections.
+So in your own connects to other neurons so we want to have two lists.
+We want to have a list of inputs and a list of outputs.
+So self inputs equals empty lists self outputs equals empty list.
+So essentially neurons connect to other neurons and thereby they keep the inputs and outputs list so
+that they connect to one another.
+So this is on your own we can actually define SDR so we can print the the state of the neuron so here
+I'm going to return.
+Well first let's put the name of the neuron and then let's specify the length of the inputs and the
+outputs.
+So how many elements are going in and how many elements are going out.
+So here I'll say a length of self inputs.
+And this is how many inputs we have.
+And then let's do the same for outputs.
+So length self outputs and specify that this is how many outputs we have.
+Okay.
+So that's the neuron done.
+And you can work with a neuron and you can connect two neurons together.
+So for this we can define a connect to method which would actually allow neurons to be connected.
+So here you have self and other.
+And here you just add the appropriate elements to the inputs and outputs.
+So you add self-taught outputs dot append other so you add other to your own output but then you take
+others inputs other inputs dot pen and you append self and that way you make two way connection between
+two neurons.
+So far so good.
+This code will actually work however.
+Let's decide let's imagine that you decide that having single neurons is a bit too cumbersome and you
+want to make large groups of neurons.
+Let's say you want to have something called a neuron layer and the layer is a list of neurons so let's
+inherit from list and this is where you can for example specify both the name of the layer as well as
+the number of neurons you want in that layer.
+So here what we would do apart from doing the Super in call of course is you would set the name and
+you would also initialize the neuron layer with however many neurons were actually asked for.
+So we can say for x in range from 0 to count to what we can do is we can say self append and here we
+can make a new neuron for every single iteration and we can give that neuron a meaningful name like
+let's say the name of the layer dash and then its index.
+So this is how you would make a whole layer of neurons and once again we can define SDR so we can print
+then you're on layer so def SDR.
+And here we return a self name with length of self neurons.
+There we go.
+So this is how you would define a neuron.
+Now we have a very big problem.
+We want to be able to connect neurons and you're on layers.
+Let's actually flesh out all the scenarios that we want to support.
+So imagine that you have let's say two neurons let's call neurons and one and and two and let's imagine
+you also have two layers.
+So you have neuron layer called L1 with let's say three elements and you have Layer 2 called L2 with
+four elements.
+So what you want to be able to do is you want to be able to say neuron one dot connect to a neuron two
+but you've already got support for this.
+So this is something that will actually work already.
+But what you also want to do is you want to be able to connect neuron 1 to layer one and you want to
+be able to take Layer 1 and connect it to let's say neuron 2 and you want to be able to connect Layer
+1 to layer 2.
+So this might end up causing us to write for different methods or for different functions but we don't
+really want to do that.
+We want a single function which actually takes care of all of these four cases so the question is how
+can we actually do this.
+How can we write this function well we could write it if we could for example iterate both the neurons
+in a layer as well as the neurons in a neuron and in actual fact it is possible to do exactly that.
+So how would you do this.
+Well the simplest way of going about this is just writing some sort of function here.
+So we're gonna write a connect to function here.
+So what I'm going to do is I'm just going to comment out the one that's sort of inside the neuron itself
+because we're going to write it here so connect to.
+So we're connecting two elements together let's call them self and other for lack of better terminology.
+The self here doesn't mean the self of an object of some kind but I'm just going to keep it anyway.
+So if self is other then we just return.
+You can connect to yourself but then we do the following.
+So for Essence self and for o in other we just make the connection effectively we connect the neurons
+together.
+So we say s that outputs dot a pen O and O dot inputs dot a pen.
+S So this would work and we could we could subsequently call connect to on a neuron one comma neuron
+two and whatever.
+This would actually function and we could also take this entire definition and just imbue it into both
+neuron as well as neuron later.
+So let me show you how this would work.
+So you would say neuron dogs connect to equals connect to and I'll neuron later connect to equals connect
+to.
+Now this would actually function except that there is a bit of a problem that's actually run this to
+get the area.
+So as you can see the error here is that we cannot connect a neuron to a neuron because guess what.
+When you say 4 0 in a single neuron you cannot iterated because and you're on this justice K the value
+but it's very easy to turn a scale of value into a collection into something that's actually durable
+and this is done using the ether definition like so probably writing it's in the wrong place either.
+There we go.
+So here we go.
+And guess what you put here.
+You simply yield self.
+This is how you turn a scale of value into a collection of one element.
+And guess what.
+If I now run this you'll notice that everything works.
+That's actually printout of all these elements.
+I'm going to print neuron 1 and neuron 2 and I'm going to print layer 1 and layer 2 as well.
+So is I if I print all of this you can see that we have a neuron 1 0 inputs for outputs because one
+of them goes to the other neuron three goes to L 1 and then.
+And 2 with 4 inputs 4 outputs and then L1 and L2.
+So everything works correctly.
+Now there is a slight bit of inconvenience in that the connect to here is actually defined as a kind
+of freestanding function.
+What if it were possible to just introduce some sort of base class so that connect two would be directly
+tied to a neuron and you on there.
+What it is in fact possible it's in fact possible to make such a base class.
+So if you wanted to make such a base class you would call it maybe connected all.
+And this class would actually have two interfaces so it would implement it arable and it would be abstract.
+So let's import both of these things so we'll import ABC and will also import it arable which is in
+collections that ABC sent from collections ABC.
+Import it arable.
+There we go.
+So this is gonna be a base class and it's going to have that connect to method I'm actually going to
+take it from here.
+So that should explain why use self as the argument name here so I can cut it from here and I can stick
+it in here.
+There is no change that is required.
+It just works out of the box like this.
+And then what we can do is we can obviously get rid of these assignments.
+There is no need to imbue the classes with these additional methods.
+But now I need to specify the both neuron as well as neuron they actually inherit from this.
+So neuron inherits from connected Bell and neuron layer also inherits from connected.
+There we go.
+So that's all that you would need to do and now of course both neuron as well as neuron layer they both
+implement connect to as their own methods and so when you're calling connect to it's not something that's
+been defined globally it's something that's been defined in the Connected bowl base class up here.
+So as we run this we get pretty much the same output because nothing has really changed.
+We've just introduced the additional semantic convenience so that the syntax is a bit nicer.
+So this is how you implement the composite design pattern once again in this example.
+What happened is we have a scalar element a single element masquerading as a collection.
+And the way you can do this is by defining itor the entire method and simply yielding self whenever
+somebody asked for the iteration.

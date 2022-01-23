@@ -1,0 +1,93 @@
+Since Python has properties that you can use as decorators and we have just set up the observer design
+pattern using events what we can do is we can merge the two ideas together and set up the so-called
+property observers.
+So a property observer basically tells you whenever a property is actually changed.
+So how do we set this up.
+Well first of all we'll copy the same event implementation that we have previously.
+That's a pretty good implementation.
+It's very simple and it's very easy to add to whatever class actually needs it.
+And then what we're going to do is we're going to set up a class called property observable property
+observable.
+So the idea is that you would inherit from this class and thereby get a property changed event.
+That's the only thing that it can really offer.
+So we're going to have a self-taught property changed and that's going to be an event that people could
+subscribe to and subsequently get information about properties being changed.
+So then when we set up a class let's set up a class called Person.
+So we're going to have a person which is a property observable.
+So that means that person has properties that you can actually get notifications about assuming they
+actually change.
+So how do we do this.
+Well first of all let's initialize purse and I'm going to have a single property called H with a value
+of zero.
+And now here I'll call the base class obviously and then what I'm going to do is I'll set the inner
+age to the age parameter.
+So notice I'm using the underscore here because the property itself is not going to use and underscore
+it's going to have age without the underscore.
+So then we can build together and the Center for the property and in the getter because there is no
+vacation taking place there is really no problem.
+The getter is the same as before.
+So we say property and we say death age and we simply return self-taught on this court age.
+So this is fairly simple stuff but in the center of what we need to do is we need to check first of
+all whether the property has in fact been changed whether there's the new value being assigned is different
+to the old value that's there.
+If it's different then we send off the notification.
+So here's how it works.
+So we write an H dot setter and here we say def age where we specify the value of first of all we check
+that the value has in fact been modified so if self-taught on underscore score age is equal to the value
+that means that we're not really changing the value so we can just return because nothing is happening
+here.
+But if we do need to perform the change that the values are different than we say self-doubt on the
+score.
+Age equals value and then we perform the change notification using the property changed event that we
+have inherited.
+So we say self dad's property changed and then we call it with the name of the property that's actually
+being modified so in this case I'll put age and the value that we've just assigned.
+So this is how you notify.
+Now the question is Well how do you monitor those changes.
+So you now have an event here how do you actually subscribe to this event and get notification on a
+person's change of age.
+Well imagine you have some class called Traffic Authority now Traffic Authority might be interested
+whether you are old enough to actually drive a car.
+So in the initialize there we provide the person that we want to monitor.
+Now we might may as well store it somewhere.
+So may as well store it as an attribute here and in addition what we do is we subscribe to the probably
+changed events so we say person dot property changed dog append and here we need to provide some sort
+of method for actually handling the whole thing.
+So here I can provide self dot first and change.
+And this is a method that we need to define.
+So you need to have a method called person change.
+And remember the parameter is there are two parameters.
+So the first one is the name of the property that's changed.
+And the second one is the value that's been assigned.
+So now we need to check whether or not it was the age property that was modified.
+So if the name of the property is equal to age then we can check the age and we can either tell the
+person that they are still too young to drive or we can tell them to drive and stop monitoring them.
+That's the key part.
+After they get old enough you can stop monitoring them hereafter because it doesn't make any sense anymore.
+So if the value is less than 16 then what happens is you print Sorry Sorry you still cannot drive.
+Otherwise what you do is you you might congratulate them you can say OK you can drive now and then you
+unsubscribe from this event.
+Now remember an event is just a list.
+So to add a subscriber to a list you use a pen and to remove it.
+You just use remove.
+So we say self-taught person dot property changed remove and remove self-doubt person changed so we
+remove the subscription obviously without any round brackets.
+We just want the method here.
+Okay.
+So we have set up the subscription.
+So now we can use both of these components and see what we get.
+So let's make a person okay and let's make a traffic authority so traffic authority that watches this
+person.
+And then let's cycle the age.
+I'm going to say that the age is going to be in the range from 14 to 19 effectively so I'll put 20 here
+and we're going to print some information so I'll say that I'm setting setting age to age and then we
+can actually do it.
+We can set the age to age and what should happen is as we hit that magic number 16 we should basically
+satisfy the Traffic Authority so the traffic authority will say OK you're old enough to drive and they
+should unsubscribe.
+Even when we call the value of 19.
+Nothing should happen so let's execute this and let's see what we get here.
+So we're setting the age to 14 cannot drive 15 cannot drive 16 okay.
+You can drive now and when we set the age to 17 18 or 19 you'll notice that there is no longer any feedback
+from traffic authority because it has unsubscribed itself from the event.
+So it no longer gets any notifications.

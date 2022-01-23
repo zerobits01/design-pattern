@@ -1,0 +1,69 @@
+One of the design patterns that are built into python is the Decorator pattern.
+But the implementation of decorator inside python is very specific.
+It's not the general purpose decorator you'll see in books.
+Instead it is what is known as a functional decorator.
+So let me show you how functional decorators work in Python.
+Let's suppose that we have some operation which let's say it takes a long time so I'm going to define
+some operation some op and this is going to be just a function we're going to do if you print out.
+So we're starting the operation starting the operation then we perform some work I'm just going to simulate
+it by sleeping for one second and then we're going to print something else we're going to print.
+We are done and I'm going to return some value 123 for example.
+I don't really have to return anything but it's just a good extra illustration.
+So having made this operation what we can do is we can run this operation so we can say some op and
+if I run this you're going to see is that we're starting the up then one second passes and then we are
+done.
+So it's a good simulation of some work that gets happen that gets done in time to sleep.
+That's what we're trying to show here.
+So let's suppose that for example you decide to measure the time taken to actually perform this operation.
+So what you can do is you can write a functional wrapper which takes some up as a parameter and then
+uses this to perform time measurements.
+So let me show you how this can work.
+You can define a new function called timeout which takes a function.
+And basically what it does is it builds a new function which is a wrapper of the originals.
+I'm going to define wrapper OK so how does this work.
+Well first of all you measure the starting time so you say start equals time not time.
+Then you actually call the function and store the results so you say result equals func.
+So if we are calling sum all up here then the result would be the value of 123 because that's what gets
+returned from the function.
+Then you record the end time so the terminating time once again I just did time that time and then you
+can for example print out some diagnostic information so you can print for example the name of the function
+that we just called so we can say func dot underscore underscore a name but obviously in curly braces
+func underscore underscore a name like so and then we can say that this function took so many milliseconds
+and to calculate the milliseconds I will do an int conversion where we basically take and minus start
+and that's it milliseconds so we multiply it by a thousand will turn it into an integer for easier readability
+and I say this is how many milliseconds the function actually took.
+And then we can also return the result because that's the result of the the invocation.
+So here what we can do is we return the wrapper.
+And therefore what happens is time it is actually a function that returns a function so a time it takes
+whatever function you give it.
+It builds this wrap her around it and the wrapper just does time measurement and calls the function
+as the underlying and returns the result of that function and it returns that wrapper.
+So now what we can do instead of just calling some of is we can construct this object.
+So essentially we can say that we're going to time it here.
+The argument is the function that we want to time in this case some up notice we're not putting the
+round brackets here.
+These are not required by just passing in the function and so time at some up just gives us a brand
+new wrapper function which we then call with no arguments.
+And this way we can measure the time taken by some.
+OK so let's run this let's see what we get.
+OK.
+So as you can see what's happening is we are starting the operation and we are done with the operation
+and then we have this printout from the wrapper that we build saying that some up to 1000 milliseconds.
+So in python what you get is you get special syntax to apply this entire wrapper to the function every
+time it gets called.
+So what if we want to always apply time it to sum up.
+Well in actual fact you can have your cake and eat it too because this is done using Python's functional
+decorators and what you do is you put the add symbol here followed by the name of the wrapper.
+In this case it's called Time it.
+So this is a python decorator.
+This is essentially a function which wraps this function and performs the appropriate operation.
+So now if we go ahead and if we run some of what you're going to see is you're going to see exactly
+the same output.
+So we are starting the operation we are done.
+And then the printout from the wrapper occurs.
+So decorators in Python.
+Very useful for performing something around a function.
+So you take a function or indeed a method and what you do is you use the decorators to actually say
+perform some initialization code perform some termination code even store some values if you want.
+So it's a built in mechanism in the programming language and a good example of how design patterns can
+actually creep right into the language design.

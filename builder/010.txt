@@ -1,0 +1,18 @@
+All right so we're going to discuss the builder pattern next.
+And first of all what is the motivation for using the boat a design pattern well we know that some objects
+that we work with are typically quite simple to create and they can be created in a single initialized
+call you just call it and you're done.
+That's it basically.
+But we sometimes encounter more complicated objects which do require a lot of ceremony to create which
+means that you have to build up the object in stages.
+And it takes a lot of time and you might be tempted to create a very large initialize.
+But to be honest having an object with let's say 10 different initialized arguments is really not productive.
+So instead what we do is we opt for peace wise construction.
+So instead of getting the entire object initialized with one very massive call to an initialize are.
+What happens is you call different methods of a special component called the builder which actually
+allows you to do that.
+So essentially the builder is a component which provides an API for constructing the objects step by
+step.
+Here is the formal definition of a builder.
+So when piece Y's object construction is complicated the builder actually provides an API for doing
+it succinctly and we're going to see how exactly that is done in the next lesson.

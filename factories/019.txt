@@ -1,0 +1,11 @@
+All right so let's try to summarize what we've learned about factories.
+So first of all we looked at something called factory method which is a method typically a static method
+that is capable of creating objects.
+Then we talked about the general idea of a factory as just any entity that can take care of object creation.
+Typically when we talk about a factory we'll talk about a class but that's not necessarily the case
+for example if you have a method and that method takes a lambda that creates objects.
+Then you have a factory wrapped as a little anonymous function.
+We also talk that a factory is a separate class can either be external so it can reside as a completely
+separate entity or you can actually put it as a nested class inside the class which it actually creates.
+And finally we looked at hierarchies of factories that can be made to correspond to hierarchies of types
+and can be used to easily create related objects.

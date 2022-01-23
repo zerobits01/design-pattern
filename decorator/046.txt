@@ -1,0 +1,21 @@
+All right so let's try to summarize some of the things that we've learned about the decorator or design
+pattern.
+So we saw that a decorator is typically a class that keeps a reference to the object it actually decorates.
+And then what it does is it adds a certain utility methods and attributes to basically increase the
+set of the objects functionality without modifying the underlying object without going into the object
+and actually changing the original class's source code.
+You have an extra class which performs those additional operations you may or may not forward the calls
+to the decorator to the underlying object.
+This is really up to you.
+And I've shown you some of the ways that you can do this some of the ways that you can automatically
+set it up so that whenever you try to access a particular member of the decorator provided you allow
+this it can actually go to the underlying object and call that method for example or get that attribute
+from the underlying object.
+We saw that the processing of those calls can be done dynamically as opposed to just copying every single
+method by hand and replicating it because that is rather tedious.
+And we also looked at a kind of parallel reality we look at Python's functional decorator is now these
+decorators are not directly related to the Gang of Four Decorator pattern because that is typically
+a pattern related to classes.
+But we do have this idea of a functional decorate or a wrap or basically a function that simply wraps
+an existing function and that is something that Python provides intrinsically via the use of decorators
+and we have looked at how to write those decorators and how to apply them to existing functions.

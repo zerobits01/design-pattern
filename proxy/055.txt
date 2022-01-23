@@ -1,0 +1,70 @@
+One of the simplest proxies that people build is a protection proxy now a protection proxy is basically
+a proxy class that controls access to a particular resource.
+So let me show you how this can work.
+Let's suppose you have a car.
+So you have a car and you also have a driver.
+So let's start with the driver.
+Let's suppose that we just initialize the driver to specify their name and age.
+And I'm just going to have these attributes like so and then you define the car.
+So you say that whenever there is a car instantiated you have to specify the driver of the car.
+And then let's suppose that you have a method called Drive.
+So you have a method called Drive in here which is going to print that the car is being driven let's
+put the f in here so that we get the get the formatting cars being driven by and then self drive her
+adult name.
+There we go.
+So this is a scenario that we can already use.
+So here we can set up a car.
+Well first of all we can set up the driver.
+So driver equals driver John age 20 and then we can set up the car.
+So car equals car with the driver.
+No one can say car drive and this gets the car to go somewhere and if I run this you can see that the
+car is being driven by John.
+OK.
+So far so good.
+So what we can do now is we can for example decide that we want age control so we don't want to allow
+people who are too young to drive the car.
+Now one option as always would be to go back into the drive method and modify it so that it checks for
+the age.
+However that violates the open closed principle because you're not supposed to be modifying things which
+are already working.
+So it's suddenly a possibility to go back into the drive method and in some scenarios that's exactly
+what you would do if you want to add additional functionality but if you are the if you're already committed
+to using the underlying car functionality and you don't want to modify this functionality necessarily
+what you can do is you can build a proxy which simply changes the semantics of the drive method while
+having the same interface as before.
+So that's what we're going to build here.
+So we're going to build a car proxy and this car proxy is going to act in a similar fashion which means
+we need the same interface.
+So we need the same initialize it which takes a driver and here we do two things.
+So first of all we add the attribute for the driver as before but in addition what we can do is we can
+construct the underlying car right here in the car proxy so we can say some doubt car equals car and
+provide the car the driver.
+So here we specify it fully initializing car effectively that we can keep behind the scenes.
+Now in a full on to keep it behind the scenes we can also make it somewhat less accessible by putting
+an underscore in here.
+That's kind of a hint that you shouldn't be accessing this car directly you should only be using it
+through the proxy.
+And now what we can do is we can define the drive method once again but this time around what we're
+going to do is we're going to check the age.
+So if self-doubt driver dot age is greater than or equal to 16 then everything is OK.
+The this person can drive the car.
+So we say self-doubt on this score card drive.
+Otherwise what we do is we print some sort of error message.
+So we print driver to young Yeah we go.
+OK.
+So now coming back to our code here what do we have to modify to get this proxy to work.
+Well in actual fact the only thing we modify is this.
+So instead of using the car we use a car proxy.
+But apart from that no other change in code is required.
+And we can run this and for now we're getting the same result obviously because John is 20 but less
+modified and that's put twelve here and that's rottenness.
+And now we're getting a different message we're getting a message of the driver is too young.
+So essentially a protection proxy is a proxy which is used for access control.
+So it's it adds various access control functionality.
+For example you can have a proxy that checks that the user has logged in in order to be able to use
+that particular feature.
+And that's something that you can add after the fact.
+So you've designed the underlying system but then you want to have additional functionality.
+And so you build a proxy on top of that maybe encapsulating the underlying object as an attribute as
+we've done here and then expose the same API or indeed parts of the same API in order to get that additional
+functionality.

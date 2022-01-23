@@ -1,0 +1,70 @@
+You can also build a mediator using events as discussed in the observer pattern discussion in this course.
+Now in order to implement a mediator using events we're going to use the same event implementation that
+we used countless times before.
+So here it is in this case an event is basically just a list of functions that you can call whenever
+something happens.
+So now let's imagine that you are modeling a football game for example or soccer.
+If you're in the states so you have a game as a kind of central mediator and that game generates events
+that subsequently players and football coaches and the viewers can subscribe to and get information
+about something happening in the game.
+So here is the mediator itself it's going to be called game.
+And what we're going to do is we'll just have a single event and I'll call it events so that is kind
+of more global so let's define the initialize ends here.
+I'm going to say self-taught events equals event.
+So in this case anybody can take game thought events and simply subscribe to it and get some information
+about it and we'll have a utility method for actually firing the events.
+So here you specify a bunch of arguments and you say self-taught event events args.
+So this is how you actually sort of invoke the event and make sure that everybody who subscribes to
+this event actually gets the information and we can define what those args actually are.
+So for example let's suppose that I want I want information about a goal being scored.
+Since we're talking about soccer so here I'll have a separate class called goal scored info.
+So this is information about who scored the goal and how many goals they scored overall.
+So in a initialize it I'll just specify who scored and the number of goals they scored in this match.
+So let's keep both of these as attributes like so and then we can define a player so a player is obviously
+somebody who actually scores a goal.
+So class player is to the initialize are here will specify the name of the player and we'll also specify
+the actual mediator will specify the game that they are participating in so we'll store both of these
+but in addition what we're going to do is we're going to actually specify that they have scored zero
+goals so far as those self-taught goals scored equals zero and then we want some sort of method for
+actually scoring a goal.
+Def score I'm going to have any arguments here so first of all we increment the number of goals scored
+so we say self-taught goals scored plus equals 1 and then what we do is we generate this goal scored
+info structure and then we send it off to the events so that every subscriber actually gets a copy of
+this information so we say args equals goals scored info where the name of the player who scored this
+self-taught name and the number of goals scored these self-taught goals scored and then what we do is
+we say self-taught game so we use the mediator we fire the event only mediator and that event is args
+that's the structure that we've just set up now who cares about the player scoring the goal.
+Maybe the football coach does maybe the football coach wants to congratulate the player on the goals
+scored but only up until their second goal so when they scored their third goal maybe the coach isn't
+impressed anymore so let's define a class called Coach So in the initialize that the coach is going
+to just reference the game and all they need to do all they need from the game is they need a subscription
+they need to subscribe to the Games events in order to celebrate that goal.
+So we say game that events don't append self celebrate goal.
+So we need to define this method celebrate go which I'll define right here.
+So celebrate goal takes ARGs and remember args relates to the goals scored the info in this case.
+So that's what we can first of all check because remember args can be something else it can be something
+different something other than a goal scored info maybe a player got sent off him we would have a player
+send off info so here we would say if is instance so if args is an instance of goals scored info and
+by the way we need an import for this why do we need actually hold on.
+I'm just misspelling things probably is instance yeah I forgot a letter here.
+So if args is an instance of goals scored info and args dot goals scored is less than three let's put
+a backslash in here then we can actually congratulate the player.
+So then we can print something like coach says well done comma and then args who scored.
+So we find out who exactly scored and congratulate them.
+That's pretty much all there is to it.
+Now we can try this whole setup.
+So here in Maine what I can do is I can make the game first of all I can make a player let's call him
+Sam.
+And here we specify the mediator for the overall scenario.
+We also make a coach.
+Once again we provide the mediator so that the coach can subscribe on the events and then we can try
+scoring we can say player or score and let's do it three times like this.
+So when I run this you can see that we get two lines of output so the coach congratulates Sam on scoring
+twice on the third run.
+Remember we're checking that the number of goals scored is less than three so on the third goal the
+coach is no longer impressed and he doesn't congratulate the player.
+So this has been an illustration of an implementation of the mediator pattern by using events by basically
+making our centrally available component which is in this case called game that has been injected into
+both player as well as coach and then of course what we do is we use the events to subscribe to some
+things happening in the game and we can handle them like in this case we can handle them by celebrating
+and goal for example.

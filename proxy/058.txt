@@ -1,0 +1,8 @@
+All right so let's try to summarize what we've learned about the proxy design pattern.
+So we saw that the proxy has the same interface as the underlying object and to create a proxy you simply
+replicate the existing interface of an object and then you add the relevant functionality to the redefined
+member functions for example so that the behaviors you want are actually available on the proxy that
+somebody constructs.
+Now there are lots of different types of proxies and we've looked at some of them but essentially their
+range is unlimited.
+And there are lots of uses for proxies in the real world.

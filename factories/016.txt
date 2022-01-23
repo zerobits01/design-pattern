@@ -1,0 +1,106 @@
+All right.
+So the first implementation shall we say of the whole factory's paradigm that we're going to take a
+look at is called the factory method.
+Now here is a scenario that's very simple.
+Let's suppose you have a class called point.
+So you want to initialize points and to begin with you might want to have a very simple kind of initialization
+where you initialize a point from X and Y.
+So you say 7 X equals X and so y equals Y.
+Now if you just stay with Cartesian coordinates everything would be fine but let's imagine that you
+also want to add support for initializing this point.
+This is a Cartesian point but imagine you want to initialize it from polar coordinates.
+So one thing you could try writing is something like the following.
+You could try writing in it and then writing a row and theta and performing the conversion here.
+Unfortunately this is impossible.
+This is impossible because you've just read declared in it.
+And that's just not going to fly.
+So how can you how can you fix this problem.
+Well one problem is to just expand the constructor just change the initialize error so that you can
+actually initialize the point using either coordinate system.
+But this all this requires you to make quite a lot of changes so first of all you have to introduce
+some sort of indicator for which coordinate system you want.
+So you might want to say for example coordinate system in using an in out for this and you define a
+coordinate system so Cartesian that polar.
+And then of course you can no longer take x and y you have to give them names which do not hint at which
+coordinate system you're using so you call them A and B but you also need the third argument which defines
+which system you're actually using.
+So here you would say system and you can initialize it with coordinate system not Cartesian for example.
+So this initialization gets removed and we do it differently so if we say if SYSTEM IS EQUAL TO COORDINATE
+SYSTEM Cartesian then we do self X equals X and or a rather.
+Notice I tried to type X there is no X self Y equals B otherwise what we do is we perform the actual
+coordinate conversions.
+So if system is equal to coordinate system does polar let's try again polar like so then what we do
+is we perform the conversion so we say s x equals a multiplied by sine B.
+And for that we need the math stuff.
+Some math import everything and the same goes for y self Y equals B K times cosine of B something like
+that.
+So that actually could be the other way around.
+X is the cause and y is the sine but doesn't really matter.
+I'm just demonstrating things.
+So we have a scenario which is particularly painful it's particularly painful because imagine you introduce
+another coordinate system what you would have to do is you would have to change the enum here so you
+would have to have another member of the unit.
+But in addition you would also have to have another check inside the constructor kind of breaks the
+open closed principle in a way and in any case what's happening.
+It's not so much the open closed principle does the problem is the fact that these things are called
+a and b that you have to somehow figure out that a maps to X and B maps to Y when you're doing Cartesian
+for example so it's all very inconvenient which is why instead of using the initialize that we do something
+different.
+So we sort of comment out the initialize it would decide that we're not going to use it.
+Instead what we do is we make factory methods and factory methods allow us to be explicit about what
+kind of point we're initializing where whether we're initializing from Cartesian coordinates or from
+polar coordinates.
+So what I can do is I can first of all have just an ordinary initialize there which initialize is the
+x and y value so we can sort of go back to the original in a way we can go back to the situation where
+we had the initialize it with X and Y where we say s x equals X and self Y equals Y or we could for
+example get rid of them and initialize both of these to 0 for example to subsequently be customized
+it doesn't really matter.
+The point is that we're going to provide the client a new API for actually creating points so for a
+new Cartesian point you can have a static method defined as follows You can have new Cartesian points
+which takes x and y and obviously here you return the point which just initialize as those things with
+X and Y.
+Or alternatively you could have a factory method which makes a point from polar coordinates so let's
+call this new polar point.
+It's not actually a polar point it's still Cartesian point just gets initialized differently and here
+we specify role and Theta.
+Notice that it's a lot more understandable what's going on because we explicitly say that this is a
+polar initialization.
+The naming of the arguments here is correct.
+It's not a and b it's actually row at that which is very useful for somebody trying to understand how
+these map to to a point.
+So here we return new points with row cause theta and row sine theta.
+Sorry.
+That should not be and you hear a wrong programming language and that's pretty much it.
+So let me just show you how you would consume this whole thing.
+So instead of instead of just I mean you still have an option of having an Cartesian point so you can
+say people's points to karma 3 because remember we left this initialize it and since Python doesn't
+have a private initialize as all private anything properly there is no way for us to shield whoever
+is using it from using this approach.
+But in addition what they can do is they can use the factory methods.
+So here I can say P2 equals point dot new polling point for example and here I can say that we're going
+to have values of 1 and 2.
+For example for the initialization and while we can we can certainly print these if we wanted to.
+Let's actually define SDR here just so that this demo is complete.
+So I'm going to return x s x and y self Y's and now coming back here we can print P and p2.
+Let's actually run this.
+Let's see what we get.
+So as you can see the ordinary Cartesian initialize this stuff is OK but but this this thing is also
+fine in the sense that the conversion has happened and we did the right thing here.
+So the kind of modern naming if you will the modern explanation of what a factory method is.
+It's typically any method which creates an object.
+That's it.
+So what I recommend is you don't try to read too much into some sort of special meanings that factory
+methods typically have.
+So a factory method is an alternative to initialize.
+That has lots of advantages.
+So for example you can you have good naming.
+So you have a better name than in it.
+You have new Cartesian point it tells you what's going on.
+You have better naming for the arguments because you can name them whatever you want obviously.
+And generally it's just a convenient way of creating objects when it's not exactly obvious how to create
+them because otherwise what you end up with is you end up with massive constructs.
+So once again this is kind of like God object but for initialize this you end up with an initialize
+that takes like ten arguments and you have to be really explicit in the documentation about how these
+arguments can be assigned and what's not.
+You don't really want this instead you want these tiny little static methods that just initialize the
+object for you.

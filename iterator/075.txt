@@ -1,0 +1,15 @@
+All right so let's try to summarize some of the things that we learned about the iterator design pattern.
+So an iterator basically specifies how you can traverse a particular object and state for either eight
+hours as we have seen.
+They have a few problems.
+And one of those problems is they cannot be recursive.
+So you need to always be able to navigate from the current state to the next state.
+And there is really no way for you to kind of recursively call that procedure because essentially as
+soon as you found that particular state you stop the execution and then you have to resume from that
+particular point so you cannot persist any kind of extra states which would help you go to the next
+element.
+For example you cannot stop yourself in the middle of an iteration yourself if you have a list you cannot
+stop in the middle return the current element and then resume the iteration from that element that's
+simply impossible.
+But luckily for us we have an entirely different mechanism using the yield keyword and this allows for
+much more succinct and much more understandable implementation of the iteration process.

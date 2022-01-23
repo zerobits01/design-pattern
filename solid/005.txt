@@ -1,0 +1,103 @@
+So now let's talk about the third of the solid design principles and this principle is called the LISKOV
+substitution principle named after Barbara Liss golf and the idea is very simple.
+The idea is that if you have some interface that takes some sort of base class you should be able to
+stick a derived class in there and everything should work.
+Yeah I know it sounds a bit cryptic so let me show you an example it's actually going to be a bit convoluted
+because I'm gonna make a class that's called Class rectangle.
+So I'm going to model a rectangle but I'm going to model it slightly differently than just by using
+attributes.
+So I'll have an initialize error where we have width and height.
+So here I will assign these but do it in a slightly different way so what I'm going to do is I'll put
+on this course in front of both of these.
+So these are going to be kind of like private in the sense that you shouldn't really be touching them.
+And then what I'll do is I'll actually implement the width and the height as properties as opposed to
+just exposing attributes.
+So this is what it will look like something like the following.
+So we have the getter for the width the Center for the width and the same goes for height as well.
+Why am I doing this.
+Well I want to show you a particular kind of side effect of breaking the liskov substitution principle
+using inheritance.
+But before we do that there's a couple of things that I want to set up.
+First of all I want to make yet another property for calculating the area of a rectangle.
+So this will be a property called area
+so return self on this call with multiply itself on the scale height.
+And we'll also have some string representation.
+So Def SDR return.
+Let's just say width is self width actually let's do this like so without the way it doesn't really
+matter either way and then height is going to be self height as well use the properties as opposed to
+the attributes.
+So having defined this rectangle we can build some sort of method for example or some sort of function
+for actually using that rectangle.
+Let's call it.
+Use it not very imaginative I know.
+So here is the rectangle are.
+And so here's what we're going to do.
+First of all we're going to save the width of the rectangle so I'm going to say W equals RC the width.
+Then I'm going to set the height of the rectangle.
+So I'm going to say ah see the height equals ten.
+And then what is the expected area of this whole thing.
+Well clearly this is the width and this is the height.
+So the expected area is w times ten expected equals w.
+Times 10 turn it into an end.
+OK but we might not exactly get it in whole situation so first of all let me point something out.
+So I expected an area of expected but I got ah see the area.
+OK.
+So let's see if we can actually use this.
+Use it function with a rectangle RC equals rectangle two comma three.
+Use it.
+Ah see.
+There we go.
+Let's actually run this let's see what we get.
+Okay.
+It looks like our code is working correctly we expected an area of 20.
+And we got exactly 20.
+Now let's go through the steps that made this possible so first of all we got the width of the rectangle
+and the width was two and then we set the height to 10.
+So that became too width 10 height two times 10 and cause 20.
+And that's what we have expected area of 20.
+Got there 20.
+Everything is good.
+But now let me show you how we can break the liskov substitution principle by making a derived class.
+So making a class which inherits from rectangle which absolutely does not work with this method which
+absolutely breaks this method and in the process you'll see why I chose to use properties as opposed
+to just attributes.
+So what I'm going to do is I'll make a new class now called Square.
+The square is a rectangle.
+So we'll use inheritance and then we'll just define different form of initialization because you don't
+need the within the height in the square the width is equal to the height.
+So here we just specify the size and then we can say rectangle in it and we can specify size twice for
+both the width and the height so far.
+Everything is OK.
+But what I want to do is I want to make sure that whatever happens the square is a square.
+Meaning if somebody changes its width the high should also change and vice versa.
+So here I'll define a new setter for the width property.
+So we'll have self and value here.
+I'll say self on this call with equal self on this call height equals value.
+And of course let's not forget to decorate this.
+So this is going to be a rectangle dot with DOT setter and the same goes for the height.
+So you just copy this and paste so here instead of with your old half height and the name should be
+height as well OK so the code looks very innocent.
+We are just trying to enforce the invariant by making sure that whenever somebody sets the height they
+are setting both the width and height at the same time.
+Unfortunately this breaks the liskov substitution principle.
+Let me show you how if I make a square with a size five I can call use it with a square.
+But let's take a look at the output oh we expected an area 50 m we got a hundred.
+So what is the problem here.
+Well the problem is in this line of code so you see our DOT height equals 10 has the unfortunate side
+effect of also changing the width so the width that we cached here is no longer valid.
+It's no longer the with that you'd expect but the kind of higher level problem is that we now have this
+function which uses a rectangle which only works on a rectangle and does not work on any derived classes.
+And this is a direct violation of the liskov substitution principle which states that whenever you
+have an interface taking some sort of base class you should be able to stick in any of its inheritors.
+So if you take a rectangle you should be able to stick in a square in there and everything should work
+correctly.
+Now as to how to correct this particular problem in this example it's really up to you personally my
+argument would be that there is no need for a square class in the first place.
+There's simply no need for it.
+If you want to have a square you can have some sort of boolean property on the rectangle telling you
+whether or not this is a square you can have a factory method.
+We'll talk about those which would make a square instead of a rectangle.
+There are lots of ways of actually handling this situation but making a separate class in this case
+might not be the best idea.
+Or if you do want to make it then you suddenly want to avoid things like these because ultimately it's
+these setters which directly violate the liskov substitution principle.

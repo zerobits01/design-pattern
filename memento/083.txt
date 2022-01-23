@@ -1,0 +1,6 @@
+All right so let's try to summarize what we've learned about the momento design pattern.
+So we saw the mementos are used to roll dates arbitrarily.
+A memento is quite simply a token or a handle class with typically no functions of its own they just
+store is a piece of data and allows us to roll back to this data.
+The memento itself is not required to expose this state to which it reverts the system.
+And then we can use the momento to implement for example the undo and redo operations.

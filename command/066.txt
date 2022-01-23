@@ -1,0 +1,240 @@
+In the previous lesson we looked at how to implement the Command pattern on a bank account.
+How to get the bank account to process commands and how to undo commands as well.
+Now if you think about a typical operation involving two parties let's say two bank accounts.
+Let's say you want to transfer the money from one bank account to another bank account.
+The question is well how can you do this how can you orchestrate this.
+In the most in the nicest way on the one hand you could go ahead and just make two commands so you make
+one command for the withdrawal from bank account one and another for depositing to bank account too
+and that should that should work to some degree.
+But this isn't so good once again because of failure.
+So let me let me show you how this can fail in a very primitive kind of setting.
+So what we're going to do in this example is instead of writing a script what we're going to be doing
+is we're going to be writing tests so I'll have a class called test suite which is going to use unit
+test test case and we're actually gonna be writing tests so we'll be writing tests for making sure that
+the transfer command that we're about to build actually works.
+OK.
+So the first test that we're going to do is just to just to try and run the commands one after another
+and see what the what the result is and we'll try to put them together into some sort of composite construct
+for us to use.
+So the test is going to be taught called Test composite deposit and what we're going to do is we'll
+just.
+Well to begin with let's just try doing two deposits into a bank account so we're not going to deal
+with a transfer yet we're not transferring money from a to b.
+We just want to perform to deposit but we want to perform them as a single command.
+So for this what you would build is you would build a composite bank account command.
+So let's let's actually build it up here.
+So a composite bank accounts command is essentially a list of commands but it is also itself a command
+and this is an illustration of the composite design pattern.
+So it masquerades as both a single command but it's actually a list of several commands.
+So in order to get this to actually work we need to implement the overall interface so let's put the
+initialize here in here first of all.
+So we initialize this this composite with a set of items that can be empty by default.
+And then what we need to do first of all is call the base class to initialize the whole thing and then
+we for every single item that is provided to us we just appended to ourselves.
+So for i in high items self doubt append high simple stuff so we add all the commands that are added
+to us and then whenever somebody wants to invoke so def invoke then we just go through every single
+command and we invoke it.
+So for x in itself we say X dot invoke.
+There we go.
+And for the undo if you want to implement undo we simply undo each of the each of the consistent commands.
+But we do it in reverse order because the last command that got applied has to be the first one to be
+undone.
+So here we define undo and we just say for x in reversed self and we go ahead and we say X don't undo.
+So this is how you can implement basically a composite command.
+So it is both a command as well as a list of commands.
+It has the same interface as can that.
+So it's very easy to use.
+Okay.
+So let's see how we can we can use all of this and actually get get our first test running so let's
+make a bank account Yeah.
+There's a bank account and we're going to perform two deposits.
+So deposit one equals bank account command and here bank account come out.
+The action is deposit so bank accounts command thought action deposit and the amount is let's say a
+hundred and let's duplicate this and have another deposit so we'll duplicate this and we'll have deposit
+to where the amount might be.
+I don't know 50 so we expect the final value to be 150 after all of the commands are complete.
+Okay.
+So what we do now is we initialize the composite commands so a composite is a composite bank accounts
+command where we simply provide the list of commands which is deposit 1 and deposit 2 and we invoke
+this command.
+So we say composite invoke here what we can do is we can print the bank account and then we can try
+undoing the composite composite dot undo and print the bank account once again.
+So this is a fairly simple unit test.
+Let's actually run this and let's see what we get here.
+Well we would run this as soon as we actually provide the appropriate implementation.
+So here we call unit test main what do we provide here as the arguments come recall.
+Was it empty.
+Yeah.
+It works with just empty arguments.
+Okay.
+So as you can see all of the tests pass and we we see good results.
+So we deposited 100 balances 100 and we deposited 50 balances 150.
+So everything is okay.
+And then we undo.
+So we undo the 50 first of all.
+And we get to a balance of 100 and then we under the 100 we end up with a balance of zero.
+So everything is working so far there's absolutely no problem.
+And we can already start thinking about maybe transferring money from one account to another but it's
+going to be somewhat tricky.
+So let me show you a scenario.
+Failing in actual fact scenario where you might just try to build a composite out of a withdrawal and
+a deposit and kind of see it work.
+So let's have two bank accounts.
+I'm going to define that new test test test transfer fail so this one is going to fail.
+So we'll have bank account one that's gonna be a bank account with a hundred dollars in it and we'll
+have bank account too which is going to be empty.
+So zero dollars on this account.
+And then we want to perform the transfer but we want to perform it as part of this composite arrangement.
+So we'll have it as a withdrawal command and a deposit command as well.
+So the let's specify the amount we want to transfer.
+Let's say we want to transfer 100 to begin with.
+So the full amount from bank account 1 is going to go into bank account too.
+So let's make the withdrawal command.
+So this is where we make a bank account command.
+And this one operates on a one of the bank accounts command action his withdrawal and the amount is
+obviously amount and then the deposit command B.C. is going to be a bank account command of where we
+specified a to as the as the account and we specified bank account commando action deposit and specify
+the amount as well.
+So now we can define the transfer.
+So the transfer is a composite bank account command which takes a W withdrawal command.
+I wanted it WC and the C WC and C so this is the transfer command we can invoke this command transfer
+not invoke.
+So we call on it we can now print the state of the bank accounts.
+So let's do that.
+So we'll print B A 1 A 1 and b 2 2 and then let's try undoing this command.
+So transfer that undo.
+So we tried to undo the whole composite command and we can just copy of this and see what the what the
+state is right now.
+So once again let's let's run the whole thing.
+This is going to run every single test unfortunately.
+So we get to see far too much data.
+But the part that we want is obviously the part of the bottom of this part.
+And if you look at it you'll see that in actual fact everything everything is fine everything is absolutely
+fine.
+So we withdrew all 100 and the balance is zero and then we deposit one hundredth.
+So the balance is one hundredth on the new account.
+So after all the operation.
+So this is the line you should be looking at after all the operations.
+The balance on the first account is zero.
+The balance on the second account is one hundred.
+And when you undo they all go back to normal the first balance is 100.
+The second balance is zero.
+So you might be wondering well hold on didn't you just say that this entire test is going to fail.
+Well in actual fact yes it is.
+Because imagine you're trying to transfer amount of money that you don't have in the first account.
+What do you think would happen here now in the previous example we had the success flag.
+But unfortunately now the success of the first command has to be implicitly tied to the success of the
+second or everything is going to fail.
+And unfortunately this is not implemented yet.
+So when I run this when I run this you'll see that after the change that is performed the balance on
+the first account is 100 then the balance on the second is 1000.
+That's not very good is it.
+Because there's obviously nobody actually took the 1000 because there's no way to take it from.
+So why would it be 1000 then the answer is very simple that we simply performed an operation that seemed
+seemed sensible.
+But really we didn't have the money to take.
+So the first operation failed WC failed and therefore the second operation the deposit should have failed
+as well so there should be some kind of tie in between those two commands somebody should have maybe
+check that there is a dependency between the two come out.
+So the question is Well how do we now implement this.
+Well we have to go back into our definition of command and this time round we have to give it a an attribute
+for success.
+So instead of just putting it into bank account command which is what we did right here what we're going
+to do is we're now going to put it into the base now.
+So let's get rid of it here and let's put it into the command itself.
+So here in command I'm going to define and initialize it and here I'm going to say so that success equals.
+Well let's put it to false.
+Let's assume that a command has failed unless we have explicit proof that it succeeded.
+So now what happens is in the constructor you have to add the superclass call and if you don't then
+your I.D. will probably complain to you that you are forgetting to do that.
+So it's good that we have ideas to remind ourselves of this.
+And now we need to actually make use of this inside all of our composite command.
+So we're going to build a special command.
+We're going to build a money transfer command.
+Now this money transfer command is going to be slightly more sophisticated than just the composite bank
+account command.
+It's going to take it to a whole new level by tying in the commands together.
+OK.
+So I'm gonna have a class called money transfer command.
+It's going to inherit from composite bank accounts command.
+There we go.
+Okay.
+So the initialize there is going to be quite interesting because we specify the from accounts.
+So that's the account from which we're taking the money with specified to account and we specify the
+amount that we want to transfer.
+Now here comes the interesting part since we're inheriting from the company bank account command and
+that takes the initialize it takes a list.
+We can simply do a super call where we call in it providing that list.
+So here is the list and now the list has to have two bank account commands and one for the withdrawal
+and one for the deposit just as before.
+So here I'll have a bank account command
+so from account and then let's let's have the action.
+So bank accounts command action don't withdraw.
+So we want to withdraw the amount from the first account and then we want to deposit it to the second
+line.
+So bank account command to account our bank account command action deposit and we deposit the appropriate
+amount into the second account.
+So it might look like it's just like the use of the composite that we had previously but I'm going to
+do a trick I'm going to override the invoke method and I'm going to do something different here.
+So let's define invoke.
+OK.
+So now I'm going to have a flag called OK which is going to tell us whether the previous operation actually
+succeeded.
+Now I'm going to say it's true by default and then we're going to go through every single command inside
+ourselves because remember we're still a composite.
+We're still a composite bank account command.
+We'll go through every command.
+So for CMT itself and we're going to do the following if everything is okay if everything is okay then
+we continue invoking the combat.
+So we say CRM the adult invoke and then we said OK to the success of this command CMT that success remember
+we added success at the command level now.
+So it's easier to access.
+Otherwise we don't do anything.
+We don't invoke the command because something obviously went wrong and we simply say See I'm the adult
+success equals force because obviously something failed here.
+So this is how you would set up the money transfer command that we can now write yet another test.
+So let me let me actually commentate these tests so they don't they don't particularly annoy us and
+I'm going to write a new test which is going to actually show a much better transfer.
+So that test and better transfer now.
+OK.
+So I'll make two bank.
+So be a one is going to be a bank account with a balance of 100 B A two is going to be a bank account
+with balance of zero the amount I'm going to take is a hundred to begin with just to show you that it
+does work.
+So here is the transfer.
+So the transfer is a money transfer command from B a one to be a two.
+And the amount is the amount we specify then we perform the transfer.
+So transfer that invoke and then we can print the state of B one B two.
+Let me just grab it from here and I'll just paste it down here.
+We can perform the undo so transfer not undo and then print the state again.
+I can also print the success whether the operation succeeded so I can take transfer success and that
+will tell us whether the transfer actually succeeded or failed.
+So let's run all of this.
+And as you can see what happens here as we transfer from B one to be a two let's see what's going on.
+So we withdrew one hundred from B a one we deposited 100 to be a two.
+So everything is OK here.
+But for some reason we're getting this this weird false.
+So even though everything kind of went correctly where we're still getting the false here for the overall
+operation let's see what's going on because it might be there might be a problem somewhere in our in
+our processing of the whole thing.
+All right.
+So I think what we need to do is after the invocation succeeds or fails indeed we need to save it.
+And that's one thing that we didn't do.
+So here we would say some success equals.
+OK.
+So depending on whether this went right or wrong we would actually save this value.
+And now let's run this and that's much better.
+Now we have a true here.
+So this is basically a demonstration of how you would set up a composite come out which is sometimes
+also called a macro.
+So basically just a sequence of commands that you want to string together.
+But in the money transfer command I am demonstrating additional difficulties that you might have when
+setting up the composite.
+So if you want all the steps to succeed or fail then you have to perform additional steps like I did
+here so I introduced a flag here which tells us whether or not the whole thing has succeeded or failed
+and therefore when we perform the undo we actually don't mess up and actually I can prove it just putting
+1000 here instead of 100.
+Let's run this once again and you can see that here we have no change.
+So we start out with a balance of 100 and zero and we end up with a balance of 100 and zero and the
+value here is false because the operation couldn't succeed because there is no money to actually transfer.
+So this is how you implement the composite command design pattern.

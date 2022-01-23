@@ -1,0 +1,21 @@
+All right so let's try to summarize what we've learned about the composite design pattern so we know
+that generally objects can use either objects via either inheritance or composition and to be honest
+in this particular case in the case of the discussion of the composite design pattern we're more interested
+in composition.
+Now some composed and singular objects they actually need to provide similar or identical behavior.
+So there are situations where for example you want to be able to treat a group of objects using exactly
+the same interface as a single object.
+And in this case the composite design pattern comes to the rescue because this is what it's all about
+the composite design pattern allows us to treat both types of objects.
+So both scalar objects as well as collections.
+It allows us to treat them uniformly.
+Now Python supports iteration and iteration that's typically the main thing associated with something
+that's composite being able to iterate it from start to end.
+So in python you support iteration with the ITER method and there is also a base class an abstract base
+class called ignorable which you can use as a kind of additional guide to specifically require somebody
+to implement it or method.
+And then of course we resort to a simple trick of turning a scalar object into something that's it arable.
+And that is very simple when you go to implement the inner method of a scalar object you simply yield
+self.
+And that's basically all that you need to do in order to turn a single object into what's effectively
+a collection or at least something that masquerades to be a collection.

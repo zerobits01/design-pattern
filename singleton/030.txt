@@ -1,0 +1,16 @@
+All right let's try to summarize some of the things that we've learned about the Singleton design pattern.
+So we looked at different implementations of the singleton design pattern.
+We looked at the custom allocator which was a nice idea but unfortunately still ended up calling the
+initialize them more than once we looked at using a decorator and using a medic class I would say that
+the medic class is probably the nicest implementation that you can go for.
+Now we kind of graze through the process of laziness because in all of our implementations what we did
+is we just initialize the singleton on the first request.
+So whenever somebody actually called on the object we checked whether or not the instance has been created
+and if it hasn't been created then that's exactly where we created it.
+So at no point did we create the Singleton in a preventative fashion because that would be that would
+be unpleasant if you had the once again any kind of heavy workload in the initialize it for example
+that you didn't want to do unless it was actually necessary.
+We looked also at the Mona state variation the bizarre variation on the Singleton where objects appear
+as normal objects but they all map to a single dictionary.
+And finally we looked at the problems with the Singleton specifically issues related to test ability
+and how those problems can be solved as well.

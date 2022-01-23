@@ -1,0 +1,129 @@
+Okay.
+So you might have heard from many sources on the Internet the Singleton design pattern is bad that it's
+evil that it's an anti pattern.
+Even the authors of the original Gang of Four book when they met a decade later to discuss the design
+patterns they said that they would keep every single one except maybe the Singleton because its use
+is almost always a design smell.
+Well we're actually going to take a look at the problems with the Singleton as well as how those problems
+can be resolved.
+So here I'm going to be using the middle class implementation of the singleton and what I'm going to
+do is I'm going to build a class called database so the database is going to contain a number of capitals
+and their populations actually have a separate text file here so you can see that we have capitals like
+Tokyo and their populations.
+I didn't know Tokyo had 33 million but that's what we have.
+So first of all what we're going to do is we're going to load up the database.
+Now obviously this is something that you only want to do once.
+If you're loading the database into memory you don't want to do more than once because it's just wasteful.
+So I'll make a dictionary for keeping the population information I'm going to open the file count those
+that 60 open it for reading and then to grab all the lines.
+So after read lines and then for i in range say I'm going to jump over the lines with the step of two
+because it's city population city population.
+So for 0 to length of lines with a step of to what I'm going to do is I'm going to say itself has served
+up population at lines I don't strip so I'll use strips so that we can actually get rid of any extra
+characters in there.
+And here I'll have conversion to an integer lines at I plus 1 once again that strip.
+So we don't get any white spaces or anything.
+So this is good.
+Let's put a backslash here and we can close the file like so.
+So this is how you actually load up the database.
+Now let's suppose that you have a high level module which actually uses the database for something that's
+supposed that you have some sort of Singleton record finder.
+So this class is useful for going over the database and for example getting you the total population
+of several different cities.
+So here we have total population.
+So you specify the cities you want the sum population for and it gives you the results or results starts
+with 0 but then for c in cities what you do is you increase the result by database dog population at
+the appropriate city and then you return the result.
+So as you can see what's happening here is we're using the database by explicitly so we're calling it
+and every time we call it we get the same instance again and again because of the middle class which
+by the way we forgot to specify.
+So middle class equals Singleton.
+There we go.
+So now it will work.
+OK.
+So let's suppose that you decide to test the Singleton record frightened or you decide to write some
+unit tests which actually use the singleton record finder.
+How do you do it.
+Well let's.
+First of all set up the whole unit testing thing.
+So first of all I'll have a class called Singleton tests which is going to be a unit test test case.
+So then I need some imports here.
+And let's first of all write a test to make sure that it is in fact a singleton.
+So Def test is Singleton.
+So I'm going to make two instances of database TV and VB 2m and I'm just going to assert that they're
+equal DB 1 and VB 2.
+OK.
+So I'm gonna run the tests on the command line so that you can see them.
+So here in Maine I would just say unit test the main and we can run this.
+OK.
+So the test passes we get an OK.
+So far so good.
+So what's next.
+Well next we might want to test the total population thing actually works.
+So test Singleton total population.
+OK.
+So we want to make sure that the total population calculator from the Singleton record finder actually
+works so we make a record fine or we say Singleton record finder.
+And now the question is what what data do we test it with.
+And unfortunately at the moment what's happening with the Singleton record finder is it is directly
+tied to the database.
+So if you want to run a test on it we need to take some data from the database and use that data to
+actually test.
+So we go into that capitals we look at two cities for example Seoul and Mexico City and we take their
+population so seventeen point five million seventeen point four million and we make sure that if both
+of those are fed into the Singleton record find that then the total population is what we expect it
+to be.
+So we say names equals Seoul as well as Mexico City and then we get the total population.
+So T.P. equals record find dot total population of names.
+And then what do we expect the value to be self assert equal.
+We expect the value to be seventeen point five million so seventeen seventeen point five million.
+Got to be careful with the zeros plus seventeen point four million.
+And that's what we expect the value of DP to be.
+Now this is a reasonably valid test.
+And if we actually run this let's actually run the whole thing.
+So now we ran two tests everything is okay.
+So obviously this test passes but there is a huge massive problem with this whole approach and the problem
+is that we're testing on live data we're testing on a live database.
+Now why are we testing on a life database.
+Well because the singleton is forcing us to because here we have a database here we have a reference
+to the actual database that is a live database it could be running in production right now.
+So obviously this entire approach with a singleton is dangerous.
+What we need to do is we need to be able to inject this value and we need to be able to replace it so
+that instead of using values from a live functioning database which by the way can change because these
+values can change and then the test is broken so the test is a very brittle test but we want to be able
+to just feed in some dummy values into the dummy database and then use that instead.
+So how do we do this.
+Well we have a better record find that we have a configurable record finder so in the initialize there
+for the record find that you specify what database you want to operate upon and then you assign it self-taught
+DB equals DB If you want to if you want to actually use it in production here you can say database so
+you can say that the default implementation actually uses a life database but you can override it.
+It's really up to you how you want to do this.
+So we basically inject the database into the initialize and then of course when it comes to defining
+total population instead of being hard wired to use database here we just say self-taught TB that's
+the only change that you really need to do.
+What does this give us.
+Why does this give us an advantage in test ability well because now I can make a dummy database now
+what I can say is I can say here is a class called dummy database and a dummy database has predictable
+population values it has predictable value so for example I have alpha with a population of 1 I have
+data with a population of 2 I have let's say gamma with a population of 3 and this is in no way related
+to a real life database and then of course I can define get population
+for a given name where you simply return self-taught population at name and we can use this dummy database
+to write better tests because now what I can do is I can say well here in my test case I can say DDA
+B equals dummy database.
+So now I have a dummy that every single test can work with.
+And if I want to perform a total population test I can do it better.
+So let's call this one test dependent total population so instead of using a live database I can use
+this configurable record finder CRF equals configurable record fine I can feed it the dummy database
+DTV here and then I can perform assertions.
+So for example I can assert that if I take alpha and beta the total population is 3.
+So here I my expected value is 3 and I can do CRF dot total population with a list containing Alpha
+and Beta.
+Let me on and then this alpha and beta like so.
+And that is my expectation.
+We could actually run this whole thing and as you can see all the three tests pass but this test the
+dependent population test is a vastly superior test because it's not tied up to the Singleton in any
+way.
+So in this lesson what I've done is I've highlighted one of the weaknesses of a singleton that if you
+take a direct dependency on it like here then you are stuck with it.
+It should be possible to replace this dependency with something else by using in this case a value that's
+injected into the initialize or.

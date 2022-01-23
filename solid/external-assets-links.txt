@@ -1,0 +1,6 @@
+
+002 SOLID-Wikipedia-
+https://en.wikipedia.org/wiki/SOLID
+
+006 YAGNI-Wikipedia-
+https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it

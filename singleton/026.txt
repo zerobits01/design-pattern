@@ -1,0 +1,36 @@
+So one way of taking care of this problem of initialize is being called is to use a different approach
+to implementing a singleton.
+So in this lesson we're going to take a look at how to build a singleton using a decorator.
+So I'm going to make a decorator called Singleton which is going to take a class.
+And what we're going to do is for every single instance that we are asked for every single class we're
+just going to keep them in some dictionary instances equals empty dictionary.
+So the point here is you have some sort of get instance method which takes a bunch of ARGs and a bunch
+of keyword args.
+And the idea is that if a class that somebody requested is not in a set of instances then we're going
+to add it to the set of instances and then return that that class that somebody requested.
+So if the class is not in instances I should note is here.
+If class not in the instances what we do is we make it.
+So we say instances at class on this score equals class underscore and then we just call it with the
+arguments and keyword arguments and then we return it.
+So return instances have the class under score.
+So essentially we have a dictionary which basically takes care of whatever object wants to be a singleton
+it's just going to store its instance and it's going to return that instance whenever somebody wants
+to.
+And this approach obviously prevents the whole initialize or double invocation thing.
+So here in the decorator we return get instance.
+So that is what we need to return to actually build a decorator.
+And then we have a class let's say a classical database.
+That's the class that we want to make a singleton let's just add an initialize us so that we can prove
+that the initialize it doesn't get called twice.
+So here I'll print loading database like so.
+And of course we use the decorator.
+So we make it a singleton.
+And now we can test this.
+So now we can basically make the 1 equals database and replicate this and make D to a database and once
+again I can just for the sake of completeness print D1 equals D2 although as you can probably guess
+there's no way that they'll be different.
+So let's run this.
+And the key thing here is not just that we're getting true but also that we are loading the database
+only once.
+So initialize it doesn't get called several times which is what the problem with the previous example
+was.

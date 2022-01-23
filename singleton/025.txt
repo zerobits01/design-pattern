@@ -1,0 +1,48 @@
+So one very simple way of implementing a singleton in Python is by essentially rewriting the Allocator.
+So let me show you how this can work.
+So let's suppose you have some Singleton object like for example some database that you only want to
+load once what you can do is you can define or redefine rather the Allocator.
+So that would be the new method.
+And here of what you would do is you would basically check whether or not some static instance has already
+been created.
+So we make a static instance I'll stick it here.
+So instance equals none.
+So we check whether this instance has been initialized and if not we initialize it with the current
+object and whatever happens we return that same object.
+So I say if not CLSA dot underscore instance this means it hasn't been initialized yet.
+So we say see a less underscore instance equals super database see less and then we call you on it.
+So essentially we say dot new and here we specify once again the class the args and key what args.
+There we go.
+So this is how you would actually set the instance and then you would return CLSA dot on this for instance
+like so and that's pretty much all that you would need to do to make this Singleton by allocator.
+So essentially it would controlling the allocator here.
+So what does this give us.
+Well it gives us the following situation it gives us if I make a database let's say d 1 and I make D2
+like so then if I try to compare them to sort of check whether they refer to the same instance so the
+is D2 I'm gonna get a value of true.
+So this is maybe good enough for some people but this is only good enough assuming that you actually
+have nothing in the initialize it because as soon as you start sticking things into the initialize you're
+going to see problems you're going to see problems.
+So for example if I define the initialize it which by the way is called immediately after new you're
+still going to see several objects being initialized.
+So for example I can let's suppose we're loading a database from file loading a database from file.
+There we go.
+OK.
+So I run this and you'll notice that for some reason you're getting two of them instead of just one
+of them which is very sad and this is a byproduct of the fact that in it gets called immediately after
+new whatever happens.
+So you don't really you don't have any control of it unless you include some sort of guard in here inside
+the.
+In it to actually make sure that it doesn't.
+So these are distinct objects.
+So just to show you that both of these calls happen from distinct objects.
+Let me try to do it this way so if I get some idea of random dark random and from 1 to 100 let me actually
+import random here so I can print that random value sort of print I.D. equals and then the actual I.D..
+So if I do this just to kind of demonstrate and what's going on here one moment not attribute random
+end.
+OK it's rounded.
+There we go.
+So as you can see we'll get two ideas we'll get two different ideas so essentially this is a kind of
+halfway approach in the sense that yeah it does work.
+In the end you do get a reference to the same object but unfortunately the initialize is still get called
+which is probably not what you want.

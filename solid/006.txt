@@ -1,0 +1,118 @@
+OK so the fourth principle out of the solid design principles is the interface segregation principle
+and the idea once again is very simple.
+The idea is that you don't really want to stick to many elements too many methods for example into an
+interface.
+So let's suppose that you are trying to define some sort of machine for printing and scanning and faxing
+things and so on.
+So it might seem like a good idea to just define a single interface.
+That's a rather large interface and then let your clients kind of implement this however they want.
+So you go ahead and you make an interface called machine where you have a print method let's say you
+want to print some document and here you maybe you raise since this is a base class you might raise
+not implemented area for example and the same could go for any number of additional methods that you
+might want to implement.
+So for example if we're talking about kind of printing and scanning you might want to also have you
+know a fax seeing and scanning and whatever.
+So all of these things will be part of the machine interface.
+So the stick scan in here.
+OK.
+So this interface might seem like a good idea because well if somebody is making a multifunction printer
+then everything is fine.
+They need to actually have all of these and they need to implement them.
+So if you make a multifunction printer which is a machine obviously then what you can do is you can
+override the print the facts and the scan and you can give them meaningful implementations meaning that
+here here and here you can put in some code which actually does something.
+So that's OK.
+Now the problem is what happens when you want to make let's say an old fashioned printer old fashioned
+printer.
+Now remember we only have this one interface to work with.
+That is the machine interface.
+That's all we have to work with.
+So here we say OK let's let's implement this interface you go ahead and you actually jump into the implementation
+of all of these and then the question is What do you actually do with this.
+Because suddenly for printing an old fashioned printer can print so this is okay.
+So instead of this pass here what you can do is you can put in a meaningful implementation that will
+actually do something.
+The question is what about faxing and scanning.
+Because obviously an old fashioned printer cannot fax it cannot scan.
+So what do you put in here.
+Exactly.
+Well one approach is to simply just do nothing.
+So here we do absolutely nothing no operation here.
+But this is in and of itself problematic.
+Why is it a problem.
+Well because if somebody makes an instance of an old fashioned printer they're still going to see facts
+as an interface member and they could be forgiven for assuming that even though this is an old fashioned
+printer the fax method actually does something.
+So they end up calling fax and an old fashioned printer.
+There is absolutely no effect and then the clients or whoever is using this classic actually gets a
+big surprise because maybe they expected to actually send a fax using an old fashioned printer maybe
+there is a magical printer which knows how to send faxes.
+Who knows.
+So this is one alternative where you simply don't do anything.
+The other alternative is to just start complaining so you raise a not implemented area where you say
+for example a printer cannot scan this way if people run it.
+There they're going together naira obviously and this is something that maybe is OK if people are just
+writing small scripts and they can they could detect this area just by looking at the output of some
+console or other.
+But this is a much bigger problem if this is part of a large application and you have let's say a web
+server and somebody calls old fashioned printers scan as part of some web service transaction or something
+then it's really a problem because you're you know you're crashing your application effectively now
+you can be extra helpful here by providing additional comments saying this is not supported and whatever
+but it's still a problem because people are still going to see the API and they're going to think well
+this old fashioned printer might be old fashioned but hey I can see that it has a scan method so why
+don't I use it to actually scan something.
+OK so the idea of interface segregation is basically the following The idea is that instead of having
+this one large interface with several members in it what you want to do is you want to keep things granular.
+You want to split this interface into separate parts that people can implement.
+So if somebody wants to print something they can have interface called printer if they have a scanning
+functionality they can implement an additional interface called scanner so the implementation of all
+of this is fairly obvious.
+So instead of having this machine class you would have a class called printer printer and then you would
+have a print where you print the document.
+Let's just stick past it here.
+May as well decorated with with abstract method for example.
+So similarly you would have another class called scanner where you would once again have an abstract
+method called the scan.
+Well once again you take the document and so on and so forth.
+So if you want a fax machine or something else then you would have those as separate classes and now
+what you can do is you can actually combine these so you can combine just the parts that you need.
+So for example if you want just a printer.
+Let's suppose you just need a printer so you say class my printer my printer.
+And you just grab the printer interface and then you say well okay let's override this and let's for
+example print the document like so if you need a let's say a photocopier.
+So a photocopier is both a printer and a scanner.
+So here you can pick the interfaces so you have photocopier which has both a printer and a scanner.
+And here where you can do is you can just generate the the overrides for both the printer as well as
+the scanner and then you can fill them in two however you want.
+So for printing it with print for scanning you would scan and so on and the same goes for any other
+kind of Multifunction Device so if you want to Multifunction Device you would implement both printer
+and scanner and fax and whatever else that you actually need.
+But in addition if you really must have this kind of interface if you really want to have this interface
+available to the users so an interface which has both of these both print and scan and whatever else
+then you could have that as well too.
+So you can you can define it as an interface and the way you would do this is you would define something
+like the following.
+So you say class multi function device which has a printer and a scanner and you can have the facts
+here or whatever and then what you would do is you would simply override both of these methods but instead
+of just overriding them you would once again decorate them as abstract methods so you would go here
+and you would say that both of visa abstract methods.
+Now the upside is that if somebody does want some sort of multifunction machine.
+So let's say you have a class multi function machine you can say well this is going to implement the
+multi function device interface and then you already have the interface definitions up here.
+So you have a combination of the two definitions so you can for example go ahead and just just implement
+them like this or if you want to build let's say a decorator on top of both the printer and the scanner.
+Let's suppose you already have the printer in the scanner and you want to combine them somehow.
+You can for example build a decorator which we'll talk about when we come to the Decorator pattern.
+So here you will take both a printer and the scanner.
+You would simply stick them as attributes like so and then of course for printing you would simply say
+self-taught printer dot print document and the same goes for the scanner.
+So self-doubt scanner dot scan document like so.
+So the takeaway from all of this is that making interfaces which feature too many elements is not a
+good idea because you're forcing your clients to define methods.
+In this case which they might not even need.
+So an ordinary printer does not need to define facts it does not need to define scan and you don't really
+want either a scan or fax to appear as part of their interface so whenever somebody uses code completion
+you don't want those things appearing in there.
+So the interface segregation principle states that you should segregate these you should split them
+into the smallest interfaces you can build so that people don't have to implement more than they need
+to.

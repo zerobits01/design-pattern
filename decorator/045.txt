@@ -1,0 +1,95 @@
+So one of the examples that we saw previously was an example of a decorator around the geometric shape
+and the problem with that decorator was that the API of the decorator didn't allow access to the underlying
+shape.
+So even though the circle had a method called resize the circle decorators like for example color shapes
+didn't allow you access to resize that shape which was a bit annoying.
+So the question is how can you actually implement this.
+Now one approach will of course be to replicate every single interface member inside the decorator but
+that's not really practical.
+We want something that's a bit more automatic.
+So here I want to show you an example where that's exactly what we're going to do.
+So what we're going to do is we're going to write a decorator around the idea of a file so a file can
+be written somewhere.
+And whenever you write several lines to a file we want to perform additional operations like for example
+do some logging.
+So I'm going to call this class file with logging.
+I'm going to initialize it with the file and I'm going to store that file in an attribute and subsequently
+I want to treat file with logging as if it were a file.
+This is important.
+And in order to do this I want to.
+Well typically you would have to redefine every single method on file and have it be proxy Dover to
+self file.
+But we're only going to do one.
+So we're going to do a method called write lines which takes a bunch of strings and that's where I want
+to perform certain logging after the underlying operations.
+So what I want to do is I obviously want to use the underlying that would be self-taught.
+File dot whatever.
+Just just write the lines one after another.
+So write lines strings.
+But afterwards I want to perform some logging so for example I want to print how many lines I wrote.
+So I wrote length and that should be an F string.
+So I wrote length of strings files or lines rather.
+That's how I would implement this.
+Now what I'm doing here as I'm trying to get the file with logging class to masquerade as if it were
+a file and it's not a file but I want all the requests all the attribute requests to basically be redirected
+into the into the underlying file.
+So how can I get this.
+It's actually rather easy because what you do is you override the get a TR said 83 are in Delhi TTR
+members to actually point into that file that story.
+So in the case of the getter get a TTR I have the idea generate the signature for me what I'm doing
+is I'm calling get ATP are but the dictionary I'm getting is the dictionary of that file so I'm saying
+self-taught underscore on the score dictionary for the file that I'm storing and specifying the item
+that I actually want to get a similar thing for the setter except well in the case of the Center for
+example I can determine whether or not I do want to actually access the underlying because maybe I want
+to change the underlying file handle in which case we can perform additional checks here so I can say
+set ATP are and what I would do here is I would first of all say that well if a key is equal to file
+then obviously all we are trying to access the file trying to override the file handle.
+So here I would say self underscore dictionary by key and just set the value.
+Otherwise what I would do is I would go into the file obviously so in the else clause I would say something
+like said a TTR.
+And here I would get the dictionary of the file the file value and just to set the name there.
+So this is how this would work although this has to be called key in the generated code.
+And similarly for the delete her of course.
+So here I can say def Dell a TTR and here I can just delete the attribute of whatever it is that's on
+the file so self on the score on the score dict with the file and just specify the item here.
+So this is how you proxy over most of the things the other two things that are probably worth adding
+are the iteration and next methods because they are obviously also going to be sent over to the file
+and it's very convenient to have them work as well.
+So what we're going to do is we're going to define ITER and here I'm just going to say self that file
+dots ITER
+and same goes for next.
+So here I I'm just going through its own self-doubt file and what's next.
+Like so.
+So now that we've got this set up what we can do is we can start using it and we can actually wrap an
+ordinary file with this implementation.
+So what I mean is the following.
+Let's suppose that we make a file so that's going to be typically you would say something like open
+Hello Dot Sixty for writing.
+But what we can do with the decorator is we can take the decorator and we can save file with logging
+around the open call.
+So this basically passes the file as the initialize argument in here and then some of the operations
+on file with logging because of the way that we've set up all the ATP our methods they're going to get
+sent to the actual file.
+So now that we have this file where we can do is we can say file don't write lines and this is going
+to use the right lines.
+That is up here the one that has the diagnostic printout so we can do that.
+So let's do a file dot write lines with hello and world for example Hello.
+And well a little bit banal but we can also use the underlying method so I can say for example file
+dot right testing and that's going to work as well because I'll file that right is just going to get
+us into the get 80s.
+We're going to get the the underlying stuff from the file itself and call filed right on the underlying
+and then we can do files up close which is once again going to be called on the underlying I can run
+all of this and you can see that it's working correctly we wrote exactly two lines of the text using
+the diagnostic printout that we have in the decorator and whatever other calls we did they were essentially
+proxy over to the underlying file using all of this dynamic magical processing that we've added down
+below.
+So this is a an improvement upon the original decorated design pattern that is of course going to have
+a sudden performance penalty because obviously as you go into every one of these methods it's not a
+free call here it's going to cost some performance but hopefully not a significant chunk.
+And the flexibility it affords allows you to very easily build decorators over types with large API
+so that you don't want to proxy over yourself because otherwise you would have to implement things like
+filed right for example so you would have to say def right.
+Hi Tim.
+And then self-taught file dot right item and you'd have to do this for every single method inside the
+file which isn't practical.
+So here we save some time by using some dynamic programming.

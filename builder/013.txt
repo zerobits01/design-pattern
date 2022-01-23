@@ -1,0 +1,66 @@
+So one of the things that you might have noticed as we looked at the builder facets and the idea of
+combining builders is that we were directly violating the open closed principle because whenever you
+have a new sub builder you have to add it to the builder.
+So there is an alternative approach to this entire story and the approach is to simply use inheritance.
+So whenever you need to build up additional information you inherit from a builder that you've already
+got.
+So let me show you a scenario of how it would work.
+Let's say that we have a class called Person now this time around I'm going to keep it fairly simple.
+So we'll have some sort of initialize there.
+I'll set the name to non I'll set the position to none and say.
+Date of birth to none as well.
+So let's suppose that as a we are working with this person you want to add additional builders which
+customize more and more of the object as you go along.
+So maybe you're designing the builders and you're adding new builders on top of that.
+Now first of all as always I want to define SDR so that I can actually print the objects so we'll say
+self name born on self.
+Date of birth.
+And then let's just stick in plus here.
+So works part or works has self position something to that effect.
+So we have a string representation and what we can do is we can actually start using all of this.
+And this time round I'm going to actually have some sort of static method for actually starting up the
+whole build the thing.
+So we're gonna have a static method called New just new without the underscores.
+So new where I'm going to return a person builder now a person builder.
+Let's suppose that to start with we have a person builder which just just initialize as the person and
+can return that person.
+So I would have a class called Person builder which would do nothing more than just initialize a person
+like so.
+So we initialize whatever the person is and we have some build method where we return self person like
+so.
+Okay.
+So now we can have any number of builders which initialize different aspects of person and they do this
+through inheritance so for example I can have a person info builder which inherits from person builder.
+And here I can have a method called where you can provide the name of the person and here we do the
+same fair as we did in the sub builders.
+So we essentially assign the person's name to the name provided and we return self.
+So we make a fluent interface.
+Now what we can do is we can use inheritance to now inherit from person info builder to make let's say
+a person job builder and we can continue this idea to infinity.
+So let me show you a couple of more derived classes.
+So the idea is that as you kind of expand your model if you do need additional builder steps then you
+can simply use inheritance to add them all together.
+So we have a person builder which by itself does nothing more than simply build the object by returning
+whatever is being built up.
+Then we have person info builder which is inheritor of person builder which has a called Method.
+We have person job builder which inherits from person info builder we have person birthdate builder
+which inherits from person job builder and they can all participate in this idea of building up the
+object as we go along.
+So essentially what I can do is I can now make the most derived builder that I have a person birthdate
+builder for example and I can say Peavey goals person birth date.
+Builder like so and I can use this builder to actually build up some information about a person so I
+can say mi equals Bebe and then we can start calling all sorts of interface members that we've defined
+so for example we can have a person called Dimitri that works this works as a quant born and let's not
+forget the line breaks here.
+So born 1 1 1980 not my real date of birth by the way.
+And then we can build the whole thing.
+So now if I print me let me actually run this and as you can see we get the correct output.
+So the takeaway from this example is that you can use builders as inheritors of other builders and you
+can do it to infinity and this kind of solves the problem of your original builder the root builder
+depending upon the sub builders.
+As we looked in the previous example because in the ideal scenario you would never have to go back into
+a person builder and modify it or indeed you would never go back into a person info builder or person
+job builder.
+They are OK as they are if you want to have additional builders then you use inheritance and this is
+strictly in line with the open closed principle because every single one of these builders is open for
+extension through inheritance but closed for modification which is what we wanted in the first place.

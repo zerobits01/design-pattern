@@ -1,0 +1,21 @@
+Now let's talk about the facade design pattern so this facade design pattern is the idea of exposing
+several components through a single easy to use interface.
+Now the motivation should be fairly obvious.
+I have a picture of a house here.
+And the idea is that you typically want to balance complexity and presentation or usability and certainly
+if you think about a typical home for example there's lots of subsystems in a typical home you have
+the electrical subsystem you have sanitation and lots of other things behind the structure of the house.
+A typical house is actually quite complex like the floor is composed of several layers including insulation
+and whatnot.
+It's all very complex but the end user that would be you or me where buying the house we're not really
+exposed directly to those internals.
+So the same goes with software because sometimes you get lots of different systems working together
+to provide the absolute flexibility but you just want a very nice and very restricted API for consumers
+who just want to you know write one or two lines of code and have the whole thing just work.
+And so this is where we build a facade and by the way that C with the lower part that lower part is
+called Asadullah.
+So this is a kind of French letters C and it's pronounced s instead of code.
+So we don't say for card we say facade.
+So the facade design pattern provides a simple and easy to understand API over a large and sophisticated
+body of code that may involve for example several classes and being exposed there's just one single
+function that you call to have lots of things happen underneath.

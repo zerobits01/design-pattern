@@ -1,0 +1,10 @@
+All right so let's try to summarize what we've learned about the adaptive design pattern so implementing
+an adapter is actually easy because well first of all you have to determine the API that you actually
+have as well as the API that you need to acquire and then you create a component or indeed a set of
+components which aggregates or has a reference to or something to the adoptee so it's something which
+takes the adoptee.
+It does something on it warps the interface somehow and in some cases yes you will end up with these
+intermediate representations as we've seen in the examples that we've built and these intermediate representations
+especially temporary data generated solely for the purposes of adaptation it can't pile up and in this
+case you might want to use caching and other optimizations to make sure that you don't run out of memory
+and that you don't perform any extraneous operations.

@@ -1,0 +1,194 @@
+We're going to take a look at the command design pattern by considering an example that probably everybody
+uses that talks about design patterns and the Command pattern and that is the example of a bank account.
+So let's suppose you have a bank account.
+Now let's say we have some overdraft limit justify it like so overdraft limit let's say minus five hundred
+is the lowest you can go when you initialize the bank account.
+You can specify the starting balance.
+So when we initialize can have a starting balance or it can be zero by default.
+So then we just store the attribute like so and let's suppose that we want to support the operations
+for depositing money into the account as well as withdrawing money assuming you're not withdrawing too
+much.
+So first of all the deposit operation where you deposit a particular amount this one's easy you just
+say set a balance incremented by the amount.
+Let's also print some diagnostic information so that we see what's going on.
+So I'm going to print that.
+We deposited a certain amount and the balance is now equal to self balance.
+Now we go.
+So this is the deposit operation the withdrawal operation is a bit more complicated because we need
+to make sure that the person isn't going over the overdraft limit.
+So withdrawal once again the amount is specified here.
+So we need to make sure that the current balance minus the amount withdrawn is greater than or equal
+to the overdraft limit.
+So if self balance minus amount is greater than or equal to the overdraft limit.
+So bank account does overdraft limit then we can perform that withdrawal so we say self balance minus
+equals the amount.
+So we take out the amount we print some diagnostic information.
+So print withdrew a certain amount and the balance is equal to the balance.
+There we go.
+So this is how we would basically check that you have enough money to take out and if you do then go
+ahead take the money spend it on whatever.
+Let's define SDR as well just so we get some diagnostic information so return balance equals self balance.
+Now we go.
+So we have a bank account that you could work with directly meaning you don't really have to.
+You don't really have to implement the Command pattern and you can just go ahead and grab bank account.
+You can instantiate it.
+You can deposit money withdraw money.
+Everything will work.
+Now let's imagine that we are working with a real bank a real bank obviously has to keep a record of
+every transaction that's going on.
+So if you just call these methods deposit and withdraw there is no record anywhere that they were actually
+invoked.
+So what you might want to do is instead of calling them directly what you might want is to provide some
+sort of interface for calling commands and these commands.
+Not only can they be invoked but they can also be recorded like for an audit log for example and they
+can also be undone as well which is an interesting side benefit of the implementation of the command
+power.
+And so let's take a look at how this works.
+So the first thing I'm going to do is I'm going to define an interface for a command.
+Now this isn't strictly speaking necessary because we are in Python and everything works through duck
+typing but I think it's a good idea because it sets your expectations on what a command can do.
+So I'm going to define a class called command and this is going to be an abstract class.
+So I'm just going to define the interface.
+Basically we'll have two operations we'll have invoke which actually calls the command.
+Notice I'm not using the built in call method name.
+Instead I'm calling this invoke just to be explicit about the fact that this is the invocation of the
+command that you can put to use the dot notation to invoke on it.
+So here I'll put it pass and the same goes for undo which is something that well we can take a look
+at it in in in a moment.
+Let's start with invoke.
+So a command is something that you can invoke.
+Now we can build a bank account at
+a bank account command obviously has to implement the command interface.
+Let's first of all define the initial riser for the bank account command.
+So we need to know what account to operate on.
+We need to know what action to perform and the amount of money that needs to be withdrawn or deposited
+one of these.
+So speaking of action it's up to you how to implement this.
+But one option would be to simply put it in an enum.
+So we'll have a class action which is an enough.
+And once again I need the important for this.
+So we'll have two actions that we have an action to deposit some money and to withdraw some money.
+So depending on this we perform the requisite operation.
+So here all we do is we store all of these attributes like so and the amount as well that we go.
+And in addition.
+Well actually that's it for now.
+That's we're going to stick with this.
+So now we need to define the invoke method needed to find the invoke method because that's part of the
+interface.
+We have no choice but to define it.
+So here we check the kind of action that's required.
+So if self action is equal to self doubt action.
+Deposit.
+If somebody wants to deposit some money then we perform the deposit.
+So we say self not account deposit self that amount.
+So we deposit the requisite amount.
+Otherwise if self action is self action the withdrawal
+action to withdraw then we withdraw the monies.
+So we say self thought counts dot withdraw self-doubt amount.
+There we go.
+So this is how you would implement a bank account command.
+Very simply and we can already start using it.
+We can already build something so here I will make a bank account and by default it's going to be empty
+it's going to have zero dollars in it.
+So then what we can do is instead of just calling deposit withdrawal on it we create a bank account
+came out.
+So we say See I'm the equals bank account command
+like so.
+And what we put in the command is the account to operate on which is B.A..
+We also need to specify the action so this will be a bank account command action deposit and let's say
+we want to deposit a hundred dollars so that we do see MDA that invoke and then we print what happened
+after the 100 dollar deposit.
+So what happened with the bank account.
+Stick the F in here and put a.
+All right.
+So let's take a look at whether this works and if it does work what it gives us.
+All right.
+So as you can see everything works correctly we deposit at 100 and the balance is now 100.
+So far so good.
+And similarly you can withdraw money and that should hopefully work or not work.
+If you're going over the overdraft limit.
+OK.
+So one side effect of command is that you can also implement undo operations right inside the command.
+So in addition to performing the command within invoke You can also define a new interface member called
+undo which does the reverse.
+It basically rolls back the change that you made.
+However this particular implementation if you decide to do undo it's going to change pretty much everything
+that we do around bank account command and you'll see why in a moment.
+So let's imagine that we decide to perform undo operations so down and down here will define and undo
+method and let's suppose that we we try to be symmetric.
+We try to make sure that if you want to undo a deposit you undo a deposit by making a withdrawal and
+vice versa.
+It's not strictly speaking the most correct way of undoing bank account operations but they will do
+for our demo.
+So here we do the opposite of what our action is.
+So if the action is if the action happens to be let's say deposit then we perform the withdrawal.
+So we say self-doubt account withdrawal self on a mound otherwise if self action is self an action jot
+withdrawal then we do the deposit self account deposit self-doubt amount.
+OK.
+So this might seem like correct code we can actually try invoking it so we can after we deposit the
+100 dollars what we can do is we can do CMT adopt undo and then we can print we can print this off to
+the 100 deposit has been undone so after we have done this we can print the bank account once again.
+So let's see what this gives us and everything should be more or less fine.
+In this particular scenario.
+So we deposit one hundred dollars the balance is one hundred.
+So after one hundred after the 100 dollar deposit everything is okay and then we undo that deposit by
+withdrawing one hundred and the balance now goes back to zero.
+So everything seems correct.
+However what I want to show you is how it can all go wrong how it can all go terribly wrong.
+And let me show you.
+Let's do an illegal command let let's do a command which cannot really be invoked in this account and
+that is the the action of withdrawing a large sum of money.
+Let's say you want to withdraw a thousand dollars and that should fail.
+So I'm going to make illegal command so this illegal command is going to be another bank account command.
+Well we tried to withdraw so it's going to be bank account command.
+Action to withdrawal.
+We tried to withdraw 1000 dollars.
+OK.
+So I invoke this illegal command.
+Well it's legal it's just not supposed to work.
+And then let's print something out.
+So after impossible withdrawal be a.
+And then we're going to undo this command.
+So illegal command don't invoke happens here and illegal CFD dot undo happens here and then look in
+print what happens after the undo OK prepare for a surprise.
+So I run this and you'll notice something weird.
+So we do the impossible withdrawal.
+And of course it's impossible because we have a balance of zero.
+We don't have any money in the account.
+After we undid the one hundred.
+So we have a balance to zero.
+We try to withdraw and we fail as the system should fail.
+But then notice what happens for some reason when we call undo.
+We deposit a thousand.
+So even though the operation failed we still undid it as if it succeeded.
+So what does this tell us.
+Well it tells us one thing that we need to track whether or not a particular operation has in fact succeeded
+so we can go into let's say into the bank account command and we can add a success flag here self-doubt
+success.
+But to begin with we don't know if the operation succeeded or not so we're going to set it to none.
+And we're also going to set it to true or false depending on how the whole thing went.
+So let's go into invoke.
+Now obviously when you perform a deposit whatever happened it's going to succeed because a deposit is
+well some of these putting money into the account.
+So we'll say self-doubt success equals truth.
+That operation will succeed.
+However the withdrawal we don't really know.
+We don't really know whether the withdrawal will actually work.
+So we need to go back unfortunately into withdrawal and we need to modify it so that instead of not
+returning anything the withdrawal method is going to return true or false depending on whether it actually
+succeed.
+So if we're in this if here we can return true specifying that everything went OK.
+Otherwise we can return false specifying that something went wrong and we don't have enough money.
+And so it didn't work.
+Now this flag can subsequently be used down here when you actually withdraw stuff because then what
+you can do is you can set the success flag to the result of the withdrawal operation so I can say self
+success equals self account withdrawal and that way we're storing either true or false depending on
+whether that operation succeeded.
+Now what we need to do is we need to make sure that we only undo if the operation actually succeed.
+So what we put here is we say if not self success we simply return.
+We don't perform the undo operation at all because it doesn't make sense if it didn't succeed.
+There is no reason to undo something that didn't succeed.
+So with all of this set up let's now try running the programming in and now this time round it's actually
+working correctly in the sense that after the impossible withdrawal we'll still on the balance of zero
+and after the undo which does absolutely nothing at all we're still on a balance of zero.
+So this is how you can implement the command pattern and also support undo operations as well.

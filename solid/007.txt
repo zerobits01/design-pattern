@@ -1,0 +1,152 @@
+The final principle from the solid design principles is the dependency inversion principle.
+So the first thing I want to say is that the dependency inversion principle does not directly relate
+to dependency injection.
+So please don't confuse the two.
+Now one of the things that the dependency inversion Principle states is that high level classes or high
+level modules in your code should not depend directly on low level modules.
+Instead they should depend on abstractions.
+Now what do we mean by abstraction when typically what we mean by abstraction is some sort of abstract
+class or a class with abstract methods.
+So essentially you just want to depend on interfaces rather than create implementations because that
+way what you can do is you can swap one for the other.
+Now of course Python has duck typing so you can simply swap one for the other just by you know sticking
+a different class with the same interface.
+But it's nice to have the interface explicitly fleshed out so that your clients the people who use your
+code effectively can figure out exactly what's going on.
+So let me show you an example let's suppose that we're doing genealogy research.
+I'm going to have an enum which is going to define the relationship between two different people.
+So there's going to be an enum and we'll have some relationships like parent child and maybe sibling
+and so on.
+So then we're going to define a class called Person and I'll just make a very simple initialization
+here I'll just stick the name of the person and assign that.
+And that's pretty much all that we're going to do.
+Now what we're interested in is first of all we need some sort of low level module so a kind of module
+with all the all the implementation details all the kind of stories semantics and whatever for storing
+the relationships between different people.
+So we're gonna have a class called relationships
+relationships.
+There we go.
+So this is a class where we're going to store all the different relations.
+So let's just initialize it self-taught relations equals empty list like so and then we're going to
+have some sort of functionality for actually manipulating it.
+So just as we had in the discussion of Single Responsibility Principle we're going to have some functionality
+for adding a relationship between let's say parent and the child.
+So I'll have def add parent and child where we have the parent and the child and this is where we can
+add relations.
+I'm just going to add the must topples so self relations dot append.
+And here I'll just make a couple so we'll have the parent.
+The relationship will be a parent and the child then you could also have the inverse relationship.
+So we say so let me let me duplicate this and you can have it the other way around.
+So the child happens to be the child of a particular parent child and then stick parent in here.
+Okay so this is fairly obvious stuff.
+This is kind of low level storage.
+So here we see that relations is a list and instead of a list you could be using something else later
+on.
+Now in order to break the dependency inversion principle what we're going to do is we're going to first
+of all define he high level mojo now the high level mojo shouldn't really care about how these things
+are actually stored.
+So high level mojo is going to be called research and this is where we get to perform some research
+on let's say on attempting to find all of the children of John for example.
+So here in the.
+In it what I'm going to do is I'm going to have the relationships in here like so and then I'm going
+to just grab their relations.
+So remember we have this list here.
+So I'm going to say relations equals relationships dot relations and then I'm going to say four are
+in relations if are at zero.
+Name is equal to John and are at 1 is equal to a relationship not parent.
+So if we found somebody whose parents is John then Prince John has a child called and then are at index
+to name.
+So this is what you get when you work with couples you have to use these indices like 0 1 2 and so on.
+But interestingly enough this code is fine this code is fine from the perspective that it's going to
+work.
+So let's make a parent is gonna be John and then we'll make child 1 let's call him Chris and let's have
+a child.
+Let's have Matt.
+And then what we can do is first of all we can build the our relationships
+we can now add the parent and the child using the parent and child method so I can say relationships
+dog as parent and child.
+So it's gonna be parent and child one and I would just duplicate this and half parent and child two
+and then I can do the research
+okay.
+So let's actually run this and we actually get an error name in I'm not defined let me just fix this
+quickly.
+So we need an import here.
+So let's do this again.
+And now we get the right outputs.
+John has a child called Chris and John has a child called math so it might look as though everything
+is okay but there is a big huge problem right here.
+So you'll notice that relations is basically the way that the relationships modules stores the relations.
+So at the moment it's a list.
+But imagine if you decide to change from a list to something else to maybe a dictionary or some sort
+of specialized data storage structure.
+In this case what's happening is you are accessing the internal storage mechanism of relationships which
+is a low level module in your high level module which is a bad thing.
+It's a bad thing because for example you cannot just go ahead and change this to something else you
+kind of go ahead and changes to a dictionary for example because then what would happen is all of this
+code will effectively break it would no longer work.
+So this is something that we want to really avoid.
+This is something that we don't really want to show up here.
+And if you have a dependency on the storage implementation then it's better to provide some sort of
+utility methods right inside the low level module to perform the search because if you change the storage
+implementation the search would look completely different.
+So how would we go about fixing this situation.
+Well first of all we could define an interface for the low level module remember the idea is that research
+should not depend on the concrete implementation which is relationships but it should depend on some
+sort of an abstraction that can subsequently change.
+And you might want to change it for example for purposes of testing.
+So I'm going to define a class called relationship browser.
+So this is just going to have an interface for finding all children of somebody given the name.
+So that's going to be an abstract method and this abstract method would need to be implemented in whoever
+actually inherits from relationship browser.
+So what we're going to do now is we're going to define that this relationships module is in fact a relationship
+browser.
+It is now a relationship browser.
+Now you'll notice that we now have this requirement that we need to implement this method.
+So instead of having the search done in here where it would immediately break if we were to change relations
+to a different story structure we move the whole functionality in a way to a low level module so now
+coming back to relationships what we would have to do is we would have to actually add the implementation
+of find all children off and this one is fairly simple here.
+So for are in Salvador relations if are at zero 0 name is equal to name and are at one is equal to a
+relationship relationship.
+Parent then yield are add to that name.
+So this is how you would get hold the children of a particular person given their name.
+Now why is this better.
+Why is this better than doing it down here.
+Well it's better because if you change the implementation of relations you can rewrite this method to
+continue to work and the client who will no longer depend on the concrete implementation they will not
+have their code break the code will continue to work.
+So now the question is well given that we refactor this.
+What about the initialize it for research how do we actually do the research.
+So let's do that.
+So let's have a new in it and here all we would do is we would take the browser as the argument noticed
+that a relationships which gets passed in here is by definition a relationship browser.
+You can see that inherits from a relationship browser.
+So this code the code that we've written down here doesn't need to be modified even but the implementation
+of the research will be modified because now we say for p in browser dot find all children of John for
+each of the children of John we can print them print.
+John has a child called P.
+There we go.
+So once again let me actually first of all run this and you can see that the output is pretty much the
+same but the the reason why we did all of this is to avoid depending on the internal implementations.
+So just to recap research here is what you would call a high level module.
+It's a high level in the sense that it uses some other functionality which is much closer to the hardware
+so to speak.
+And this would be a low level module because essentially it's dealing with things like storage so storage
+is a low level concern.
+Maybe instead of having a list here you actually go into a database so you could easily change the underlying
+part this part to use a database and the research module will not break.
+It will not break because it no longer has a dependence on any of the kind of internal mechanics of
+the way that relations are actually stored.
+So that is ultimately the goal of the Dependency inversion principle instead of depending on a low level
+module directly we also introduced an interface.
+We introduced this interface relationship browser.
+Now of course if I were to delete this interface and delete this part everything would still continue
+to work to to duck typing but it's a very friendly thing to do.
+Because now that there is this interface people know that you know this is this is how you can you can
+implement a relationship.
+So for example let's suppose that the real browser the real relationships actually goes into a database.
+But let's suppose that you are interested in unit testing for unit testing you don't you probably don't
+want to go into a real database you just want to make some sort of in memory storage so you could use
+this interface to build another class let's call fake relationships where all of the data would be in
+memory and then you would expose this data to your unit tests in a predictable fashion.
+So this is what the dependency inversion principle is all about.

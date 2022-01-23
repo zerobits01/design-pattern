@@ -1,0 +1,8 @@
+So let's try to summarize the facade design pattern so you typically build a facade to provide a simplified
+API over a set of classes and you may wish to optionally expose those internals through the facade.
+So it's really up to you.
+So for example for power users it might make more sense to expose both the facade but also allow them
+to use the low level classes if they want to.
+So this would be a typical kind of escalation of policy.
+So typically you want people to use the facade because it's so easy and understandable but you might
+want to allow the power users to access the complex API if they need to for some fine tuning for example.

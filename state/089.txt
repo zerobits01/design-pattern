@@ -1,0 +1,22 @@
+Now we're going to talk about these state design pattern so the motivation for using the state is very
+simple.
+If you think about it nor do you telephone then what you can do with a telephone largely depends on
+the state of the phone as well as the State of the line.
+So for example if the phone is ringing or if you want to make a call you have to pick up the phone otherwise
+nothing will actually happen.
+Now the phone must be off the hook to actually talk to somebody or make a call and if you try calling
+someone is busy you can put the handset down.
+So we have this idea of state and changes in state and these changes can be either explicit so you explicitly
+changed the state from one to another or they can be in response to an event which once again takes
+us back to the observer pattern.
+So these state design pattern is basically a pattern where the object's behavior is determined by its
+state kind of like mind behavior is determined by my state for example if I don't get enough sleep then
+I'm going to be particularly groggy.
+So the same idea applies here.
+So an object can also transition from one state to another and something needs to trigger that transition.
+So for example for me to stop being groggy I need to get a coffee or something and then I'll be fine
+once again.
+So a formalized construct which actually manages state and transitions from one state to another is
+called a state machine.
+It's also sometimes called a finite state machine.
+And we're going to see how to build one in the next lesson.

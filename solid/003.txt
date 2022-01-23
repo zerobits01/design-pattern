@@ -1,0 +1,101 @@
+So the first principle from these solid design principles that we're going to get acquainted with is
+called the Single Responsibility Principle.
+The abbreviation is SRP.
+That's what we're going to be using to refer to this principle.
+But you'll also hear another term and that term is separation of concerns and they both mean pretty
+much the same thing.
+The idea is very simple if you have a class that class should have its primary responsibility whatever
+it's meant to be doing and it should not take on other responsibilities.
+So let me show you how this can actually be set up.
+Let's suppose that you decide to make a class called Journal.
+Now you're making a journal so you can record your most intimate thoughts.
+So we'll have an initialize here.
+We'll have entries as a list and we'll also have just some index that we can use to prefix all the entries.
+Now when it comes to adding an entry because you want the Journal to do something so you want to be
+able to add an entry with some text well we're going to do is we're going to increment the count and
+that by the way should be equal to zero.
+So we're going to save self count plus equals 1 and then we're going to add the actual entry to the
+list.
+So self doubt entries dot append and here I'm just going to add self counts call on and then the actual
+text.
+So this is how we're going to be adding the entries similarly we can have some sort of method for removing
+the entries so remove entry with a position so you want to remove an entry at a particular position
+where you just delete it like so.
+One thing you might want to have is to have a human readable representation of all the entries in the
+journal so that you can actually printed somewhere or save it somewhere.
+So here I'll define this TR and I'm just going to take a line break and use it as a separator to join
+all the entries together.
+There we go.
+Okay so the storing and removing indeed of entries is the Journal's primary responsibility.
+So we're not breaking the Single Responsibility Principle yet.
+Everything is fine for now.
+We can actually start using this journal so we can say Jake was journal.
+I can add a bunch of entries so I can say I cried today and let's have another one.
+I ate a bug.
+And then what we can do is we can for example print the journal so I can print journal entries go on
+line break and then the actual journal.
+So this is something we can actually run as you can see we're getting the right output here.
+So far so good because the Journal's primary responsibility is to keep the entries and we're doing that.
+Now we're going to break the Single Responsibility Principle by giving a journal additional responsibilities
+that it never really asked for and that might seem like a good idea but aren't really.
+So for example we'll give it an ability to save itself.
+So we'll have a method called Save which takes a file name.
+And that's where we're going to make a file.
+So open file named for writing by going to file the right.
+They string representation of the journal.
+And then we're going to close the file handle like so.
+So in addition to saving the journal you might think it's a good idea to also load the journal from
+some file name.
+I'm not going to waste your time implementing this.
+Once again you might want to also load it from a web resource so load from web given a particular you
+are I.
+And once again I'm not going to implement this.
+So what is the problem with all of this.
+The problem is that we've added a secondary responsibility to the Journal not only does the journal
+now store entries and allow us to manipulate the entries but it's now taking on the responsibility of
+persistence by providing functionality for saving and loading the journal from particular resources.
+This is a bad idea for a number of reasons.
+If you think about a complete application where in addition to journals you also have other different
+types.
+All of those types might have their own save and their own load and load from web and so on.
+And this functionality might have to be centrally changed at some point for example when saving a file
+you might want to add additional code for checking that you're allowed to write to a particular directory.
+Now the problem is if you adopt this approach what's going to happen is you'll have to go into every
+single class inside your application and change their save method or change their load method.
+And this is particularly tedious.
+So you want to take the responsibility of persistence and you want to stick it to a separate class.
+I'm going to comment it out here and we'll see how to implement this separately.
+So you might have a class called persistence manager and this is gonna be the class that will be responsible
+for saving a particular object to a file like a journal for example.
+So we'll have save to file will not take self.
+I'll make this a static like cell.
+So we'll take the Journal and the file name and here we'll just do the same thing that we did previously.
+So let me just copy this stuff over and paste it here.
+So it's pretty much the same code the only difference is that instead of self you get the Journal.
+There you go.
+So this is how you would refactor the code to actually enforce separation of concerns once again and
+we can start using this we can actually use this and verify that everything works correctly so here.
+What I'll do is I'll make a file name so I'm on windows so I'm going to use C temp journal 60 I'm actually
+going to take the persistence manager and use the static save to file method to actually save the Journal
+to a file and then we can verify that it did in fact work so I can say with open file as file hands
+oh what we can do is we can print a file handle that read.
+There we go.
+Okay.
+So if I now run this you can see that the journal entries have been printed twice.
+So the first set is from that time where we actually printed them using SDR and the second one is by
+civilizing them to a file and then reading them from that file.
+So what is the takeaway of this entire lesson to take away is that you don't want to overload your objects
+with too many responsibilities.
+Now interestingly enough we have something called an anti pattern so and Nancy pattern is like the opposite
+of a pattern patterns that good anti patterns are bad but they also show up quite a lot.
+So one anti pattern is called called object called object is when you have a developer perhaps a newbie
+developer or somebody who doesn't know programming very well who decides to put everything in the kitchen
+sink into a single class.
+So you add let's say you add the managing of the entries you add persistence you add the additional
+functionality whatever it is and you stick it all into a single class and you get a massive class as
+the end result.
+This is typically bad code.
+This is why we call it an anti pattern and it's not something that you want to do.
+So the Single Responsibility Principle basically prevents you from making God objects it enforces this
+idea that a class should have a single reason to change and that change should be somehow related to
+its primary responsibility.

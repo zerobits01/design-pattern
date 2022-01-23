@@ -1,0 +1,17 @@
+The mediator design pattern facilitates communication between different components.
+So the motivation for using the mediator is the following.
+So if you imagine a system with many components you know that components can go in and out of the system
+at any time.
+For example you might have a chat room the chat room has participants but they all kind of join the
+room.
+They leave the room.
+They go to a different room or if you think about let's say massively multiplayer online game you have
+a bunch of players but some of them might leave the game some of them might suffer a disconnection for
+example.
+And it really makes no sense for all of these players to have direct references to one another in fact
+it would be a nightmare to deal with because keep in mind some of those references can go dead at any
+time and you can't even predict when they'll go dead.
+So the solution is to have every single component of every single participant in your system or refer
+to some central component that facilitates communication and that is exactly what the mediator actually
+is so a mediator is a component which facilitates communication between other components without them
+necessarily being aware of each other or having any kind of references to one another.

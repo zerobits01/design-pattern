@@ -1,0 +1,104 @@
+So the first example of the flyway design pattern that we're going to take a look at is going to do
+with text formatting.
+So what we're going to do is we're going to take a chunk of plain text and we're going to apply some
+formatting to it and we're going to take a look at the different ways that you can actually do that.
+So I'm going to have a class called formatted text and in the initialize it we're going to provide that
+with some plain text and then we're going to store and in addition we're going to specify formatting.
+So let's suppose for the sake of simplicity that we want to capitalize certain letters in the plain
+text.
+Now the question is how do we specify which letters and the most kind of obvious but the kind of brute
+force approach would be to simply make a boolean array of the same length as the input text and simply
+specify the letters to be capitalized with true as opposed to false.
+So here what I can do is I can say several caps equals so we'll grab a false and we'll turn it into
+our array of length plaintext.
+So this way we'll actually have an array of false values which we can subsequently flip to true whenever
+we want some letters capitalized.
+So then we can define a method called capitalized where you specify the start and end positions of the
+letters you want to capitalize.
+And then for each of the positions.
+So for i in range from start to end what you can do is you can simply say self-doubt caps at position
+i equals true no go.
+So this is how you would specify that you want to capitalize particular letters in the word.
+And now we can define SDR which is actually going to print the word.
+So here I'll make a result list that will subsequently fill up.
+And then for each position I in the range of length of self-taught plain text what we're going to do
+is we're going to grab that letter so we're going to say C equals SDL plaintext at position i.
+And then we're going to append this to the result but we're going to appended capitalized provided we
+have specified that we want to do so.
+So result thought append and here I'm going to append C dot up her if self caps add position I otherwise
+just append C just append the non capitalized letter and then I'm going to return empty string dot join
+the whole result.
+So this is how you would actually get the formatted text as opposed to the plaintext.
+So let's take a look at how this can be used.
+Let's suppose I define some text.
+This is a brave new world.
+Let's suppose I want to capitalize the word brave.
+So what I do is I make a formatted text.
+I provide the text as the input and then I say FTD capitalize and I capitalize from 10th to 15th position
+and then I can print f t and if I run this you'll see that.
+Well we are getting the right output here we're getting this is a brave new world.
+So everything is fine.
+But the real problem here is if you imagine that instead of the sentence I have war and peace loaded
+up then I would be allocating far too many boolean values because here in self caps we are basically
+making a list of a particular size and that size relates to the size of the plane text.
+So maybe we don't want to be doing that because if if the size of the text itself is massive then we're
+going to be allocating lots of data that we mostly do not need.
+If you want to capitalize one would in a million words it doesn't make sense to allocate a million boolean
+values.
+So let's let's do something different and this is where the flyweight pattern is going to come in because
+we're going to build a different formatted text so let's have a class called Better formatted text.
+So inside better formatted text let's define the initialize it once again it's going to be very similar
+it's going to have plain text as the only input which are going to store.
+But in addition we'll specify formatting as just an empty list.
+Now you might be wondering well a list of what exactly and the answer is that we're going to build a
+flyweight class called text range that's going to specify the range of characters like the start and
+the end as well as various formatting options.
+So let's have an inner class called text range at the end here in the initialize it what we can do is
+we can specify obviously the start and positions and we can also specify the various formatting whether
+it's too capitalized or to make things Bold Italic whatever.
+So whatever options you want you would add them here.
+I'm just going to add capitalized.
+So by default capitalized is going to be equal to False and then we can sort of assign all of these
+effectively.
+So let's just assign all of these let's stick them into text range as attributes and then we're going
+to have a utility method called covers which determines whether or not this formatting covers so this
+rage whether or not that covers a particular position so def covers position and here all I need to
+do is I need to check that position is between the start and the end so I'm going to return.
+Self does start less than equal to position less than or equal to self-doubt and now go.
+So this is how you would check whether or not this text range covers a particular point.
+Now coming back to the better formatted text class let me on indented here.
+We're going to have a utility method for actually getting arranged so for manufacturing a range but
+also adding it to the formatting because remember we have this list of all the formatting that's been
+added.
+That's the essence of the flyweight pattern.
+So essentially you return the flyweight but you can also store the flyweight internally so that you
+know about it.
+So we'll have a method called get range where you specify the start and then points start and end like
+so so we make a range.
+So that's self-taught text range with a start and and what we then do is we add this range to the formatting
+so self formatting dots append range and we also return it so we return it so that people can subsequently
+modify it like for example you can change capitalize thereby capitalizing a chunk of text.
+And now of course when it comes to implementing SDR you have to take into account the formatting options
+that you have in this list so you have to take every single one of them into account.
+Now we only have capitalization but you could have other options here.
+So once again we'll have a result as an empty list and then we're going to go through every single position
+in the in the overall string so for I in range and length of self plaintext.
+So here I'm going to say C equals self self plain text add position I so we get the.
+We get that ladder and then for every element in the formatting for every range in self the formatting
+we need to check whether or not somebody actually wants this particular letter capitalized so we say
+if this range covers the position I remember we have I as the index and it wants to be capitalized so
+and are capitalized then we change C to see that upper like so and then of course we append the letter
+C to the result results so result on a pen C and then of course we return empty string joint result.
+So this is how you would do the same operations using a fly away.
+Let's actually take a look at how this would work.
+So mean we make a better formatted text where we specify the text and then we simply grab the range.
+So we say B FTD dot get range from 10 to 15.
+So that's our flyweight and then we take it and we.
+Well let's capitalize a different way.
+Let's have the word new capitalized from 16 to 19.
+We say capitalized equals true and that would capitalize that word and we can print B T once again so
+let's run this.
+And as you can see we have the capitalization in the right place because now we get this is a brave
+new world.
+So this has been an illustration of how you can use a flyweight to save on memory as well as provide
+a more convenient API as well.

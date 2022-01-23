@@ -1,0 +1,61 @@
+Property observers seemed like a really nice thing to have a really nice implementation that will tell
+you whenever a property changes.
+Unfortunately there are problems with them and one problem is what happens when you have a property
+that's dependent on another property.
+So let me show you how this can go slightly wrong shall we say.
+Let's suppose that in addition to the age we also want to have a boolean property indicating whether
+a person can vote.
+And this is actually really easy to implement.
+So we can add a property called can vote like so and let's suppose that you can vote when you're 18
+or older.
+So here we return self doubt on the score age greater than or equal to 18.
+So this probably has a getter.
+It obviously has no center since this is a computer probably but now we have a problem.
+How do we send notifications on changes to the voting ability of a person.
+Now the moment it seems just impossible basically so let's let's try to build a scenario where we actually
+want to monitor a change in this value.
+So let's suppose that we construct the person so we construct a person like so and we subscribe to property
+changed once again so we append some handler let's call it first and changed.
+Okay.
+So we append this handler which I'm just going to put it in here.
+So person changed where you have the name as well as the value.
+And here we want to check if the voting status has changed so if NAME IS EQUAL TO can vote.
+That means the voting status has changed from false to true or vice versa.
+So we can print something we can say that voting ability changed too.
+And then the value.
+There we go.
+OK so we can actually set up a scenario where once again we cycle the person's age and as we cycle it
+we see whether or not the voting status has changed so we print changing age to age like so and then
+we do it in a cycle.
+So for age in range from let's say 16 to 20 we print at the age and then pedo age equals age.
+So we actually assign it.
+So this might look like a really nice scenario but as we execute this you can see that we get no notifications
+of a person's voting ability changing and the reason for that is at no point in time do we call property
+changed with can on this go vote and it's unclear where you should be calling it now.
+You could be forgiven for thinking that we should simply call it in age because age actually modifies
+can vote.
+Therefore you might think well hold on let's just duplicate this let's put can on this go vote in here.
+But this is incorrect.
+This is incorrect because between the ages of 15 and 16 for example can vote has not changed and you
+would be calling it unconditionally.
+So this is an incorrect way of doing things.
+What we need to do in this case is we need to cash the old can vote value compared to the new value
+after H has been changed and then only perform the notifications if they are different.
+So here is how you would do this correctly.
+So first of all you would cash the old Ken Vote value
+and then after performing all the work on the age property what you would do is you'd compare it to
+the current value.
+So if all you can vote is not equal to self can vote.
+That means this has in fact changed and this is the only case where you would actually invoke property
+change specifying count on this core vote and self can vote as the new value.
+So if we run this we would actually get the correct output here so you can see that we're changing the
+age to 16 17 18 and at 18 the voting ability has changed Dutroux and subsequently as we change it nothing
+changes once again because we haven't changed can vote.
+So this example illustrates some of the complexity that you end up with.
+If you have properties depending on other properties and if you think about more complicated scenarios
+let's suppose scenarios like what you would have in Microsoft Excel where you'd have lots of sales depending
+on other cells and everything being dynamically recalculated.
+This can become a real mess.
+And this approach the approach of caching the old values and comparing them with the new values it doesn't
+really scale so it works if you have one property dependent on another that's going to be OK.
+But if you need to do it on a larger scale then this approach is quite simply insufficient.

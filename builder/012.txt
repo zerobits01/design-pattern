@@ -1,0 +1,114 @@
+So now we're going to take a look at a complication of the boat a design pattern then this complication
+arises from the fact that sometimes you have an object that is so complicated to build that you need
+more than one builder to do it.
+So the question is how can you get several builders participating in the build up of an object and how
+how can you actually make a nice fluent interface.
+You can jump from one building to another.
+Well surprisingly enough this is possible.
+And we're going to take a look at how to do it now.
+So the object that we're going to be building up is a person.
+And let's suppose that a person has two different aspects.
+So one aspect will be their address and the other aspect will be their employment information.
+I'm just going to initialize those attributes with nothingness basically because we're going to be building
+them up using builders.
+So here I'll have a street address.
+I'll have a postcode.
+I'll have should be a capital and I'll have city.
+So this is the address information and an additional path would be employment information.
+So you might have company name you might have position and maybe annual income.
+NOW I'M INITIALIZING them to not I could be initializing them to like zeros and empty strings it doesn't
+really matter.
+Now what we want to do is we want to be able to print this person out once it's initialize.
+So here I would define SDR and in actual fact what I'm going to do I'm just going to paste in a chunk
+of code which prints the information about the person because it's just too much typing.
+So here we are this is going to print both the address as well as where a person is employed.
+So what we want to discuss here is the idea of having two separate builders one for the job information
+and the other for the address.
+How can we set it all up.
+Well in order to have these two builders we're also going to have a third builder let's call it a person
+builder which is going to serve as a base class.
+So essentially the idea here is as follows we initialize person builder and then we do a little trick.
+So we have an argument here called person and now this parameter is going to represent the person that's
+actually being built up.
+However if you call this builder if you call this constructor by itself.
+Now what we want to do is we want to initialize it with a blank person object that we can subsequently
+build up and then we can store it somewhere.
+So we can say self person equals person but this trick that I did up here is actually very important
+it's something that's going to allow the sub builders to work with an object that's already constructed
+rather than creating new persons whenever you want to customize something we don't want any extra replication
+and initialization in vocation.
+OK.
+So we have this builder here we may as well defined some sort of build method which is actually going
+to expose this person.
+So we return that person when we're done with the building and now we can confine how we can define
+rather the sub builders.
+So we want to have two sub builders who we want a sub builder for the employment information and another
+one for the address.
+So what does a sub builder look like.
+Well it's a class less half person job builder.
+And it's a class that inherits from person builder.
+Surprisingly enough and this is hopefully making more clear why we have the constructor like this because
+now what we can do is we can define the initialize there but we no longer want this part.
+We no longer want to initialize it with a default instance of person because we are going to pass in
+a person that we're already working on.
+Don't worry we'll do this in a moment.
+So the person your builder builds up various employment information for example you can say that that
+person works at a particular company so you can say def at and here you can provide the company name
+and the assignment is fairly simple you say self-taught person company name equals company name and
+then you return self making it's a fluent interface.
+And so working with a person job builder you can add additional methods for setting for example the
+position or how much a person earns.
+So here we can say that we've got a person that works at a particular company as an engineer whatever
+earning so many thousands a month or a year or whatever.
+So this is the setup for a person job but another question is how does the client actually use the person
+job builder and here comes a nice trick that we can do we can make a property define a property called
+works so property called works is going to return a person job builder.
+And notice the argument here the argument is self that person.
+So hopefully it's clear to you now why we have this very curious definition here.
+So when you're working with a person builder that means you're starting out in the process of building
+up a person.
+So you need to initialize it to a blank slate a blank person that has nothing in it.
+However as you go ahead and you work with these sub builders using the fluent interface what happens
+is you need to provide an instance that's already being constructed not a brand new instance which is
+why you provide self to a person which in turn goes in here which in turn causes this super call which
+gets us back to here so a person has been provided we do not construct a blank person.
+We simply use the one that's been provided for us.
+So this is very convenient and this is what a job builder looks like.
+Now in addition to this we can define in that dress builder.
+So let me just cut and paste one of those in so I'll stick it in here and the address builder is also
+very similar.
+It also inherits from person builder.
+It also propagates the in it call and it can tell you that the person lives at a particular street address
+with the postcode and in the particular city.
+Once again we need to expose it from person builder here so we can make another property called Lives
+which once again is going to return a person address builder this time providing self that person as
+before.
+So we've now constructed an interface where you can use to builders person job builder and person address
+builder interchangeably through a common API because they both inherit from person builder.
+So both of these builders have a works property and lives property that you can use to jump from one
+to another.
+So let me show you how everything can be put together.
+Okay.
+So you make a person builder and you could expose it through a static property inside person itself.
+If you wanted to but that's not critical to this example.
+And then we say person equals.
+So we start with person builder and then I'm going to do a couple of line breaks here just so you can
+see the beauty of it.
+So let's do a line break.
+So first of all I say that the person lives.
+Notice that this is the use of a property.
+And now we jump into a person and dress builder so I can do it like this and I can say the person lives
+at 123 London Road.
+I can also say that they live in City of London and I can say with postcode as W twelve B.C. for example.
+So now at any point I can jump from the person and dress builder to the person job builder just by using
+the property works so I can say what works.
+And now I'm using a different sub builder so a person works at fabric and they might work as an engineer
+and they might be earning not forget a dot here earning let's say 123 thousand.
+So having made this object using the two sub builders we can now say dot build and this builds us a
+person and we can work with and we can actually print the person like so.
+So as I run this you can see that we get the correct output we get the address 123 London row that's
+w twelve B.C. London and then maybe they should be a line break here but you can see that it's working
+just fine.
+So coming back to the code the idea of sub builder is if you want to expose them is you can give them
+a base class person motor in this case and the base class can have a very nice fluent interface from
+jumping from one builder to another which is very convenient.

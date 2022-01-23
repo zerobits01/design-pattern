@@ -1,0 +1,92 @@
+Another kind of proxy is called a virtual proxy not a virtual proxy is basically a proxy that appears
+to be the underlying object appears to be a fully initialized object but in actual fact it's not an
+actual fact it's masquerading the underlying functionality and maybe it doesn't have the underlying
+functionality.
+So by virtue of what we mean is that for all intents and purposes it appears like the object it's supposed
+to represent.
+But behind the scenes it can offer additional functionality and behave differently so I know it sounds
+a bit cryptic.
+Let me show you a concrete example of this.
+Let's suppose that you will have some application where you manage people's photos and so you have bit
+maps of whatever images you're storing and you have a class called bitmap.
+So a class called bitmap gets loaded from a file name.
+So let's suppose that somewhere in the initialize you specify the file name and then you might let's
+say store the file name.
+But in addition you actually load the image from that file.
+So here I'm going to emulate it by basically writing that we are loading in the image from file name.
+So this is why you would load the image and then when somebody wants to draw the image you have a method
+called draw and that is precisely what draws the image.
+So here will say drawing image self file name as before.
+OK.
+So this looks like a nice little setup but it's it's a bit problematic.
+Let me show you why.
+Let's imagine that you have a function for drawing an image draw image.
+So you want to draw an image and you provide that image which can be a better map.
+At some point in time.
+Now let's also add additional diagnostic information so I'm going to print about to draw oi image.
+I'll duplicate this and I'll say done drawing the image done drawing image and in between these two
+printouts.
+What I'm going to do is I'm actually going to call image or draw.
+So this is just an ordinary piece of API the kind of thing that you might want to write.
+And then let's see how you would use the whole thing so you make a bitmap.
+You make a leap.
+Well let's let's start with.
+Wasn't a map so you make a bitmap and you specify some image that you actually want to draw and then
+you say draw image BMV.
+So let's run this and let's see what's going on and what what exactly the problem is.
+So we're loading the image in the initialize error from face palm dog j peg we're about to draw the
+image we draw the image and then we are done drawing the image.
+So you might think well hold on Dimitri.
+This is completely valid code.
+Why would you want to do anything with it.
+And the answer is that's what if you don't call draw.
+What if you don't actually draw anything what if you just you know just just comment this line out and
+not do anything what if we run this you'll see that we're still loading the image and loading the image
+could be an expensive process.
+So the question is well how can we actually avoid loading the image if we're not drawing it.
+Now one approach would be of course once again to go back into the bit my class and modify it so that
+it doesn't actually load the image here that it loads the image whenever you need to draw the whole
+thing.
+But let's imagine that we're sticking to the open closed principle we're not modifying an existing bitmap
+class maybe it's a complicated class maybe we don't really understand what's going on there and we still
+want we still want the underlying bitmap class to work as it is right now.
+So what can we do in order to get the API that we want and also the behavior that we want.
+Meaning that the image gets loaded only when we actually droid and the answer is we build a virtual
+proxy.
+So a virtual proxy would lazily load the image.
+Let me show you how this can work.
+It's going to be a lazy bitmap.
+So it leaves a bitmap just like the underlying that takes a file name file name.
+There you go.
+And then what we do is we stole the file name so we stick it as an attribute.
+And in addition what we're doing is we said self-taught bitmap and let's actually put an underscore
+here just so that it it's obvious that it's not intended to be as directly so so that underscore bitmap
+equals none.
+So as you can see at the moment we have an inner kind of internal shall we say attribute called underscore
+bitmap which is set to None.
+Obviously this is something that we're going to assign but we only assign it in the draw step.
+So when you go to draw the image what happens is if you have not set this underscore bitmap that's when
+you initialize it.
+So on the first run of draw that's when you actually initialize the image you loaded from a file into
+memory and not earlier than that.
+Not in the initialize.
+So we say if not self-taught on the score bitmap then we can set it.
+We can say self-taught underscored that math equals bitmap self the file name so we're using the underlying
+bitmap as well the bitmap initialize.
+In this case to set this particular attribute.
+And then of course we say self-taught on the score that map got draw.
+Okay so with this setup we would have to go back here and we would have to change our code from bitmap
+to lazy.
+That map.
+That's pretty much the only change that we would have to do here and now what we can do is we can uncommon
+draw image and we can run this and just see the sequence of steps.
+So you'll notice that we're about to draw the image.
+So we're inside the draw image function and then we load the image from the map and then we draw the
+image and then we're done drawing the image in actual fact what I can do is I can sort of jump back
+into the code that lets duplicate this twice let's duplicate draw image twice and let's run it.
+And as you can see what's happening here is the loading only happens once.
+So we're drawing several times we have all the output done several times but the loading happens only
+once the virtual proxy only loads the image on first invocation and subsequently whenever somebody wants
+to draw something it no longer performs the initialization they just takes the map it already has and
+uses it to actually draw something.
+So this is the gist of how you implement a virtual proxy.

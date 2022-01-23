@@ -1,0 +1,29 @@
+We are now going to take a look at the iterator design pattern.
+So what is what is it all right or all about.
+Well iteration or traversal is a core functionality of various data structures essentially whether you
+have a list or a dictionary or something else you want to be able to go through all the elements in
+this or that data structure and suddenly some data structures have really complicated mechanisms of
+traversal like if you think about trees for example.
+It's not just a simple way of going from the start to the end of a list it's a bit more complicated.
+So an iterator is typically a class that actually facilitates the traversal.
+So we're doing this separation of concerns thing and saying that well whenever we have this concern
+which is called traverse we're going to put it into a separate class and unused that class whenever
+somebody asks for the mechanism to traverse something.
+So the idea is typically that an iterator keeps a reference to the current elements or the element on
+which it's actually on right now and then it knows how to move from the current elements to a different
+element thereby hopefully covering all the necessary elements in the data structure that you want to
+traverse.
+So the iterator protocol is really simple.
+It requires two things.
+So first of all if you want an object to be ignorable it has to have an ITER method which is actually
+required to expose an iterator and the iterator in turn has to have a next method which returns the
+each of the iterated elements.
+So as you go from one element to another you've returned from next.
+The current tell them in the element that you're pointing to and in certain situations you can have
+a set up where an object actually has both the inner as well as the next methods inside a single class
+that's also a possibility and there's nothing particularly wrong with it.
+So when you are done when you don't have anything to return from next that's when you typically raise
+a stop iteration.
+And this is how you indicate that there are no more elements to give essentially.
+So the formal definition of an iterator is it's simply an object that facilitates the traversal of a
+data structure.

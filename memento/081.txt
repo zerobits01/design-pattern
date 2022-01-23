@@ -1,0 +1,48 @@
+So the idea behind the memento pattern is actually very simple.
+Whenever you have a change in the system for example you can return a token which gives you a snapshot
+of the current state so that subsequently you can restore the system back to the state contained in
+the snapshot.
+So let's imagine the scenario that we've looked at a few times already this scenario of a bank account.
+So as make a bank account here and the bank account is going to have initialize error with.
+Balance which is going to be zero by default I'm just going to store it like so and then let's have
+the deposit and withdrawal methods well let's actually deal with the deposit method only.
+But what are we going to do is we're going to have the deposit method return a value and that value
+is going to be peculiar.
+So we're going to have a method called deposit where you deposit a certain amount of money.
+We set the balance self the balance plus equals amount and then we return a memento.
+So we take the system in its current state and we return a snapshot.
+So we need to define a new class that's called just memento.
+You could call it like a bank account snapshot or something.
+Now the idea is that in the initialize that what you do is you specify all the particulars about the
+bank account at a particular moment in time.
+So in this case for example we could specify the balance.
+So it could specify what the balance is.
+And as a result here what we can do is we can return the memento passing in self balance as the balance
+for that memento.
+Now the whole point of having these mementos is that you can roll back the system to a state which has
+been preserved by a memento.
+So here we would have some sort of restored method where it takes the memento and it restores the bank
+account to this state.
+So for example we can set the balance seeing how the balance is the only thing we're actually changing.
+You can set the balance to the value provided by the memento so memento don't balance.
+This is how you roll back the state of the system.
+Let's also add SDR so we can just print the balance all of the bank accounts like so and then we can
+try using the mementos.
+So let me show you how this can work.
+So make a bank account let's make a bank account with a hundred dollars on it.
+We'll have two mementos one so m one is going to be the result of depositing 50 dollars and M2 is going
+to be the result of depositing an additional twenty five dollars.
+So here we can print the bank account that should give us the set one hundred and seventy five dollars.
+Balance and that's exactly what we get.
+And moving on we can actually roll back to one of these mementos so we can restore M1 and restore to
+the one memento so I can say bank account the restore passed the M1 Memento and print the bank account
+and we can do the same for restoring him to and to be a dot restore M2 and once again I'll print the
+bank account balance once again so let's run all of us.
+Let's see what we get.
+So as you can see the starting balance is one hundred seventy five dollars when we restore Memento and
+one we returned to the state where we had just 150.
+When we restore M2 we get back to 175.
+Now one thing worth noting about this setup is there is no momentum for the initial balance because
+the initialize it doesn't really return a value other than the constructed object.
+So the problem is that we have the momentous for the different states but we don't have the momentum
+for the initial state and that's something that we're going to learn in the next lesson.

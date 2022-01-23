@@ -1,0 +1,160 @@
+All right.
+So to illustrate our approach to implementing the iterator design pattern we're going to iterate a binary
+tree and now the tree that I'm going to iterate is actually going to be rather simple.
+So let me first of all show you the kind of tree that I want to iterate.
+Basically I'm going to have a tree composed of just three elements.
+There's gonna be an element of a value one on top and then it will have the left and right nodes and
+here I will just have values 2 and 3 so a very simple tree.
+But we're going to take a look at how to iterated both using the canonical shall we say constructs such
+as itor as well as just writing a function which uses the yield keyword.
+So both of these approaches are equally valid.
+But what you'll see is that states will iterate as are typically extremely painful to do right and you're
+going to see how about the.
+This is all going to go.
+So essentially we have this tree so we need to define a node in that tree.
+So I'll define end node right here.
+Now in the initialize of what we want is we want to give a node the value I'm going to be using numeric
+values as you may have guessed.
+And in addition for a given node you might also want to specify the left and the right sub nodes since
+this is a binary tree and both of those are going to be None by default.
+So we'll define both left and right to have the value of None and we're going to assign first of all
+all of these.
+So I will put value left and right into attributes like so but in addition we're going to do a few more
+manipulations so first of all all said the parent of the current node to none.
+And the idea is that you can provide the left and right parts in which case the owner of those parts
+is going to be set as the parent of the Left and Right part respectively.
+So if we have a left part then what I can say is I can so self left dot parent people self.
+So we're making a child on the left hand side.
+And so it's parent reference is set to the current object and the same goes for the right.
+So if right then self dot right Dot parent equals self.
+So that way the parent gets initialized whenever we actually construct node trees using these initialize.
+Okay.
+So having set this up we can already define our tree the tree that I've defined right here and now there
+are different ways of traversing the trees so for example you can have in order traversal in which case
+you have the result to 1 3 So first of all the left side then the middle then the right side then there
+are other forms of Traverse so like preorder that's where you get the value 1 2 3 and you could do post
+order 0 where you'd get values 2 3 1.
+We're just going to stick to in order traversal for this example you can do the other traverses on your
+own time.
+So essentially the roots of the tree in our case is going to be a node with a value of 1 and 2 children.
+The left child is going to be a node with a value of 2 and the right child is going to be a node with
+a value of 3.
+So now that we have this set up we want to somehow iterate the different elements of the.
+So the root obviously has its own value as well as the left and right for us we want to perform iteration
+we might want to perform in order iteration for example.
+So what we can do for this just to get started is we can build a separate component a separate class
+which actually allows for in order iteration.
+So we're going to define a class called in order iterator and this iterator is going to take a reference
+to the root of the tree and it's just going to try and give us the tree using in order traversal.
+So it's going to give us all the nodes.
+So in the initialize are we're going to initialize quite a few things so we have to specify the roots
+of the tree to be traversed and then I'll set route and I'll also set the current element to the root
+so that we have two of these now.
+The root is something we want to stick to always we want to just keep it forever now self that current
+is going to refer to the current element the element that we are currently on because this either rate
+or is state for whenever you call next on it you move from the current element to the next element so
+you obviously have to remember the current element because otherwise you wouldn't know where to start.
+Now interestingly enough because we're doing this in order we're going to navigate to the left most
+element and we're going to do this right now we're going to say that while self-doubt current the left
+while there is a left element we're going to set self-doubt current to self-doubt current not left now
+another flag that I'm going to set here is to indicate whether I have yielded the starting value so
+I'll say self-taught fielded I feel that starts and I'll set it to false to begin with.
+Okay so now that we've done this what we need to do is we need to define the next method the next method
+is the one that's going to take us from the currently pointed to element to the next element up until
+the point where we have to stop the all altogether now since this is a state full iterator on the tree
+you're going to see some pretty nasty code.
+In actual fact what I'm going to do is instead of boring you with all of this I'm going to paste in
+the implementation because it's rather ugly.
+And if you look at in all the iteration and Wikipedia for example you're going to see something that
+is nothing like what you see here.
+So the code here is just really really terrible in it in the sense that it's very difficult to understand.
+So I promise you that it does in fact do what it claims to do.
+So it starts from the very left and it traverses the entire tree correctly to the very rightmost element.
+But the way that it's defined is not the way that you'd see it in textbooks.
+We have lots of magic here like this yield that start attribute for example and I'm not going to delve
+into the details I just want to show you that the state full either iterator the iterator that keeps
+manipulating its self-taught current is really painful kind of construct to work with but eventually
+when we get to the final the final case the case where we're kind of moving up we can either return
+self the current and it's actually returned from several locations in code as we go through it or if
+we run out of elements to iterate on we just RES stop iteration that pretty much finishes the overall
+iteration and just gets us get sort of throws us out of this this infinite cycle of iterating effectively
+so we're done with the iteration.
+Now of course the second question is well okay.
+We have an iterator but how is this iterator exposed and of course it has an initialize so you can just
+construct one.
+Nothing is stopping you from simply constructing the iterator in place or you can expose it as part
+of an API.
+So for example since we're not creating any special binary tree class what I can do is I can expose
+the iterator right from the node itself.
+So we have a node and here I can define the ITER method like so and here I can return and in order iterator
+which starts at the current node.
+So this is how you would expose it or one of the ways you could expose it.
+So what I'm going to build a separate binary tree class we're going to iterate right on the root.
+So how does this work exactly.
+Well there are actually different ways in which you can do this.
+First of all you can still use it or to construct the either rater comparatively so you can say I t
+equals ITER root.
+And then of course what you can do now that you have the iteration object is you can call next to get
+the next value.
+So for example I can print a list of all the elements iterated in order by just saying well let's get
+the next element of the iterator and let's get its value for x in range 3 because I know there is three
+elements overall so I'm going to call next on the iterator three times.
+So that's going to give me the appropriate nodes.
+The left node the center now then the right node and then for each of them I'm just going to get the
+value and I'm going to print this.
+So if I run this now I see the correct output to 1 3.
+So everything is working correctly.
+Now of course sometimes you use the iterator implicitly you like for example if you make a for loop
+I can say for x in root and this would also work without calling next explicitly because it's done implicitly.
+So here I can print x value and if we run this then you'll see that once again we're getting the same
+output 2 1 3.
+So everything is fine.
+Now the real problem with this kind of state full iteration is that even though we're sticking to a
+separation of concerns the Single Responsibility Principle this entire chunk of code the code that does
+the iteration in order and does it in a state four way is really ugly and it's not the way that you'd
+read it on Wikipedia because wikipedia will tell you that in order to do in order traverse so you traverse
+the left side of the tree then you yield the middle element then you yield the right side of the tree.
+Now this code does what I just described but it does it in a way that doesn't allow you to make the
+one to one correspondence between this code and what I just said.
+So the question is Will how can we write nice iterations.
+How can we provide a nicer iteration mechanic.
+How can we get away from storing self-doubt current and returning it whenever you know some condition
+holds us something and the answer is very simple we can use the yield keyword to actually yield the
+elements as we encounter them and we sort of make the state or the position implicit as opposed to explicit
+we are not going to micromanage the state of the iterator.
+So here I can define a function I'm just stick to a function and I will also call it traverse in order.
+So we're starting at some root and we want to traverse the elements in order and we want to yield them
+effectively so how do we do this well inside this function we're going to define a new function called
+traverse which takes the current element.
+And here is how you would define it.
+So this is essentially taking the algorithm that you would find in a textbook or on Wikipedia and putting
+it directly into code.
+So we say that if there is a current element if there is a left element on the current then for each
+left side elements in the recursive traverse so which is traverse on current left.
+What we do is we yield that element so we yield left
+you'd left.
+Then after we are done with the left side we yield the current element and then we do the same thing
+for the right.
+So if current not right.
+So if we do have something on the right then for each rightmost element in recursive traversal of current
+not right what we do is we yield the right side.
+So that's pretty much it for the implementation of the traverse.
+And now what we need to do is given a current node inside the traversal implementation of the route
+we yield that node.
+So this is an inner function remember so traverse is an inner function and then up at the level of that
+function we say for node in Traverse route we yield that no.
+Then that gets around the sides of kind of nested yields and whatever.
+So essentially this is a very nice very kind of concise implementation of in order traversal which also
+is very readable and very understandable so let's see how we can use it.
+So you'll notice there is no explicit kind of iterator or anything like that.
+I can say for example for y in Traverse in all that route and once again I can go ahead and print wider
+value here.
+Okay.
+So let's run this and as you can see we are getting exactly the same results as before.
+So the takeaway from this example is that there is an iterator protocol which is combine which is composed
+out of the ITER method which has to return some sort of iterator which in turn has to implement the
+next method in order to move from one element to another.
+But in the real world what you end up with a stage full iterator.
+And here we have an iterator which manages the current state the self the current is you end up sometimes
+you end up with a really nasty mess and this mess can be managed with the use of the UK what resulting
+in have much more concise much more understandable expression of algorithms.

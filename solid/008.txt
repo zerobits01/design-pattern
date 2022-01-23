@@ -1,0 +1,28 @@
+All right so let's try to summarize what we've learned in this section of the course.
+So we talked about these solid design principles so it's a good place to summarize them.
+First of all we looked at the Single Responsibility Principle.
+Basically this idea that a class should only have one reason to change and it's also related to something
+called separation of concerns in that if you have a system which is handling different kinds of concerns
+it makes sense to put them in different classes so that these can be reflected independently for example
+or replaced by something else.
+Now the next principle we've looked at is the open closed principle.
+That's where we looked at the specification pattern and we talked about this idea that classes should
+be open for extension and close for modification.
+So essentially the idea here is that if you are coming back into an already written already test class
+and modifying things in order to extend functionality this is probably not the best way to go and you
+should consider using the object oriented paradigm and inheritance instead of just modifying existing
+code and then we looked at that list of substitution principle the idea that you should always be able
+to substitute a base type for a subtype.
+And we looked at this situation where the violation of this principle leads to rather unpleasant results.
+Then we talked about the interface segregation principle the idea that you shouldn't be putting too
+much into an interface in the case of Swift.
+That's a protocol that you shouldn't be overloading and you should split a protocol into separate protocols
+or separate interfaces and thereby you don't force the implementer to put lots of stubs and throwing
+exceptions out of not implemented methods.
+So this is also related to something called the Yani which is this idea of you ain't going to need it
+meaning that you are not going to need certain methods implemented.
+So why force other people to implement the interface in the first place.
+Now finally we looked at the dependency inversion principle nothing to do with dependency injection
+basically this idea that high level modules should not depend on low level ones that you should abstractions
+instead and have everything done through abstraction.
+So we looked at how code can be refactor to do exactly that.

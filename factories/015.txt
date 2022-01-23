@@ -1,0 +1,36 @@
+In this section of the course we're going to talk about factories.
+This section of the Course is actually a fusion of two different design patterns that we're going to
+consider which are the factory method and the Abstract Factory.
+So what are we going to see.
+Why do we need factories in the first place.
+Well sometimes your object creation logic becomes a bit too convoluted.
+So suddenly if you've got a simple initialize it there's really nothing to worry about.
+But sometimes the initialize it gets longer and longer and more sophisticated and you might want to
+somehow move this logic somewhere.
+Now the initialize are itself as a method is not a particularly descriptive method because its name
+is always in it.
+You cannot rename it so as to give people hints as to what it actually does.
+You cannot overload the initialized with different sets of arguments like same arguments with different
+names.
+You have generally a potential for turning and initialize it into some kind of optional parameter how
+as you add more and more arguments and you realize that some of those might be optional some of those
+have default values that you want to apply.
+There might also be convoluted logic in terms of how the different arguments interact with one another
+and so you might want to somehow organize all of this.
+So we're talking here about wholesale object creation.
+We're talking about the single statement that would create an object as opposed to the builder pattern
+where you would actually perform several different steps in order to initialize something.
+So just like with the builder what you're doing is you're doing some sort of outsourcing so you're outsourcing
+the process of the creation of an object provide it.
+It's complicated enough to a design pattern that you choose.
+So there are different variations here.
+First of all you can create separate methods typically static methods.
+And that is the factory method design pattern that we're going to look at.
+Then you might also want to take this whole idea and just move it to a separate class in which case
+you get what we typically call a factory.
+So if you have a class called food then you would have a food factory which is in charge of manufacturing
+different types of food objects.
+And finally what you can end up with is you can end up with a hierarchy of factories corresponding to
+a hierarchy of your own types and this takes us to the Abstract Factory design pattern.
+So what is a factory generally while a factory is quite simply a component that isn't responsible solely
+for the wholesale as opposed to piece Y's creation of objects.

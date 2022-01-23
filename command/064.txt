@@ -1,0 +1,38 @@
+In this section of the course we're going to take a look at the command design pattern.
+So what is the Command pattern all about.
+Well if you think about an ordinary statement like for example a variable assignment then this ordinary
+statement is what I would call perishable.
+What I mean is that if I assign a member for example I cannot undo this operation there is no way for
+me to say oh wait I'm changing my mind here.
+I want to go back to this.
+Another problem is that I cannot directly serialize a sequence of actions I cannot save them to a file
+I cannot record them in an audit database and sometimes this is very important sometimes you want to
+make a note of every action that was made in the system so that you can play it you can play it like
+a replay kind of thing you can audit those events for example you want a record of what's actually happening
+and yes sometimes you do want to undo those things to roll back some changes that you made.
+So we want an object that represents an operation so that weeks in subsequently not just process that
+operation by looking at the object but also record that this operation actually took place and maybe
+even use that recording to subsequently sort of move it back.
+So for example you might want to have an object which specifies that a person should change its age
+to the value 22.
+So this would be not just an operation obviously you would take the person and you would change the
+person's age to 22 but in addition you would actually record the fact that that happened that somebody
+requested it.
+Another example for example would be specifying that a car should do some operation called explode.
+So in this case once again you would explode the car obviously but in addition you would have a record
+of who actually asked for the car to be exploded so that when you're trying to find someone to blame
+for all the wreckage and stuff you can say ah this was requested by this and that component and it was
+run from this system for example.
+So having a record of what actually happens is particularly useful.
+So there are lots of uses of the Command pattern when you look at graphical user interfaces like when
+you use applications for editing text where you can copy selected elements by pressing control C or
+by right clicking the mouse and choosing copy or by choosing something in the toolbar that is typically
+that is typically invoking commands and those commands are packaged as separate objects.
+Another thing to keep in mind is when you see things like multi-level undo and read the functionality
+that is typically implemented by commands that also know how to undo themselves how to roll back the
+previous state of whatever system they were modifying.
+And then there is the whole business of macro recording that's when you record a sequence of commands
+so that you can play back that sequence once again when you need to.
+So the definition of the Command pattern is that a command is quite simply an object which represents
+an instruction to perform a particular action and the command typically contains all the information
+that is necessary for this action to be taken.

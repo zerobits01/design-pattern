@@ -1,0 +1,15 @@
+The adapter design pattern is a reasonably simple pattern which tries to adapt the interface that you
+are given to the interface that you actually need.
+So it's kind of similar to the travel adapter in terms of the ideology because we have different electrical
+devices and they all have their own power requirements and you can think of it as an interface requirements.
+For example you have different voltage requirements you have different plug types like Europe UK USA
+whatever.
+And the problem is that if you travel from one country to another you cannot just go ahead and take
+every single gadget that you have and modify the gadget internally modify its electrics to support every
+possible interface.
+Well some some of this is possible like for example if you get a shaver a can switch from 120 to 220
+volts but that is the exception rather than the rule.
+Typically what you do is you use a special device which is called an adapter to give you the interface
+that you need from the interface that you have and it's the same idea in software so in software an
+adapter is a construct which adapts an existing interface acts to conform to the required interface.
+Why.

@@ -1,0 +1,49 @@
+Before we get to the design patents themselves there is just one more piece of housekeeping that I wanted
+to mention and that has to do with these so-called gamma categorization.
+So typically in design panda literature regardless of which language of design patterns we're talking
+about we are splitting all the design patterns into several different categories.
+Now these categories are often called gamma categorization and this is a name that comes after Eric
+gamma who happens to be one of the authors of the original Gang of Four book the book that uses C++
+and smalltalk.
+So first of all you have creation of patters.
+Now these patterns as the name suggests they are dealing with the creation or construction of objects.
+Now you might think that hey construction of an object is quite simply invoking the constructor.
+But in actual fact things are quite often a bit more complicated so sure you have explicit creation
+that's when you call the constructor you provide a few arguments and you get your initialized object
+but there was all always situations where the creation of an object is actually implicit.
+So for example you might be using a dependency injection framework or you might be using reflection
+or some other mechanism which actually creates the object behind the scenes.
+That's also creation but it's not explicit creation in the sense of you calling you constructor to initialize
+something so that's worth mentioning and in addition there are different processes for actually initializing
+the objects before they are ready to use.
+So sometimes you'll have wholesale creation of an object meaning that a single statement like a single
+constructor call is actually sufficient to initialize the object but in certain situations initialization
+itself is a complicated process.
+And this is where we get the so-called peace wise or step by step initialization that's when you need
+to have several statements or several steps that need to be taken before an object is actually initialized
+and ready to use.
+So after the creation of patters we're going to see the second category which is structural pattern.
+Now as the name suggests it's mainly concerned with the structure of the classes that are involved here
+so it's concerned with class members it's concerned with things like the class adhering to some interface
+or other.
+So what we're going to see here is we're going to see for example many patterns which are wrappers which
+mimic the underlying interface.
+So you have a wrapper around the class and that wrapper tries to mimic as much as possible the underlying
+class the class.
+It's actually wrapping.
+So this is an example of a structure approach here and a structural design panel generally put extra
+weight on the importance of good API design and part some of the patterns are actually all about this
+idea of replicating the interface as much as possible or making the interface has convenient to use
+as possible so in studying structural patters you're going to see some good applications of just good
+API design that makes objects usable and makes API is usable for other people.
+Finally we're going to take a look at behavioral design patterns.
+Now unlike the creation of patterns and structure patterns behavior patterns don't really follow any
+central theme.
+They're all different they're all doing their own thing.
+There is some overlap here and there.
+So for example the strategy in the template method design pattern is they're kind of doing the same
+thing but they're doing it using completely different object oriented mechanisms so there's gonna be
+some overlap here and there but generally most of the behavioral design patterns are unique in their
+approach meaning that they solve a particular problem they solve it in a particular way they have a
+particular set of concerns and some we're going to cover all of them as well.
+So these are the three categories of patterns that we're going to see as part of this course.

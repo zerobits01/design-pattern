@@ -1,0 +1,83 @@
+So one interesting thing that you can do with mementos is you can implement undo and redo functionality
+and for that you obviously need to store every single state of the system as a memento.
+And sometimes it's uneconomical sometimes it would just take up too much memory.
+But there are situations where you can do this and if you can do this then you have the entire snapshot
+of the system in time and you can roll it back to any single state.
+Now one problem we saw in the implementation of the memento is that we never get a memento for the initial
+state.
+But if we we are storing every single state then things become a little bit easier.
+And we can just store it somewhere else somewhere like a list for example.
+So let me show you how this can work.
+So the idea is that we have a list of all the changes stored as mementos.
+So we say self-doubt changes equals a brand new list.
+And this list gets an initial Memento which encapsulates the current balance or any additional properties
+that you might have.
+But in this case we have just a balance.
+Now in addition we'll have some sort of indicator for where we are in this list of mementos and the
+reason why we won this is so that we can do both undo.
+So going back in time as well as a redo going forward.
+So I'll call this with current and I'll give it a value of zero.
+So at the moment we are at position zero in this list meaning that we are at the starting balance and
+subsequently when we do the deposit we need to not only change the value but we also need to make a
+memento and add this memento to this set of mementos that we have.
+So let me show you how this can work.
+So we have to make the memento like so with the balance we added to the set of changes so we say self-doubt
+changes dot append Append the memento we say self-doubt current plus equals one that's all pointed to
+the current Memento and then and only then do we actually return the momentum.
+So as you can see the implementation of deposit has become a bit more complicated.
+It's now grown to five lines of code but the end result is that we can now walk forwards and backwards
+now first of all let's implement the restore memento here.
+So the restore has to what we're actually going to introduce an additional little trick we're going
+to assume that memento can be set to None.
+And I'll show you why in just a moment.
+But here we're going to have a guard condition if memento.
+So if Memento is not none then we set it to the balance we set the bank accounts of the balance shown
+by the memento we add this momentum to the list of changes.
+So we say Salvador changes dot append memento like so.
+And then we move the current pointer.
+So the current has to now point to the lost element of the list because we've just appended something.
+So here we can say seven current equals and we can take the length off self-doubt changes to minus one.
+So that points to the last element of the list the index of the last element is stored in self current.
+Okay.
+So now we need to implement undo and redo.
+That's why we started this whole thing.
+And let's first of all do undo.
+Now remember you can only undo if the current position is greater than zero.
+If the current position is zero there is nowhere to undo to.
+So we say if self-doubt current is greater than zero then we perform the actual undo.
+So we say self the current minus equals one so we decrease it by 1.
+We get that memento as a memento is self-doubt changes and self-doubt current.
+So we get the sort of current state we say a self to balance equals end up balance.
+So we restore the balance and we return this memento.
+So the memento we return is essentially the memento that we just moved back to.
+Okay.
+And failing that if we fail to undo because there is nothing to undo then we return None.
+And this explains why I have a garden condition in the restore because here we can return None and so
+we need to check for none in the restore.
+And the same goes for a redo.
+Now obviously you cannot redo if you're already at the loss position.
+So we say if some of the current plus one is less than length of self-doubt changes then we can perform
+the redo.
+Otherwise it's impossible.
+So here we do the opposite of undo so we say self the current plus equals one we get the change so seldom
+changes at self the current so we get the next memento.
+We said the balance to that memento and we return that memento otherwise as before we return None.
+Okay.
+So we have now got this nice little setup and we can actually try working with it.
+So let me show you how this can work.
+Let's get rid of the sort of Mentos here we don't really care about the memento so much as we care about
+the undo and redo functionality.
+So we now have a balance of one hundred seventy five.
+I can say B.A. don't undo and let's actually print what happens here so I have to undo one would get
+the bank account and then I can I can replicate this and I can do undo again.
+So after undo two we should get back to the original balance which is one hundred which kind of shows
+that now we can go back to the original state whereas in the previous lesson we couldn't go back to
+the original state.
+And let's also try redo let's try to reapply the 50 dollar deposit and once again here I will say that
+this is going to be a redo operation.
+Okay.
+So let's see what we get here all right.
+So as you can see the starting balance is 175.
+We perform one and do and we get back to 150 we perform the second undo and we get back to 100.
+We perform a redo of that fifty dollar deposit and we get back to one hundred fifty dollars.
+So this is how you can implement undo and redo operations using the memento design pattern.

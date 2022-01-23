@@ -1,0 +1,281 @@
+In this section of the course we're going to take a look at the open closed principle or OCP.
+So what is the open closed principle all about.
+Well let me show you a scenario where we can actually get to see the open closed principle in action.
+So let's imagine you have some sort of web site or some sort of desktop application where a customer
+can find a certain products that they want to buy.
+So a product can be defined in terms of the product name as well as the color and size of the product.
+So let's define the E names to delineate the different products so we're going to have a class called
+color.
+I'm going to use enum base here.
+So let's get that imported.
+So I'm going to have a color will have red green and blue and we'll also have the size of the product.
+So we'll have a class called size which is also going to be an enum where it will have small medium
+and large.
+There we go.
+OK.
+So now we're going to find a class for the product itself.
+So we can define a product.
+Let's just have an initialize there and we'll have a product with a name color and a size.
+So let's actually go ahead and assign all of these like so.
+Okay.
+So that's our product.
+Now imagine if one of the requirements in your application is being able to filter product by color.
+So what do you do while you make some sort of class maybe a product filter class and then you have a
+method called filter by color.
+So this is where you provide the products and you also specify which color you want to filter by.
+The implementation is rather easy.
+You just say for p in products if p dots color is equal to color then you yield P.
+That's pretty much all there is to it.
+Now imagine if you put this into production so you write tests for this filter by color method you put
+it into production but then your manager comes back and they say well can you also please add filtering
+by size.
+And so you go in here and you say well OK we can modify product filter we can have another method called
+filter by size where we once again provide the products as well as the size to filter by and once again
+we do a similar thing for p in products.
+We say if PDA size is equal to size then yield P.
+Okay.
+So what we've done just now is we've violated the open closed principle.
+So the open closed principle suggests that when you add new functionality you added via extension not
+via modification.
+So let me actually spell this out about this out right here.
+So the open closed principle means open for extension but closed.
+Sorry.
+That should be a python comment.
+Closed for modification.
+So here what we're doing is we're modifying product filter and the open closed principles states that
+classes should be closed for modification which means that after you've written and tested a particular
+class you should not modified.
+Instead you should extend it.
+So classes should be open for extension but closed for modification because well this game with adding
+additional filters it can go on forever and it can yield some very unpleasant results.
+So for example your manager comes back and they say well OK you've done this now can you please filter
+by color and size.
+So you go ahead and you have filter by size and color where you specify the products the size and the
+color.
+And here you say for p in products if Peter color is equal to color and Peter size is equal to size
+then you yield P.
+Okay.
+So this is something that obviously you can write this but realistically this entire approach does not
+scale.
+It's not an approach that you can keep doing forever.
+And in addition to breaking the open closed principle you're also closing something called estate space
+explosion so you can see here that we're filtering by two criteria.
+So a two criteria filter gives us a total of three different methods and possibly more methods because
+we have filter by color we have filter by size we have filter by size and color.
+You can also imagine having a filter by size or color where here instead of the and you specify ignore
+and you find ideas by either of the criterion.
+So this is obviously it doesn't scale because imagine if you have three area if you have three criteria
+then you can easily imagine just with the and combinator you can imagine seven different methods.
+So you would filter by color by size let's say by weight by color size by size weight by color weight
+and by color size and weight.
+So you can see this.
+This really does not scale.
+And so we're going to change this.
+We're going to change this example so that first of all it doesn't break the open closed principle means
+that whenever we add new filters we add them through extension not through modification.
+And we're also going to take a look at an enterprise pattern.
+So we have design patterns.
+These are kind of the core patterns and on top of that we have enterprise patterns which would necessitate
+a separate course to describe and one of those patterns is called specification.
+And that's exactly the pattern that we need to implement here.
+So what I'm going to do is I'm going to add basically three different functionality for performing the
+filtering.
+So I'm going to have two classes we're going to have a class called specification and a class called
+filter.
+So first of all let's start with specification so a specification is a class which determines whether
+or not a particular item satisfies a particular criteria.
+So we have just a single method called is satisfied where you you provide an item and this is a base
+class.
+So this is not a class that has any functionality of its own.
+So here we can just say pass we are not going to do anything inside this particular method because if
+you're meant to override this method.
+So this is just a base graph and another base class is going to be called filter.
+So we're going to have a class called filter where we have the filter method.
+So the idea of the filter method is kind of like the filtering methods that we have up above here in
+filter by size and filter by color but filter is a base class method.
+It's just general it doesn't specify any particular criteria and all we have to do here is we have to
+provide the items we want to filter and then we have to provide some sort of specification that we want
+to filter by and this specification relates to this class.
+So here once again I'm just going to add a pass because the whole idea is that you extend things.
+So instead of modifying either this class or this class you you simply extend you inherited from those
+classes and you implement the functionality.
+So for example suppose you want to filter by color.
+So the first thing you do is you have a color specification color specification.
+So this is going to be a class that inherits from specification so we do it like this and we override
+is satisfied method.
+And here we need to initialize color specification.
+Obviously we need to tell the color specification which color we want to filter by.
+So here I would have an initialize the way you specify the color you store the color inside a field.
+And here when it comes to determining whether the item satisfies this you simply check that the item
+color is in fact equal to the color in these specification.
+Like so.
+So this is the color specification similarly we can make a size specification.
+I'm actually going to just copy and paste this because it's going to be very similar very similar to
+what we already have.
+So we'll have a size specification.
+And here we are simply going to rename this so renamed color to size.
+Let me just find the the appropriate refactoring tool.
+There we go.
+So self does size equals size and then is satisfied.
+Checks the size of the item and compares it to the size of the the size that is stored inside the specification.
+And so far it might seem a bit cryptic like how do we actually use these specifications and in order
+to use these we also inherit from the filter class.
+So the filter class can now use these specifications to actually find something.
+So we're going to have a concrete implementation of a filter we're going to have a class called better
+filter better filter which is going to inherit from filters.
+So here once again I'm going to add the override for the filter method.
+And the idea here is very simple we go through every single item and we check whether or not the specification
+is satisfied by this particular item.
+So if spec is satisfied by this particular item then we return the item.
+It's as simple as that.
+Now some of you might say well hold on.
+Why are we doing this here why can't we just put this into the base class.
+Well the idea once again is that if you decide to somehow change the logic of the way that things are
+filtered you can simply inherit from the filter class and do something different.
+So that's all that I'm doing here because here we're making certain assumptions about what items are
+and you can iterate the items using a for loop which might not necessarily be the case for example.
+So we're just adding additional flexibility and once again we're conforming to the open closed principle
+so you if you want to change a filter you don't have to go into better filter and just modified.
+Instead you inherit from filter and then you do your own thing whatever that happens to be OK.
+So now that we've got all of this let's actually let's actually build a scenario.
+We're actually going to try all of this out.
+So what I'm going to do is I'll have a bunch of items I'll have an apple an apple is going to be a product
+called Apple.
+It's going to be green.
+It's going to be green and small.
+I'm also going to have a tree which is going to be a product called Tree.
+It's going to be green and large.
+Not sure if you can buy whole trees in a shop but well maybe you can and in a house just to be completely
+unrealistic.
+We'll have a product called the house which is going to be let's say a blue and large obviously.
+OK.
+So now we can make a list of all these products.
+So we'll have products equals apple tree house and this is something that you can iterate.
+So the old approach the old approach of using the product filter that we have right here it will work.
+I mean it will work.
+So so you can make a product filter
+and then if you want to find let's say all the green products let's actually print.
+So we want green products.
+And this is done using the old approach because remember we've refracted everything but you would write
+something like the following for p in product filter dot filter by color and then here you would specify
+the products and color green like so and you would simply print for example the name of the product.
+Peter name is Green OK.
+So this is the old approach.
+I'm actually going to run this and you can see that we have our output here so apple is green and trees
+green.
+But now we're going to use that new specification approach that wonderful new approach that conforms
+to the open closed principle and prevents this complexity explosion.
+So I'm going to make B.F. which is going to be a better filter.
+So that's the filter that we made using the specification pattern.
+And now let's find all the green items.
+So once again green products.
+Now using the new approach.
+So here I need to make a specification first of all so you can see the API is somewhat more complicated
+because we have to make a specification.
+So I make a color specification where the color is green like so and then I say for p in better filter
+dot filter I specify the products and I specify the specification and then we print the product name
+as before.
+I'm actually just going to copy this piece of code.
+So let's run this just to verify that we're getting the same results as you can see it.
+It is the same.
+So Apple is green and tree is green.
+Now if you want to find let's say all the large products you can let's actually find those.
+So large products and then you make a large specification so large equals color specification size dot.
+Well it's actually size specification isn't size specification size not large.
+And then once again for p in better filter on filter here we provide the products and the large specification
+and we do the same thing as before except this time we say is large.
+There we go.
+So let's run this.
+And as you can see we have large products.
+So trees large and house is large.
+And the only thing that we haven't implemented so far is the combinator.
+So here we have filter by size and color.
+And the question is how would you implement this using this specification pattern.
+Well it turns out there is no particular problem in doing this because what we can do is we can build
+a combinator now a combinator is quite simply some sort of structure which combines other structures.
+In this case what we want is we want a class called and specification which also inherits from specification
+now and specification is different because it basically checks that any number of specifications are
+applied and the way we're going to do this is by having a variable number of arguments which are the
+actual specifications.
+So here I'll have in it.
+So which is going to have any number of arguments and I'm going to store all these arguments like so
+so I'll say self-taught args equals args.
+And then when it comes to actually checking whether or not this specification is satisfied what we need
+to do is we need to go through every single one of these arguments and make sure that it is satisfied.
+So the item satisfies every single one of these arguments.
+So the way I'm going to do this is by using two functions one of them is called All and the other is
+called map.
+So the implementation is going to be as follows.
+I'm going to return all of map and the map function is used to basically go through every single element
+and apply some sort of lambda to it.
+So the lambda that we want to apply is to check whether or not the specification is satisfied for this
+particular item and remember we have several of them.
+They are stored in args.
+So here are the lambda takes a specification and checks the specification is satisfied for this particular
+item and we go through self-taught args.
+So we go through every single argument we check whether or not it's satisfied and that that is handled
+by the map function.
+And then we use all and all basically checks that every single argument is a boolean value of true.
+So if every single specification is satisfied then the Combinator is satisfied.
+So this is how we're going to implement this thing.
+OK.
+So now that we have the and specification we can try that out as well so we can find all the large blue
+items.
+So here large blue items.
+So I need to make a specification.
+So I say large on this called Blue.
+And here I make an and specification.
+So an add specification.
+We already have the large part.
+So we already have a specification for the large but we don't have a specification for the blue part.
+So here I'll add a blue color specification color specification element as she move this to the left.
+Am I allowed to do this color specification color dark blue now again.
+OK.
+So this is a combinator.
+It combines the large specification so requiring the item to be large and also a color vocation requiring
+the item to be blue and once again we can do the same thing as before.
+Let me just copy this chunk of code and paste it here so the specification here is going to be large
+on this called Blue.
+And we're going to say that pedo name is large and the blue and let's actually try this out.
+Let's run this and see what we get.
+And as you can see once again we're getting the right thing.
+So large blue items and we're saying house is large and blue.
+Now you might find it a bit inconvenient to write this kind of constructor and you might want to somehow
+just be able to write something more short like for example writing large underscore blue as large and
+call a specification blah blah blah.
+Unfortunately in python you cannot overload the end operator.
+What we what you can overload is you can overload the binary and operate the single Ampersand so we
+can try doing that.
+So I'm going to just let me just copy this over and I'll paste it here so we can try implementing this
+now the way we're going to do this and this is once again it is going to show you the flexibility of
+the overall approach is we're going to go all the way up into specification so a specification remember
+is a base class and we can add functionality to this base class to support this ampersand.
+Now you might say well hold on.
+Aren't you baking the open closed principle.
+Well no because this is something you would do at the very beginning of the design not later on.
+So here I would define the and operate and notice the double underscores here.
+So the end operator here is the binary and operator and the idea is that you would return from here
+and the and specification where the left hand side itself and the right hand side is other.
+So that's all there is to it.
+This is how you could combine specifications and similarly you could define it or for example or something
+like that.
+So coming down here with looking at what we have in terms of large and color specification I think there
+is an extra round bracket that's not required here but this is going to work.
+So this Ampersand here will call this underscore underscore and on this score on the score method and
+actually combine these two specifications into one.
+So if I now run this you can see that getting exactly the same result because we've just replaced this
+approach.
+Unfortunately there is no way of actually using the and key would here.
+But the ampersand is good enough I suppose.
+So what I've tried to demonstrate in this entire lecture is the idea of the open closed principle basically
+the idea that you don't want to end up in this situation where you keep modifying code that's already
+been written already being test has already been put into production that might already be being used
+by other people.
+You don't want to just jump into it and start you know messing with it.
+It is much better to define a bunch of base classes like we did here for specification and fulfilled
+her for example and then when you need new criteria for example for the purposes of filtering something
+you define your specifications you define different ways of filtering and you combine everything together
+like we do like we do right here for example so when you call a filter you combine a specification with
+a set of items and that way you get more flexibility you get a much more much more sustainable ecosystem
+in terms of the set of classes that you're using to do something.
+So that's it for the open closed principle.

@@ -1,0 +1,74 @@
+All right.
+So now that we looked at factory methods it's time for us to discuss the concept of a factory.
+So a factory is essentially this implementation of the idea of the Single Responsibility Principle or
+the separation of concerns.
+And that is the idea that once you get to manufacturing methods inside a class it might make sense to
+actually move them out of the class or at least to try and group them somehow into a separate entity.
+And of course in the context of object oriented programming language is that entity is in most cases
+a class.
+So what we can do is we can make a class called point factory.
+And now all the factory methods that we made in the previous demo that would be new Cartesian point
+and you pull a point they.
+Are now members of this class so instead of using a point you might be using a point factory.
+So that's pretty much all there is to actually making a factory for your object and so now you have
+this relationship between point and point factory in the sense that for example if the point initialize
+it changes then all of a sudden you have to change all of these and there isn't really much you can
+do about it because you are dependent upon this kind of setup now suddenly what you can do is you can
+try and wiggle out of this somehow.
+So for example we can we can set default parameters here and then we can say that well we don't really
+care about the way the point is constructed just so long as you can feed it no arguments or whatsoever.
+Here we can say P equals point and then they can say p dot X equals X and Peter Y equals Y and then
+end point so this is this is a way of getting away from this idea of depending on this one particular
+initialize it but it's not a critical issue here because however you look at it there is an intrinsic
+relationship between the factory and the object that is actually getting constructed.
+So one question with all of this is Discover ability how does the client know that there is now a factory
+that they can use and the answer is Well they really don't in the sense that so long as you have an
+initialize it here with x and y people are going to think well that's all that I'm given.
+Therefore if I need to initialize from Polak or in this I'm just going to do it myself basically that's
+not not the most desirable approach but the only thing you can do about it really is you can specify
+in the documentation that there is a point factory that somebody could be using.
+So another thing in addition to having a point factory as a separate class is you can stick it as an
+in their class.
+Now this is typically done in other programming languages such as C sharp or Java for example and not
+so much in python there.
+There is really no need to do it because of the whatever you do the.
+The initialize it was always going to be public.
+There is no way to make it private but it's still a possibility.
+So what you can do is you can grab the entire point factory class and just press tab and by virtue of
+magic you can see that we've sort of moved it to an inner class on that point factory is inside point
+and you can you can do it.
+You can use it now like this point delta Point factory like so.
+Now the interesting thing is that it doesn't really matter whether these factory methods are static
+or not anymore suddenly when we were just when they were factory methods of point it was important.
+But now you can just get rid of this altogether and it doesn't really change the way that the whole
+thing behaves.
+The only difference is that now you need to add self here and obviously need self here.
+But apart from that everything continues to operate.
+Notice I don't need to make any changes down here because everything is functioning as before now.
+Why would you want to do this why would you want to have them not static Well the only reason is if
+your factory also stores some states for example let's suppose that due to the wondering geomagnetic
+Pole you need to bias the biased values on that point.
+Maybe you want to have separate factories you want to have a point factory which operates normally in
+a point factory which has a bias value that gets added whenever you initialize from Polo for example.
+So in this case here you would not be able to have these factory methods static because you would also
+need to use some non static elements in here in order to actually perform the calculations.
+Now find the thing that I want to show you is that you can also take this point factory and you can
+make an instance of it.
+So for example if you don't want to make these static but you do want point factory to act in a static
+fashion what you can do is you can write something I give a following.
+Factory equals point factory.
+So now what you can do is you can access the factory by saying point dot factory dot new polling point.
+So in this case we're referencing factory which is effectively a singleton instance of sorts of a point
+factory.
+I mean you can create additional point factories if you need to but it's a Singleton in the sense that
+a point has one single static factory that is simply available for you to use.
+So this is just the convenience member that you can use to to operate on the factory.
+But the main takeaway from all of this is that a factory is just a separate entity it's typically a
+separate class.
+However what you need to realize from the perspective of terminology is sometimes we refer when we call
+something a factory.
+We can refer to anything that manufactures objects.
+So for example if you have a lambda which gets passed into as an as a parameter lambda parameter in
+a method for example that parameter can be called a factory.
+If you expected to actually manufacture some object or other but in most cases a factory is just a separate
+class which is full of factory methods not necessarily static ones that allow you to create objects.

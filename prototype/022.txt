@@ -1,0 +1,96 @@
+So in the previous lesson we looked at how easy it is to make a deep copy of an object using copy the
+deep copy.
+However one thing that we didn't mention is that it's quite often inconvenient to keep making those
+copies manually.
+For example if you just have a few predefined prototypes in your entire application it would be nice
+to package them into a factory of some kind and then provide factory methods so that nobody has to just
+take a prototype and perform the deep copy and perform the customization by hand.
+It's much easier to wrap it into a separate component.
+So here is the scenario that I want to show you.
+Basically it's similar to what we had previously we have an employee which has a name and address and
+then we have the address that's just a street C street address city and the suite number so the suite
+number is kind of like the office number it's basically the exact position where somebody works.
+So what we want to be able to do is we want to be able to make employees in particular offices in our
+organization.
+Now let's suppose that we only have two offices in the company where people can work.
+So with that in mind we can make an employee factory
+and what we can do is we can create the prototypes for let's say the main office employee as well as
+the auxiliary office employee.
+So main office employee equals employee.
+So we don't specify the name because it's just a prototype it's something that's intended to be customized.
+But we do specify the address.
+So the address for the main office is 123 East Drive.
+Now the suite number that's the second argument we're going to leave it a zero because we don't know
+what office the person works at exactly what we know the building but we don't know the exact suite
+number.
+And here we'll specify the city as London.
+So here we can have another prototype.
+Let's call this one the auxiliary office employee and here the only difference is we can change the
+address to let's say 123 B is drive.
+So these two static objects are going to be reused in our factory methods and we're going to make factory
+methods for creating both a main office employee as well as an exemplary office employee.
+So let me show you how this is done so we're going to have a static method.
+Let's define a method called new main office employee.
+Now when you make an employee you have to specify two things you have to specify their name as well
+as the suite number.
+That's pretty much it.
+And the same goes by the way for the auxiliary office employee which I can just paste here so we'll
+have the auxiliary main office employee and that will be a similar implementation.
+Now the only difference between new main office employee and the auxiliary main office employee is the
+prototype that they use.
+So in both cases they have to take some prototype they make a deep copy of it and then they customize
+it.
+So for this we can define a utility method also a static method.
+We're going to stick in here as I'm going to call this one new employee and it takes three arguments
+so take the prototype that we're going to be using the name of the person as well as this week.
+No.
+So the first thing we need to do is we need to grab that prototype and make a deep copy of it.
+I'm going to say result equals copy dot deep copy and stick the prototype in here and for that we need
+to import copy obviously.
+So now we have the result which is a deep copy.
+So we say result name equals name and result Dot's address the suite equals suite and then we return
+the result.
+So this is how you may use a prototype and you customize the prototype as well.
+And here in the factory methods what we can do is we can use this new employee static method to actually
+make things a little bit easier.
+So here we see a return employee factory.
+Dot new employee and Notice I'm using double on this course here.
+It's clearly a static method that's not intended to be consumed from the outside.
+So the client should be using these two factory methods not the new employee unless of course they build
+their own prototype in which case it's fine.
+So here we have to specify the prototype that we're going to be using so for the main office employee
+the prototype is employee factory dot main office employee obviously in here we simply proxy over the
+name and the suite.
+So we send them over to whoever is interested and the same goes for the implementation of new exhilarated
+office employees so let's stick this in here.
+The only difference here is the prototype like so and we are done so our factory is complete and we
+can actually start using it.
+So for example if I want to make John as a main office employee I simply say employee fax we dot new
+main office employee and here I can provide the name John and sweet one on one and I can do the same
+thing for Jane and Jane.
+Obviously her name is Jane that's here and she can be in room 500 for example and we can actually run
+this.
+And while we need to actually print them somewhere so print John and Jane and let's run this and here
+is the output.
+So John looks at 123 E's drive.
+And Jane looks at 123 well she has to be an Israeli auxiliary office employee.
+So new auxiliary.
+There we go.
+So something failed interestingly enough.
+Let's take a look at what.
+Oh yeah.
+The naming.
+So it's new auxiliary.
+There we go.
+Okay.
+So finally we are getting the right output so Joan works at 123 East Drive.
+And Jane looks at 123 bees drive.
+So the takeaway from this example is whenever you have a fixed number of prototypes that you're using
+in your system what you can do is you can put them into a factory and then create a bunch of factory
+methods so that the construction of copies of those prototypes is even easier and that's what we've
+done here in New Main Office employee and new auxiliary office employee.
+So basically if you want to make a prototype you don't have to do copy deep copy yourself if you want
+to copy a prototype.
+You can have a factory method which kind of does it for you.
+So essentially it does it and then you employ a method and then it customize is it.
+And that's what's actually gets returned.

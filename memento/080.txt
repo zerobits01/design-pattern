@@ -1,0 +1,17 @@
+Now let's talk about the memento design pattern.
+So what is the motivation for using the memento.
+Well an object in the typical system might go through several changes.
+So for example you can have a bank account and the bank account has money deposited in it you withdraw
+some money and there are different ways of actually navigating those changes.
+So one of the ways is you simply don't store the changes you simply store only the final value but it's
+also possible to record these changes.
+Now we've already seen one of the ways this is done using the commander design pattern.
+That's when you record every change and you can also teach your command to undo itself to roll back
+the bank account to a previous date but a different and simpler approach is to quite simply save the
+snapshot of the system at every point in time and this is precisely what the memento design pattern
+does.
+So essentially the memento itself is a token or some sort of handle class for representing the system
+state at a particular point in time and what it does do is it lets us roll back to the state when the
+token was actually generated.
+Now the token typically does not expose the actual state information but in some cases it might.
+So long as the information is immutable there's really no problem in exposing it.

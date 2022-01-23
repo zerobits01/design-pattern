@@ -1,0 +1,191 @@
+So the final part in our discussion of factories has to go to the Abstract Factory design pattern.
+Now when we're talking about abstract what we're talking about is essentially abstract base classes.
+However you can make them so the idea is very simple.
+If you have a hierarchy of types then you can have a corresponding hierarchy of factories and so at
+some point you would have an Abstract Factory as a base class of other factories.
+Yeah I know it all sounds cryptic.
+Let's take a look at how you'd actually implement this.
+Let's suppose we want to have a vending machine which makes our coffee so.
+Well let's have a class called hot drink.
+I'll make this an abstract base class I'm going to import all the relevant bits and we're going to have
+a method called consume which is where you actually consume the drink.
+So now we can make concrete implementations of this class we can make tea we can make coffee that sort
+of thing.
+So let's have tea.
+So first of all we'll have tea consume.
+And here I'm going to print what am I going to print.
+This tea is delicious for example or we'll have coffee class coffee also hot drink and may as well use
+the idea generators here.
+So let's print this coffee is delicious.
+There we go.
+Okay.
+So we now have a hierarchy of different types.
+We have a base class called drink and we have some inheritance tea and coffee.
+Now let's suppose that the operation of making tea or making coffee is well both of these operations
+are so sophisticated that you need a factory to I to actually sort of prepare the drink for you.
+So in addition to a hierarchy of the actual drinks we'll have a hierarchy of the factories.
+So first of all we'll have a hard drink factory abstract base class.
+So here I'll define a method call to prepare which prepares a certain amount of the drink and here I'll
+print the.
+Well actually for the abstract class we want print anything.
+We'll just have a pass.
+But now let's do a tea factory.
+So we'll have tea factory which is a hot drink factory like so let's override the appropriate member
+here and here I'm going to print that I I'm making tea so put in tea bag.
+Boil water and then I want to pour a certain amount of milliliters and enjoy.
+And of course I have to return something so I return tea.
+You can put other constructor arguments here if you want to for the initialize it.
+But I'm just going to leave it blank.
+So then we can have a coffee factory which is also a hot drink factory.
+Once again generate the override and here I'm going to print something different so I'm going to grind
+some beans boil water and then I'm going to pour a certain amount
+milliliters and enjoy.
+Now I would go once again I'm going to return coffee here so you can think both you can think of prepare
+as a factory method.
+I'm just not calling it like make a tea or anything.
+I'm calling it prepare so prepare something that does sudden operations in order to set up the object
+and then it returns the object.
+I'm just simulating them with a print.
+But typically you could customize you know specify various arguments to the coffee initialize it for
+example.
+Okay.
+So we now have a hierarchy of ties.
+We have a hierarchy of factories of those type.
+So the question is Well how do we actually make a drink.
+Say if somebody wants a drink.
+Well let me show you a very simple scenario.
+First of all so a simple scenario might look like the following.
+So we ask the user what kind of drink they want.
+So we say entry equals inputs what kind of drink would you like.
+Question mark.
+We say Drink Drink equals make drink entry and then drink consume.
+So the question is how would this make drink function look.
+What would be put in it.
+Well it simply is obtained.
+Ha.
+A simpler implementation.
+When I learned how to speak again might look like the following.
+So make drink.
+Type.
+So the type here is a string and we can check that string so if type is equal to T that what we can
+do is we can return t factory dot prepare a certain amount.
+Two hundred leaders otherwise if type is equal to coffee then return a coffee factory coffee factory.
+Dot prepare let's say 50 milliliters because you don't need so much coffee.
+Otherwise return on that.
+So this would actually work.
+Let's actually run this to see the work.
+So what kind of drink would you like if I won t then put in the tea bag.
+Boil water pour 200 milliliters and enjoy and I'm enjoying I'm consuming this tea and the tea is delicious.
+The consume happens here the actual preparation.
+So the factory methods effectively happen here so this is a very simple approach.
+The only thing that's not being leveraged here is this idea of having it abstract.
+Why why do we have an abstract base class if we're not really using it there at the moment.
+The only reason why we have an abstract base class is to mandate a particular API to say that whenever
+you have an inherited that inherit there has to have a method called prepare which takes an amount.
+That's that's pretty much the only benefit.
+Now what we can do is we can organize things a little better by making a separate component such as
+a hot drink machine which is going to actually make use of the different factories and stick them into
+some sort of collection somewhere.
+So let's have a class called Hot drink machine.
+Now a hot drink machine is going to obviously have some sort of information about the kind of drink
+that you can you can actually get from it.
+And there are different ways of going about this.
+So one way obviously is you would just enumerate the types of drink by hand so you could have an inner
+enum class called available drink which is going to be an enum and that's going to list coffee just
+to have it as Porto and also have tea like so and then you would operate on that.
+Now obviously this approach breaks the open closed principle because when you make a new kind of drink
+and you make a new kind of factory then suddenly you're in trouble suddenly you have to go into this
+enum and modify it.
+So you've broken the open closed principle but hey it's better than nothing.
+So that's what we're going to be working with.
+And.
+And so let's let's actually initialize the drink machine.
+Now what we want to do is we want to have some sort of set of factories.
+We want to have a factory for every single available drink type.
+So here I'm going to have the factories in actual fact there is no real reason to have them as instance
+members so I'll just have a static member.
+I'll say factories equals empty list.
+And here we can check whether or not it's being initialized so I'll add another static here initialized
+equals false.
+And then we can say well if not initialized then we set initialized equals true and we perform the actual
+initialization of the factories obviously with a capital T here.
+Okay.
+So how can we actually initialize the factory as well if going with this approach of using that E M
+that we made we can go through every single member of the E M and create a corresponding factory so
+I can say for d in self-taught available drawing notice I'm actually going through enough members here
+what I can do is I can first of all get the name of the drink itself.
+Now the name is not coffee in uppercase.
+Only the first letter is capital and the rest is normal you can see the names here.
+This is not upper case but the INA members are uppercase so I can transform them and the way I can do
+this is as follows so I can take Dean name hat position zero so that's the first letter and then I can
+take their name from the first letter going forwards and just do lower.
+So just just just get everything lowercase except the first letter.
+So now I have the name of the actual drink I can make the factory name that's fairly obvious.
+That's the word.
+That's the name plus the word factory.
+Like so now what I can do is I can make an instance of that factory.
+So in order to do this I can say factory instance equals E. Val.
+And here I can stick in the factory name so I can evaluate the name of the factory just call it with
+no arguments because I know that although the factory initialize is done take any arguments so I initialize
+that factory I now have factory instance and I can stick it into my list and in actual fact let's have
+a list of tuples let's have a list where you have a couple of the factory name and the factory instance
+so here I can say SDL factories dot append and I can stick in a top hole which has a name as well as
+the factory instance.
+So that's pretty much it.
+With now initialize this rather interesting list of factories and what we can do is we can now have
+an interactive display like like you would on a vending machine for actually making a drink.
+So let's let's go this one make drink so the first thing we're going to do is we're gonna print the
+available drinks so let's print available drinks like so for f in factories.
+So for every single factory in our list I can print the first.
+The first element of the table which is actually the name of the drink.
+Then we can ask the user well can you tell us which drink you want.
+Let's actually get an integer so the integer is going to be as follows so we'll get the pick.
+So please take drink and the drink is going to go from zero to the number of factories minus one.
+So here laying off cell factories minus one.
+That's where the user actually specifies the the string we turn the string into an index like so and
+then we have that index.
+So now you have to specify the amount so maybe you want to specify whether you want a small drink or
+a large you and I would just ask for the amount.
+So here once again we'll say inputs specify amount.
+And then we say amount equals in s like so.
+And then we can actually use the factory to make that drink.
+Here is where the magic happens.
+So first of all we grab the grab the actual factory.
+So one way to do this is just to Eve out the factory name.
+But we actually already have the factory instance in f at one.
+But of course we need to find it.
+Here's the tricky part.
+So we.
+So we have to effectively get self factories at the index that we specified and then get the instance
+which is at position 1 and then we can say prepare a particular amount.
+So at index 1 Remember we have a table where the first element is the name and the second is the factory
+instance.
+So at index 1 we have the factory instance and we say can you please use that factory to prepare that
+particular amount.
+So now we can we can experiment with this.
+We can actually have an interactive scenario.
+So I make a hot drink machine here.
+Hot drink machine like so and just say hate the m Don't make drink and this starts the entire interactive
+process.
+So let's run the whole thing so here you can see the output.
+I forgot the closing round bracket here but here are the reasonable drinks so we have coffee and tea
+I'm going to pick zero here.
+Press return specify the amount is 50 milliliters and then here we go.
+So we actually grab the factory that we had stored in our list we use it to boil the water to pour 50
+milliliters and then enjoy.
+And from here on out remember this this returns something so we can effectively consume that drink and
+do whatever pour it down the drain if we didn't like it.
+So that's pretty much it.
+This is the implementation of the abstract factory design pattern.
+Now one thing you once again notice and this is important is that there is really no need for the base
+here.
+So there is no need for the abstract ordering factory in fact if I commented out apart from these things
+everything will continue to work.
+So I can get rid of both of these and everything will continue to work as before there's absolutely
+no problem in any of this because essentially Python uses duck typing so when we make a list here a
+list of factories this list is not type to a hot drink factory so everything still continues to work.
+However obviously in the kind of strong typing programming languages in literature you're going to see
+the reference to an abstract base class for the factory is which is essential in other languages but
+it's kind of optional in Python obviously it's a good idea because it then tells you what kind of API
+you're expected to implement.
+So that's it for the abstract factory.

@@ -1,0 +1,134 @@
+A classic implementation of the mediator design pattern is the implementation of a chatroom.
+So a chatroom is basically a component.
+If we think of it as a component in the system so it's a component where people can join the chat room
+and they can leave the chat room but they don't necessarily have to be aware of one another unless they're
+sending a direct message.
+If they're not sending direct messages of their sending messages to the room so to speak to a chat room
+then it doesn't really matter how many of them there are.
+So we're going to implement this entire scenario and we're going to begin by defining a person who happens
+to be in a chat room.
+So I'll define the initialize are as follows we'll have just the person's name and hear how assign the
+name.
+Okay but in addition what I'm going to do is I'm going to store the chat log of this particular person.
+Maybe I want to store it just so that a person can save it later on SS self chat log equals just an
+empty list and I also specify the room.
+But initially I'll specify the room to none will assign the root chat room later as we go along.
+So the second part of this puzzle is to actually build the chat room.
+So this is going to be a separate class called Chat Room.
+There we go and all we need to do in the initialize it is we need to specify the people who are in the
+chat rooms so we can just say self-taught people equals empty list and then people can join the chat
+room.
+So the question is how does a person join let's define a method for that.
+So Def join where a particular person joins the chat room.
+So first of all we might want to build a join message join MSD.
+So we want to say hey person not named joins the chat.
+So let's do exactly that person name joins the chat.
+So this message obviously has to be broadcast to everybody who's in the room.
+So we say sell the broadcast we specify the source of the message ask room and we broadcast the joint
+message.
+Of course we haven't defined broadcast yet.
+We'll do that in just a moment.
+The next thing we need to do is we need to set the room reference of a person to the current room.
+So we say person room equals self and then we also need to add this person to the list of people in
+the room.
+So several people don a panned and we append this particular person to the list of people currently
+in the room.
+Okay so now that we've done this let's implement broadcast so broadcast is basically sending a message
+to everybody that's in the room except maybe yourself because if you're sending out a message you might
+not want to be the one to receive a copy of that message as well because you've just typed it.
+You don't want to see it twice.
+So broadcast where you specify the source of the message as well as the message itself and here we simply
+go through every single person in the room and provided it's not the source we receive the message.
+So for p in self-doubt people if if p name is not equal to source what we do is we say PDA receive source
+message.
+So now what we are saying is we're saying that every person has to have an ability to receive the message.
+So we need to go up into person and add the appropriate method.
+So here we'll have a method called receive where you receive a message from a sender and here is the
+message itself.
+So what I'm going to do is I'm going to specify whose chat session this actually is.
+So the message itself the message itself.
+Let's format it.
+So s is going to have the sender colon and then the message itself but we're going to prefix this with
+the name of whose chat session we are currently looking at.
+So print formatted.
+So first of all I will have self dot name chat self-doubt.
+Name apostrophe s chat session in square brackets.
+And then the actual message.
+There we go.
+So what I'm going to do is I'll print this also added to the chat log
+and I'll just add to the message and the sender and not the prefix not the self-doubt names chat message
+but everything else gets added to the chat log.
+That's pretty much it.
+So we now have an ability of receiving messages that are broadcast.
+OK.
+Let's add another piece of functionality let's add functionality for direct messages.
+So that's when somebody wants to message a particular participant in the room assuming that participant
+actually exists because imagine you are sending off a message to John and John has just left this scenario
+also has to work.
+It shouldn't crash the system or anything.
+So let's define a message.
+So this is going to be a method that takes the source and also the desk in Asian who you're sending
+the message to as well as the text of the message itself.
+So here we go through every single person in self-doubt people.
+And if that person whose name happens to be the destination then we actually get them to receive the
+message.
+So in this case we say people receive and we have a source and message and I misspelled DST nation.
+Here we go.
+OK.
+So this gets the person to receive this particular message sort of one on one nobody else can see it
+because it's not a broadcast.
+And finally we need to give person an ability to send private messages.
+So here will define a method called private message.
+So you have to specify who you are sending the message to and what the message is.
+And this simply uses this central mediator which is the chat room.
+So we say that room dot message.
+And we specify self-doubt name as the origin who to send the message to and what the message actually
+is.
+So this scenario uses the chat room as the mediator.
+So it's the component that every single person refers to right here.
+But nobody actually has any control over so they simply use the chat room to send messages or receive
+messages and they can subsequently leave the chat room if they wanted to.
+I'm not actually adding code for leaving the chat room.
+You can do that yourself.
+So let's try this entire scenario.
+So what I'm going to do is I make a couple of people in the room so first of all the room to make a
+chat room that we go I'll add two people John and Jane.
+So John equals person John and Jane equals person.
+Jane what I'm going to do is I'm going to get both of them to join the room.
+Remember you have to say room join John and Jane and then of course we'll get some things to be printed
+out.
+So John is going to say.
+And by the way we haven't implemented this part.
+So a person has to be able to say something in the room which in turn gets broadcast.
+So that's another thing that we need to add here.
+So when you say a particular message basically you grab the room so set that room and you broadcast
+that message.
+So that room that broadcast you specify your own name as well as what the message is.
+There we go.
+So coming back here John can say for example high room
+and then Jane can say Oh hey John.
+And subsequently we could get another participant in and we can get Simon to come in.
+So Simon is going to be a person with the name Simon room join Simon Simon Says Hello everyone.
+Simon say Hi everyone and then let's have a private message as well so Jane sends a private message
+to Simon saying Glad you could join us.
+Okay.
+So we can try running all of us and seeing what the output is.
+OK.
+So we are starting out with an empty room.
+John joins the room.
+But there are no messages because when John joins the room there's nobody to see that he joined nobody
+actually gets the message.
+But then of course Jane joins the chat.
+And John is already in the room.
+So joins chat session John's chat session actually gets a message that Jane has joined.
+And then Jane says hi room notice only John can see Jane does not see hi room because she just typed
+the whole thing.
+So then Jane says Oh hey John.
+And then when Simon joins the chat you get two notifications because John and Jane are both in the room.
+So they both get a notification that Simon joins the chat.
+They both get the notification that Simon says Hi everyone.
+And then Jane sends a private message to Simon saying glad glad you could join us and this only shows
+up in Simon's chat session and not in John's.
+So this has been a small illustration of how you can build a central mediator in this case it's called
+the chat room which actually connects several people together and allows them to send messages to one
+another.

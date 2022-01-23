@@ -1,0 +1,18 @@
+All right now we're going to talk about the proxy design pattern a pattern which has many different
+incarnations.
+So what is the motivation for using the proxy.
+Well let's suppose you are calling something simple like you calling food out bar for example.
+So this makes a lot of assumptions.
+For example this makes the assumption that foo is in the same process as the function bar.
+And this might not necessarily be the case because sometime later on you might decide to put all the
+food related functionality into a separate process so you have two processes running on the computer
+and you are calling this function cross process so you are marshalling their arguments from one process
+to another and the question is can you actually avoid changing the code that you wrote.
+So this is where proxies come to the rescue because a proxy typically provides the same interface that
+you're already used to but the behavior underneath can be radically different.
+And this is an example of these so-called communication proxy but in actual fact there are lots of different
+proxy types you can have a logging proxy a virtual proxy a guarding proxy and so on and so forth and
+we'll take a look at some of them in this section of the course.
+But essentially a proxy is a class which functions as an interface to a particular resource and that
+resource can be remote it can be expensive to construct or it may require logging or some other added
+functionality and the way that the proxy adds it is such that your interface is typically unchanged.

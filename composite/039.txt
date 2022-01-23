@@ -1,0 +1,86 @@
+The first example of the composite design pattern that I want to give you is an example related to geometric
+shapes.
+If you think of any drawing application you know that you can drag and drop shapes individually but
+you can also group several shapes and then drag and drop them together as if they were a single shape.
+So we're going to be doing something similar or we're going to be defining a base class for some sort
+of graphic object and then inheriting from that to build our actual shapes.
+So let's suppose that we have a graphic object based class.
+Now this class can either serve as a base class for a single shape like circle square or this same base
+class can be used to actually hold a group of objects together.
+So it kind of do use functionality.
+Let's define the initialize it for it.
+I'll define an optional color here.
+So color equals non we're going to add this attribute.
+In addition what I want is I want a set of children just in case this is a container.
+And I also give this a name.
+I'll use the underscore let's have underscore and name equals group.
+Now the reason why I'm using an underscore is because I want to expose the name through a property just
+to show you that you can override this in the inheritance.
+So here I'll define a property.
+This is going to be called name and I'm just going to return self-taught underscore underscore a name
+like so and we can perform operations on the inheritance that that return a different kind of thing.
+So what do we want from a graphic object.
+Well we want to be able to draw the graphic object but in our case since we're working in text mode
+I'll just define it as it would be output to the command line.
+So we'll have SDR here and what I'm going to do is I'm going to just collate a number of items that
+I want to print with the right indentation and everything and for that I'll use a utility method on
+this core print which I'm just going to paste in here.
+So this is utility method which basically determines whether or not what we actually need to print because
+essentially we don't know if we have any items if we do have items then we do need to print every single
+one of them starting with an asterisk.
+Otherwise we just print ourselves basically.
+So that's dual use functionality right inside that utility method.
+And then of course we set the set of items that we want to collate that would be a set of strings that
+we want to print.
+Then we call self on this call print so we can actually get all the items at a particular level of depth
+notice.
+This is why we have that pseudo internal method because we want to provide a depth and this is a recursive
+operation and then we return just empty string join all the items together.
+So this is how you can print a graphic object.
+Now of course a graphic object by itself is just a container for other objects but we can also inherit
+from it to actually have concrete classes so you can have a class called Circle which has a graphic
+object.
+And here to show that it's a circle what I'm going to do is I'm going to override the name getter.
+So here I'm going to override name and I'm just going to return circle and let's do another one.
+Let's do a square.
+Square is also a graphic object once again I'll do the override here to generate this and our return
+square.
+OK.
+So with all of this done all we can do is we can construct both groupings of objects as well as individual
+objects and we can also have groupings of groupings because remember this is a recursive structure.
+So a graphic object can contain more graphic objects so let's do that.
+Let me just show you how this works so let's make a drawing I'll make a graphic object.
+I may as well give it a better name drawing name.
+I know it's underscore I'm not supposed to be touching it but.
+But maybe that was a bad idea.
+It's just for illustration purposes we have that on the square.
+So my drawing is called my drawing I know it's not very original.
+And then we can add a couple of shapes to that drawing so drawing the children daughter penned square
+that's red and this duplicate this and let's also have a yellow circle circle yellow.
+There we go.
+OK.
+So having set this up we can also make group and add that group to the drawing.
+So let's have a group equals graphic object.
+So this time round I'm not going to give it any special name it's just going to be called group and
+then I can say group dot children daughter pen and months again let's have a blue circle circle blue
+and let's also have a blue square and I can then take this group and added to the drawing so I can say
+drawing the children daughter pend group.
+There we go.
+So if I now run this let's actually take a look at the result.
+Well there is no result.
+It doesn't really print anything which is weird because we should be we should be printing something
+out of course we have not actually done.
+We haven't read thing you think to go to print.
+So let's do it like this print drawing.
+There we go.
+Okay.
+So as you can see what's happening is at the root level we have the drawing and everything that is contained
+is contained within that drawing.
+So we have the Red Square and the yellow circle which are the two kind of concrete members of my drawing.
+But then we have a group.
+So my drawing is a group.
+And it also contains a different group which in turn contains a blue circle and blue square.
+So what we've done here is we've used the composite design pattern by making sure that the graphic object
+here gets to pretend as being either a scalar base class for something like a circle or a square or
+indeed a collection by keeping a set of children and then printing those children whenever somebody
+asks you for them.
